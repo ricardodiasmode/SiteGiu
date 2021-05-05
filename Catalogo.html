@@ -5,29 +5,44 @@
             ProductImage: "Images/Catalogo/BoxMemories.jpeg",
             ProductName: "Box Memories",
             ProductPrice: "R$ 55,00 - 85,00",
-            ProductDescription: "É uma caixinha em MDF, com dobradiça no tamanho 15x15.<br>Contém,<br><li>1 garrafinha de vidro para recado</li><br><li>1 porta retrato para Polaroid</li><br><li>1 varal + 10 pregadores</li><br><li>Pack de Polaroids (10, 20, 30) - sua escolha.</li><br>Box memories c/ 10 fotos - $55,00<br>Box memories c/ 20 fotos - $70,00<br>Box memories c/ 30 fotos - $85,00"
+            ProductDescription: "É uma caixinha em MDF, com dobradiça no tamanho 15x15.<br>Contém,<br><li>1 garrafinha de vidro para recado</li><br><li>1 porta retrato para Polaroid</li><br><li>1 varal + 10 pregadores</li><br><li>Pack de Polaroids (10, 20, 30) - sua escolha.</li><br>Box memories c/ 10 fotos - $55,00<br>Box memories c/ 20 fotos - $70,00<br>Box memories c/ 30 fotos - $85,00",
+            ProductImageId: "BoxMemoriesImage"
+        },
+        {
+            ProductImage: "Images/Catalogo/ScrapBook/ScrapBookCapa.jpeg",
+            ProductName: "Scrap Book",
+            ProductPrice: "R$ 55,00 - 85,00",
+            ProductDescription: "Tamanho PP, P e M<br>*Não inclui as fotos",
+            ProductImageId: "ScrapBookImage"
+        },
+        {
+            ProductImage: "images/Catalogo/MemoryBoard.jpeg",
+            ProductName: "Memory Board",
+            ProductPrice: "R$ 28,00",
+            ProductDescription: "Tamanho 40x40<br>Consulte cores disponíveis<br>*Não inclui as fotos",
+            ProductImageId: "MemoryBoardImage"
+        },
+        {
+            ProductImage: "images/Catalogo/VaralComum.jpeg",
+            ProductName: "Varal Comum",
+            ProductPrice: "R$ 07,00",
+            ProductDescription: "Vem com 10 mini pregadores<br>*Não inclui as fotos",
+            ProductImageId: "VaralComumImage"
+        },
+        {
+            ProductImage: "images/Catalogo/VaralLed.jpeg",
+            ProductName: "Varal Led",
+            ProductPrice: "R$ 35,00",
+            ProductDescription: "*Não inclui as fotos",
+            ProductImageId: "VaralLedImage"
+        },
+        {
+            ProductImage: "images/Catalogo/ModelosFotos.jpeg",
+            ProductName: "Polaroid Branca",
+            ProductPrice: "R$ 1,50 - 3,50",
+            ProductDescription: "<li>Polaroid borda branca</li><br><li>Polaroid com legenda</li><br><li>Polaroid com música</li><br><li>Polaroid com imã</li><br><li>Tirinha 3 fotos</li><br><li>Tirinha 4 fotos</li>",
+            ProductImageId: "ModelosFotosImage"
         }
-    ];
-    // Creating arrays of images
-    let BoxMemoriesImageArray = [
-        { ImageSrc: "Images/Catalogo/BoxMemories.jpeg" },
-    ];
-    let ScrapBookImageArray = [
-        { ImageSrc: "Images/Catalogo/ScrapBook/3ScrapBookBege.jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/3ScrapBookPreto.jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (1).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (2).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (3).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (4).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (5).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (6).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (7).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (8).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (9).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (10).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (11).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (12).jpeg" },
-        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBookCapa.jpeg" },
     ];
 
     function GenerateProducts(line, FirstIndex, LastIndex)
@@ -51,7 +66,7 @@
                 FormRef.appendChild(InputProductImage);
 
                 var InputProductName = document.createElement("input");
-                InputProductImage.type = "hidden";
+                InputProductName.type = "hidden";
                 InputProductName.name = "ProductName";
                 InputProductName.value = ProductInfo[i].ProductName;
                 FormRef.appendChild(InputProductName);
@@ -68,6 +83,13 @@
                 InputProductDescription.value = ProductInfo[i].ProductDescription;
                 FormRef.appendChild(InputProductDescription);
 
+                var InputProductImageToShow = document.createElement("input");
+                InputProductImageToShow.type = "image";
+                InputProductImageToShow.className = "ImageContainer";
+                InputProductImageToShow.src = ProductInfo[i].ProductImage;
+                InputProductImageToShow.id = ProductInfo[i].ProductImageId;
+                FormRef.appendChild(InputProductImageToShow);
+
                 var ProductNameToShow = document.createElement("H3");
                 ProductNameToShow.appendChild(document.createTextNode(ProductInfo[i].ProductName));
                 SpanRef.appendChild(ProductNameToShow);
@@ -75,16 +97,17 @@
                 var ProductPriceToShow = document.createElement("H4");
                 ProductPriceToShow.appendChild(document.createTextNode(ProductInfo[i].ProductPrice));
                 SpanRef.appendChild(ProductPriceToShow);
-            }
-        }
-        if(line === 1)
-        {
-            document.getElementById('Linha01Catalogo').appendChild(SpanRef);
-        }
-        else
-        {
-            document.getElementById('Linha02Catalogo').appendChild(SpanRef);
-        }
+                
+                if(line === 1)
+                {
+                    document.getElementById('Linha01Catalogo').appendChild(SpanRef);
+                }
+                else
+                {
+                    document.getElementById('Linha02Catalogo').appendChild(SpanRef);
+                }
+                    }
+                }
     }
 </script>
 
@@ -135,12 +158,14 @@
             color: #FAACB7;
             font-weight: normal;
         }
-        h5
+        .LetrasHeader
         {
             font-family: Arial;
-            text-align: center;
+            font-size: 18px;
+            text-align: right;
+            margin-right: 200px;
             margin-top: 15px;
-            font-weight: normal;
+            font-weight: bold;
         }
         .LinhaCatalogo
         {
@@ -174,6 +199,16 @@
             text-align: center;
             margin-top: 100px;
         }
+        a {
+            color:white;
+            text-decoration: none ;
+        }
+
+        a:hover {
+            color:white;
+            text-decoration:none;
+            cursor:pointer;
+        }
 
     </style>
 
@@ -181,7 +216,7 @@
     <meta name="description" content="site description" />
     <meta name="keywords" content="put here keyoword to find easy by google" />
     <div class="header">
-        <h5>Header</h5>
+        <p class = "LetrasHeader"><a href="www.google.com.br">Meu carrinho</a></p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)">
@@ -193,21 +228,14 @@
         <!-- Linha 01 catalogo -->
         <div id="Linha01Catalogo" class="LinhaCatalogo">
             <script>
-                GenerateProducts(1, 0, 3);
+                GenerateProducts(1, 0, 4);
             </script>
         </div>
         <!-- Linha 02 catalogo -->
         <div id="Linha02Catalogo" class="LinhaCatalogo" style="margin-top:-10px">
-            <span class="CatalogoContainer">
-                <input type="image" onclick="OpenModal('ScrapBookImage')" class="ImageContainer" src="images/Catalogo/VaralLed.jpeg" id="VaralLedImage">
-                <h3>Varal Led</h3>
-                <h4>R$ 99,99</h4>
-            </span>
-            <span class="CatalogoContainer">
-                <input type="image" onclick="OpenModal('BoxMemoriesImage')" class="ImageContainer" src="images/Catalogo/ModelosFotos.jpeg" id="ModelosFotosImage">
-                <h3>Polaroid Branca</h3>
-                <h4>R$ 99,99</h4>
-            </span>
+            <script>
+                GenerateProducts(2, 4, 6);
+            </script>
         </div>
     </div>
     <div class="footer">

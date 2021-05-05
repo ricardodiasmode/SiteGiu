@@ -3,3 +3,5 @@
 - Botão para finalizar pedido e ir para a página de compra
 - Página de compra com informações de endereço e botão do paypal
 - Mandar e-mail após finalizar compra
+
+refs: http://www.maropapelaria.com.br/
