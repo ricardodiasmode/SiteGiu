@@ -1,0 +1,576 @@
+﻿<script>
+    var Modelo = 'm1';
+    var ComMusica = 0;
+    var MusicaDoYt = 0;
+    var ComIma = 0;
+    var ComLegenda = 0;
+    var LinkMusicaEscolhida = "abc";
+    var LegendaDaFoto = "abc";
+    var ImagemDaFoto = "abc";
+
+    function AdicionarFoto()
+    {
+        if(ImagemDaFoto !== "abc")
+        {
+            ColocarFoto(Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto);
+            ResetPhoto();
+        }
+    }
+
+    // Creating array of photos
+    let ArrayPhoto = [
+        {
+            ModeloFoto: "m1",
+            TemMusica: 0,
+            MusicaVemDoYt: 0,
+            TemIma: 0,
+            TemLegenda: 0,
+            LinkMusica: "abc",
+            LegendaFoto: "abc",
+            ImagemFoto: "abc",
+        },
+    ];
+
+    function ColocarFoto(ModeloFoto, TemMusica, MusicaVemDoYt, TemIma, TemLegenda, LinkMusica, LegendaFoto, ImagemFoto)
+    {
+        ArrayPhoto.push({ModeloFoto, TemMusica, MusicaVemDoYt, TemIma, TemLegenda, LinkMusica, LegendaFoto, ImagemFoto});
+    }
+
+    function ResetPhoto()
+    {
+        ComMusica = 0;
+        MusicaDoYt = 0;
+        ComLegenda = 0;
+        ComImage = 0;
+        LinkMusicaEscolhida = "abc";
+        LegendaDaFoto = "abc";
+        document.getElementById('musicacb').checked = false;
+        document.getElementById('legendacb').checked = false;
+        document.getElementById('imacb').checked = false;
+        ToggleCheckBox('musicacb');
+        ToggleCheckBox('legendacb');
+        SetModelo('m1');
+        document.getElementById('previewimage').style.display = "none";
+        SetPreviewImage("abc");
+    }
+
+    function ToggleHideElement(id) {
+    var Elem = document.getElementById(id);
+    if (Elem.style.display === "none") {
+        Elem.style.display = "block";
+    } else {
+        Elem.style.display = "none";
+    }
+    }
+
+    function SetElemText(id, text) {
+        document.getElementById(id).textContent = text;
+    }
+
+    function UnHideUploadPhotoPage() {
+        ToggleHideElement('models');
+        ToggleHideElement('uploadphoto');
+    }
+
+    function ToggleIma()
+    {
+        if(ComIma) { ComIma = 0; }
+        else { ComIma = 1; }
+    }
+
+    function ToggleCheckBox(id) {
+        var Elem = document.getElementById(id);
+        if(Elem.checked === true)
+        {
+            if(id === 'musicacb')
+            {
+                document.getElementById('legendacb').checked = false;
+                ComLegenda = 0;
+                ComMusica = 1;
+                document.getElementById('legendatb').style.display = "none";
+                document.getElementById('legendatblabel').style.display = "none";
+                document.getElementById('linkmusicatb').style.display = "inline";
+                document.getElementById('linkmusicatblabel').style.display = "inline";
+                SetupLegendaPreview();
+                SetupMusicaPreview();
+            }
+            else if (id === 'legendacb')
+            {
+                document.getElementById('musicacb').checked = false;
+                ComMusica = 0;
+                ComLegenda = 1;
+                SetupMusicaPreview();
+                SetupLegendaPreview();
+                document.getElementById('legendatb').style.display = "inline";
+                document.getElementById('legendatblabel').style.display = "inline";
+                document.getElementById('linkmusicatb').style.display = "none";
+                document.getElementById('linkmusicatblabel').style.display = "none";
+            }
+            else if (id === 'ytcb')
+            {
+                MusicaDoYt = 1;
+                document.getElementById('spotifycb').checked = false;
+                SetupMusicaPreview();
+            }
+            else if (id === 'spotifycb')
+            {
+                MusicaDoYt = 0;
+                document.getElementById('ytcb').checked = false;
+                SetupMusicaPreview();
+            }
+        }
+        else
+        {
+            if(id === 'musicacb')
+            {
+                ComMusica = 0;
+                document.getElementById('linkmusicatb').style.display = "none";
+                document.getElementById('linkmusicatblabel').style.display = "none";
+                SetupMusicaPreview();
+            }
+            else if (id === 'legendacb')
+            {
+                ComLegenda = 0;
+                document.getElementById('legendatb').style.display = "none";
+                document.getElementById('legendatblabel').style.display = "none";
+                SetupLegendaPreview();
+            }
+        }
+    }
+
+    function SetModelo(id) {
+        Modelo = id;
+        SetModeloResultado();
+    }
+
+    function SetModeloResultado()
+    {
+        if(Modelo === 'm1')
+        {
+            document.getElementById('basepreview').src = "Modelo1Separado.png";
+            document.getElementById('basepreview').width = "449";
+            document.getElementById('basepreview').height = "507.5";
+            document.getElementById('previewimage').width = "372";
+            document.getElementById('previewimage').height = "372";
+            document.getElementById('previewimage').style.top = "40px";
+            document.getElementById('previewimage').style.left = "38px";
+            SetupLegendaPreview();
+        }
+        else
+        {
+            document.getElementById('basepreview').src = "Modelo2Separado.png";
+            document.getElementById('basepreview').width = "449";
+            document.getElementById('basepreview').height = "681.7";
+            document.getElementById('previewimage').width = "355";
+            document.getElementById('previewimage').height = "480";
+            document.getElementById('previewimage').style.top = "44px";
+            document.getElementById('previewimage').style.left = "44px";
+            SetupLegendaPreview();
+        }
+    }
+
+    function SetPreviewImage(srcToSet)
+    {
+        ImagemDaFoto = srcToSet;
+    }
+
+    function SetupLegendaPreview()
+    {
+        if(document.getElementById('legendacb').checked === true)
+            document.getElementById('previewlegenda').style.display = "block";
+        else
+            document.getElementById('previewlegenda').style.display = "none";
+        if(Modelo === "m1")
+            document.getElementById('previewlegenda').style.bottom = "20px";
+        else
+            document.getElementById('previewlegenda').style.bottom = "50px";
+
+        var LegendaWidth = document.getElementById('previewlegenda').getBoundingClientRect().width;
+        var CurrentImageWidth = document.getElementById('previewimage').width;
+        document.getElementById('previewlegenda').style.left = CurrentImageWidth/2 - LegendaWidth/4;
+        LegendaDaFoto = document.getElementById('previewlegenda').innerHTML;
+    }
+
+    function SetupMusicaPreview()
+    {
+        if(document.getElementById('musicacb').checked === false)
+        {        
+            document.getElementById('ytcb').style.display = "none"; 
+            document.getElementById('ytlb').style.display = "none"; 
+            document.getElementById('spotifycb').style.display = "none"; 
+            document.getElementById('spotifylb').style.display = "none"; 
+            if(Modelo === "m1")
+                document.getElementById('basepreview').src = "Modelo1Separado.png";
+            else
+                document.getElementById('basepreview').src = "Modelo2Separado.png";
+        }
+        else
+        {     
+            document.getElementById('ytcb').style.display = "inline"; 
+            document.getElementById('ytlb').style.display = "inline"; 
+            document.getElementById('spotifycb').style.display = "inline"; 
+            document.getElementById('spotifylb').style.display = "inline"; 
+            if(document.getElementById('ytcb').checked === true)
+            {   
+                if(Modelo === "m1")
+                    document.getElementById('basepreview').src = "Modelo1yt.png";
+                else
+                    document.getElementById('basepreview').src = "Modelo2yt.png";
+            }
+            else if(document.getElementById('spotifycb').checked === true)
+            {   
+                if(Modelo === "m1")
+                    document.getElementById('basepreview').src = "Modelo1spotfy.png";
+                else
+                    document.getElementById('basepreview').src = "Modelo2spotfy.png";
+            }
+        }
+            
+    }
+
+    function ChangeTextBox(id)
+    {
+        if(id === "linkmusicatb")
+        {
+            LinkMusicaEscolhida = document.getElementById(id).value;
+        }
+        else if(id === "legendatb")
+        {
+            document.getElementById('previewlegenda').innerHTML = document.getElementById(id).value;
+            SetupLegendaPreview();
+        }
+    }
+
+    function OpenCreatedPhotosPage()
+    {
+        // Deixando background mais escuro
+        document.getElementById("BaseDiv").style.backgroundColor = 'black';
+        document.getElementById("BaseDiv").style.opacity = '50%';
+
+        // Pegando o div que segura as fotos
+        const PhotoContent = document.getElementById('photos-content');
+        // Limpando todos as fotos atuais
+        while (PhotoContent.lastElementChild) 
+        {
+            PhotoContent.removeChild(PhotoContent.lastElementChild);
+        }
+        // Deixando o modal visivel
+        document.getElementById("ModalCheckCreatedPhotos").style.display = "block";
+
+        // Atribuindo as fotos para o modal
+        var i;
+        var NewPhotoAdded;
+        var NewPhotoImage;
+        var NewPhotoModel;
+        var NewLegendaAdded;
+        var LegendaText;
+        for(i=1;i<ArrayPhoto.length;i++)
+        {
+            console.log("id:" + i);
+            // Criando span base
+            NewPhotoAdded = document.createElement("span");
+            NewPhotoAdded.style.display = "inline";
+
+            // Criando imagem
+            NewPhotoImage = document.createElement("img");
+            NewPhotoImage.src = ArrayPhoto[i].ImagemFoto;
+            NewPhotoImage.style.left = 38 + (i-1)*450;
+            NewPhotoAdded.appendChild(NewPhotoImage);
+
+            // Criando modelo
+            NewPhotoModel = document.createElement("img");
+            if(ArrayPhoto[i].ModeloFoto === 'm1')
+            {
+                if(ArrayPhoto[i].TemMusica)
+                {
+                    if(ArrayPhoto[i].MusicaVemDoYt)
+                        NewPhotoModel.src = "Modelo1yt.png";
+                    else
+                        NewPhotoModel.src = "Modelo1spotfy.png";
+                }
+                else
+                    NewPhotoModel.src = "Modelo1Separado.png";
+                    
+                NewPhotoImage.className = "ImagePhotoAddedM1";
+                NewPhotoModel.className = "PhotoAddedM1";
+            }
+            else
+            {
+                if(ArrayPhoto[i].TemMusica)
+                {
+                    if(ArrayPhoto[i].MusicaVemDoYt)
+                        NewPhotoModel.src = "Modelo2yt.png";
+                    else
+                        NewPhotoModel.src = "Modelo2spotfy.png";
+                }
+                else
+                    NewPhotoModel.src = "Modelo2Separado.png";
+                    
+                NewPhotoImage.className = "ImagePhotoAddedM2";
+                NewPhotoModel.className = "PhotoAddedM2";
+            }
+            console.log("modelo:" + ArrayPhoto[i].ModeloFoto);
+            NewPhotoAdded.appendChild(NewPhotoModel);
+
+            // Criando legenda
+            console.log("tem legenda:" + ArrayPhoto[i].TemLegenda);
+            if(ArrayPhoto[i].TemLegenda)
+            {
+                NewLegendaAdded = document.createElement("h1");
+                NewLegendaAdded.className = "LegendaPhotoAdded";
+                NewLegendaAdded.innerHTML = ArrayPhoto[i].LegendaFoto;
+                
+                console.log("legenda:" + ArrayPhoto[i].LegendaFoto);
+                NewLegendaAdded.style.display = "block";
+                var LegendaWidth = NewLegendaAdded.getBoundingClientRect().width;
+                if(ArrayPhoto[i].ModeloFoto === "m1")
+                    NewLegendaAdded.style.top = "430px";
+                else
+                    NewLegendaAdded.style.bottom = "50px";
+                NewLegendaAdded.style.left = 372/2 - LegendaWidth/4 + (i-1)*450;
+
+                NewPhotoAdded.appendChild(NewLegendaAdded);
+            }
+
+            // Adicionando tudo ao modal
+            PhotoContent.appendChild(NewPhotoAdded);
+        }
+        
+        // Definindo a posicao para o meio da tela
+        var ModalRef = document.getElementById("ModalCheckCreatedPhotos");
+        var ModalWidth = ModalRef.getBoundingClientRect().width;
+        var ModalHeight = ModalRef.getBoundingClientRect().height;
+        ModalRef.style.left = (screen.width)/2 - ModalWidth/2;
+        ModalRef.style.top = (screen.height)/2 - 100;
+    }
+
+</script>
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <!-- Default content -->
+    <style>
+        @font-face { font-family: rage-italic; src: url('rage-italic.TTF'); } 
+        h1 {
+            font-family: rage-italic
+        }
+    </style>
+
+    <style>
+        .base-image {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .image-previewm1__image {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 38px;
+        }
+    </style>
+
+    <!-- Modal style -->
+    <style>
+        /* Photo Added */
+        .PhotoAddedM1
+        {
+            position: relative;
+            width: 449px;
+            height: 507.5px;
+        }
+        .PhotoAddedM2
+        {
+            position: relative;
+            width: 449px;
+            height: 681.7px;
+        }
+
+        .ImagePhotoAddedM1
+        {
+            display: block;
+            position: absolute;
+            width: 372px;
+            height: 372px;
+            top: 55px;
+            left: 38px;
+        }
+
+        .ImagePhotoAddedM2
+        {
+            display: block;
+            position: absolute;
+            width: 372px;
+            height: 503px;
+            top: 55px;
+            left: 38px;
+        }
+
+        .LegendaPhotoAdded
+        {
+            position: absolute;
+            display: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+            background-color: rgb(0, 0, 0);
+            background-image: "url('ModalBackgroundImage.jpg')";
+            max-width: 450px;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        /* Add Animation */
+        @keyframes animatetop {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+        }
+    </style>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="site description" />
+    <meta name="keywords" content="put here keyoword to find easy by google" />
+</head>
+<body style="background-image: url('BackgroundImage.jpg')">
+    <!-- Escolhendo modelos -->
+    <div id="BaseDiv" style="display:flex">
+
+        <span style="text-align: left; vertical-align: top;">
+            <input onclick="SetModelo('m1')" type="image" src="Modelo1Separado.png" alt="Modelo1Img" style="width:449px;height:507.5px;" id="m1" />
+        </span>
+
+        <span style="text-align: center; vertical-align: top;">
+            <img src="Logo.png" alt="Our logo" style="width:400px;height:400px;" id="logo">
+            
+            <!-- Escolhendo se tem musica ou nao -->
+            <p><input onclick="ToggleCheckBox('musicacb')" type="checkbox" id="musicacb" name="musicacb">
+            <label for="musicacb">Com Musica?</label></p>
+
+            <!-- Escolhendo se a musica vem do youtube -->
+            <p><input onclick="ToggleCheckBox('ytcb')" style="display:none" type="checkbox" id="ytcb" name="ytcb">
+            <label style="display:none" id="ytlb" for="ytcb">Do youtube?</label></p>
+            
+            <!-- Escolhendo se a musica vem do spotify -->
+            <p><input onclick="ToggleCheckBox('spotifycb')" style="display:none" type="checkbox" id="spotifycb" name="spotifycb">
+            <label style="display:none" id="spotifylb" for="spotifycb">Do spotify?</label></p>
+
+            <!-- Escolhendo o link da musica -->
+            <p><label for="linkmusicatb" style="display:none" id="linkmusicatblabel">Cole o link da musica: </label>
+            <input onchange="ChangeTextBox('linkmusicatb')" type="text" id="linkmusicatb" name="linkmusicatb" style="display:none;"></p>
+            
+            <!-- Escolhendo se tem legenda ou nao -->
+            <p><input onclick="ToggleCheckBox('legendacb')" type="checkbox" id="legendacb" name="legendacb">
+            <label for="legendacb">Com Legenda?</label></p>
+           
+            <!-- Escolhendo o texto da legenda -->
+            <p><label for="legendatb" style="display:none" id="legendatblabel">Digite a legenda: </label>
+            <input onchange="ChangeTextBox('legendatb')" type="text" maxlength="15" id="legendatb" name="legendatb" style="display:none;"></p>
+            
+            <!-- Escolhendo se tem ima ou nao -->
+            <p><input onclick="ToggleIma()" type="checkbox" id="imacb" name="imacb">
+            <label for="imacb">Com Imã?</label></p>
+
+            <!-- Fazendo o upload da foto -->
+            <p>Escolha sua foto: <input type="file" value="Escolha sua foto" name="PhotoToUpload" id="PhotoToUpload"></p>
+            
+            <p><input onclick="AdicionarFoto()" type="button" name="AddPhotoButton" id="AddPhotoButton" value="Adicionar Foto"></p>
+            
+            <p><input onclick="OpenCreatedPhotosPage()" type="button" name="CheckCreatedPhotosButton" id="CheckCreatedPhotosButton" value="Ver Fotos Criadas"></p>
+
+            <!-- Preview da foto -->
+            <p>Como sua foto vai ficar: </p>
+            <div class="base-image">
+                <img src="" id='basepreview' width="449" height="507.5" class="base-image"/>
+                <img src="" width="372" height="372" alt="Faça o upload para ver como sua foto vai ficar" class="image-previewm1__image" id="previewimage">
+                <h1 id="previewlegenda" class="LegendaPhotoAdded">SuaLegenda</h1>
+                <script>SetupLegendaPreview();</script>
+            </div>
+            
+            <!-- Definindo preview image -->
+            <script>
+                SetModeloResultado();
+                // Setup image preview
+                const PhotoFile = document.getElementById('PhotoToUpload');
+                const PhotoImage = document.getElementById('previewimage');
+
+                PhotoFile.addEventListener("change", function() 
+                { 
+                    const file = this.files[0];
+                    if(file)
+                    {
+                        const reader = new FileReader();
+                        
+                        PhotoImage.style.display = "block";
+
+                        reader.addEventListener("load" , function()
+                        {
+                            PhotoImage.setAttribute("src", this.result);
+                            SetPreviewImage(this.result);
+                        });
+
+                        reader.readAsDataURL(file);
+                    }
+                    else
+                    {
+                        PhotoImage.style.display = "none";
+                        SetPreviewImage('');
+                    }
+                });
+            </script>
+        </span>
+
+        <span style="text-align: right; vertical-align: top;">
+            <input onclick="SetModelo('m2')" type="image" src="Modelo2Separado.png" alt="Modelo2Img" style="width:393.6px;height:597.6px;" id="m2" />
+        </span>
+    </div>
+        
+    <!-- Modal -->
+    <div class="modal" id="ModalCheckCreatedPhotos">
+        <div>
+            <input type="button" id="CloseModalButton" value="Fechar">
+        </div>
+        <div id="photos-content" style="display:flex">
+            <div class="photo-added">
+            </div>
+        </div>
+    </div>
+    <!-- Modal script -->
+    <script>
+        /*
+        function getParams() 
+        {
+            var idx = document.URL.indexOf('?');
+            var params = new Array();
+            if (idx != -1) 
+            {
+                var pairs = document.URL.substring(idx+1, document.URL.length).split('&');
+                for (var i=0; i<pairs.length; i++) 
+                {
+                    nameVal = pairs[i].split('=');
+                    params[nameVal[0]] = nameVal[1];
+                }
+            }
+            return params;
+        }*/
+        
+        // When the user clicks on <span> (x), close the modal
+        document.getElementById("CloseModalButton").onclick = function()
+        {
+            document.getElementById("ModalCheckCreatedPhotos").style.display = "none";
+        // Deixando background default
+        document.getElementById("BaseDiv").style.backgroundColor = 'transparent';
+        document.getElementById("BaseDiv").style.opacity = '100%';
+
+        }
+    </script>
+</body>
+</html>

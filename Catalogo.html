@@ -1,0 +1,218 @@
+﻿<script>
+    // Creating arrays of info
+    let ProductInfo = [
+        {
+            ProductImage: "Images/Catalogo/BoxMemories.jpeg",
+            ProductName: "Box Memories",
+            ProductPrice: "R$ 55,00 - 85,00",
+            ProductDescription: "É uma caixinha em MDF, com dobradiça no tamanho 15x15.<br>Contém,<br><li>1 garrafinha de vidro para recado</li><br><li>1 porta retrato para Polaroid</li><br><li>1 varal + 10 pregadores</li><br><li>Pack de Polaroids (10, 20, 30) - sua escolha.</li><br>Box memories c/ 10 fotos - $55,00<br>Box memories c/ 20 fotos - $70,00<br>Box memories c/ 30 fotos - $85,00"
+        }
+    ];
+    // Creating arrays of images
+    let BoxMemoriesImageArray = [
+        { ImageSrc: "Images/Catalogo/BoxMemories.jpeg" },
+    ];
+    let ScrapBookImageArray = [
+        { ImageSrc: "Images/Catalogo/ScrapBook/3ScrapBookBege.jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/3ScrapBookPreto.jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (1).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (2).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (3).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (4).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (5).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (6).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (7).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (8).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (9).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (10).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (11).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBook (12).jpeg" },
+        { ImageSrc: "Images/Catalogo/ScrapBook/ScrapBookCapa.jpeg" },
+    ];
+
+    function GenerateProducts(line, FirstIndex, LastIndex)
+    {
+        var i;
+        for(i = FirstIndex; i<LastIndex;i++)
+        {
+            if( i < ProductInfo.length)
+            {
+                var SpanRef = document.createElement("span");
+                SpanRef.className = "CatalogoContainer";
+
+                var FormRef = document.createElement("form");
+                FormRef.action = "ProductPage.html";
+                SpanRef.appendChild(FormRef);
+
+                var InputProductImage = document.createElement("input");
+                InputProductImage.type = "hidden";
+                InputProductImage.name = "ProductImage";
+                InputProductImage.value = ProductInfo[i].ProductImage;
+                FormRef.appendChild(InputProductImage);
+
+                var InputProductName = document.createElement("input");
+                InputProductImage.type = "hidden";
+                InputProductName.name = "ProductName";
+                InputProductName.value = ProductInfo[i].ProductName;
+                FormRef.appendChild(InputProductName);
+
+                var InputProductPrice = document.createElement("input");
+                InputProductPrice.type = "hidden";
+                InputProductPrice.name = "ProductPrice";
+                InputProductPrice.value = ProductInfo[i].ProductPrice;
+                FormRef.appendChild(InputProductPrice);
+
+                var InputProductDescription = document.createElement("input");
+                InputProductDescription.type = "hidden";
+                InputProductDescription.name = "ProductDescription";
+                InputProductDescription.value = ProductInfo[i].ProductDescription;
+                FormRef.appendChild(InputProductDescription);
+
+                var ProductNameToShow = document.createElement("H3");
+                ProductNameToShow.appendChild(document.createTextNode(ProductInfo[i].ProductName));
+                SpanRef.appendChild(ProductNameToShow);
+
+                var ProductPriceToShow = document.createElement("H4");
+                ProductPriceToShow.appendChild(document.createTextNode(ProductInfo[i].ProductPrice));
+                SpanRef.appendChild(ProductPriceToShow);
+            }
+        }
+        if(line === 1)
+        {
+            document.getElementById('Linha01Catalogo').appendChild(SpanRef);
+        }
+        else
+        {
+            document.getElementById('Linha02Catalogo').appendChild(SpanRef);
+        }
+    }
+</script>
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <!-- Default content -->
+    <style>
+
+        .header
+        {
+            margin: 0px;
+            padding: 0px;
+            height: 45px;
+            overflow: hidden;
+            text-align: center;
+            background: #FAACB7;
+            color: white;
+            font-size: 20px;
+        }
+        body
+        {
+            margin: 0px;
+            padding: 0px;
+        }
+        @font-face { font-family: rage-italic; src: url('rage-italic.TTF'); } 
+        h1 {
+            font-family: rage-italic;
+        }
+        h2 {
+            font-family: Arial;
+            color: #878787;
+            width: 50%;
+            margin-left: 190px;
+            font-weight: normal;
+        }
+        h3 {
+            font-family: Arial;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 10px;
+            color: #CB997E;
+        }
+        h4 {
+            text-align: center;
+            font-size: 18px;
+            margin-top: -10px;
+            color: #FAACB7;
+            font-weight: normal;
+        }
+        h5
+        {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: normal;
+        }
+        .LinhaCatalogo
+        {
+            margin-top: -20px;
+            display: flex;
+            width: 50%;
+            margin-left: 175px;
+        }
+        .CatalogoContainer 
+        {
+            display: block;
+            margin: 0;
+            margin-left: 15px;
+        }
+        .ImageContainer
+        {
+            padding-top: 15px;
+            display: block;
+            margin: auto;
+            width: 220px;
+            height: 220px;
+        }
+        .footer
+        {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #FFF7F6;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+    </style>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="site description" />
+    <meta name="keywords" content="put here keyoword to find easy by google" />
+    <div class="header">
+        <h5>Header</h5>
+    </div>
+</head>
+<body style="background-color:rgb(255, 255, 255)">
+    <div id="BaseDiv">
+        <!-- Logo -->
+        <p style="text-align: center;"><img alt="memories logo" src="Logo.png" style="width: 300px;height: 300px;"></p>
+        <!-- Texto antes da linha -->
+        <h2>Nossos produtos:</h2>
+        <!-- Linha 01 catalogo -->
+        <div id="Linha01Catalogo" class="LinhaCatalogo">
+            <script>
+                GenerateProducts(1, 0, 3);
+            </script>
+        </div>
+        <!-- Linha 02 catalogo -->
+        <div id="Linha02Catalogo" class="LinhaCatalogo" style="margin-top:-10px">
+            <span class="CatalogoContainer">
+                <input type="image" onclick="OpenModal('ScrapBookImage')" class="ImageContainer" src="images/Catalogo/VaralLed.jpeg" id="VaralLedImage">
+                <h3>Varal Led</h3>
+                <h4>R$ 99,99</h4>
+            </span>
+            <span class="CatalogoContainer">
+                <input type="image" onclick="OpenModal('BoxMemoriesImage')" class="ImageContainer" src="images/Catalogo/ModelosFotos.jpeg" id="ModelosFotosImage">
+                <h3>Polaroid Branca</h3>
+                <h4>R$ 99,99</h4>
+            </span>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+
+</body>
+</html>

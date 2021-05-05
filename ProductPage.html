@@ -1,0 +1,144 @@
+﻿<script>
+    var ProductImageFromURL = "a";
+    var ProductNameFromURL = "b";
+    var ProductPriceFromURL = "c";
+    var ProductDescriptionFromURL = "d";
+    function processUser()
+    {
+        var urlRef = new URL(window.location.href);
+        ProductImageFromURL = urlRef.searchParams.get("ProductImage");
+        ProductNameFromURL = urlRef.searchParams.get("ProductName");
+        ProductPriceFromURL = urlRef.searchParams.get("ProductPrice");
+        ProductDescriptionFromURL = urlRef.searchParams.get("ProductDescription");
+    }
+</script>
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <!-- Default content -->
+    <style>
+        .header
+        {
+            margin: 0px;
+            padding: 0px;
+            height: 45px;
+            overflow: hidden;
+            text-align: center;
+            background: #FAACB7;
+            color: white;
+            font-size: 20px;
+        }
+        .footer
+        {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #FFF7F6;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+        body
+        {
+            margin: 0px;
+            padding: 0px;
+        }
+        @font-face { font-family: rage-italic; src: url('rage-italic.TTF'); } 
+        h1 {
+            font-family: rage-italic;
+        }
+        h2 {
+            font-family: Arial;
+            color: #878787;
+            width: 50%;
+            margin-left: 190px;
+            font-weight: normal;
+        }
+        h3 {
+            font-family: Arial;
+            text-align: left;
+            font-size: 25px;
+            margin-top: 0px;
+            color: #CB997E;
+        }
+        h4 {
+            text-align: left;
+            font-size: 23px;
+            margin-top: -15px;
+            color: #FAACB7;
+            font-weight: normal;
+        }
+        h5
+        {
+            font-size: 17px;
+            color: #878787;
+            font-family: Arial;
+            text-align: left;
+            margin-top: 15px;
+            font-weight: normal;
+        }
+        .ProductImage
+        {
+            width: 450px;
+            height: 450px;
+        }
+        .InfoSection
+        {
+            margin-left: 50px;
+        }
+        li
+        {
+            margin-bottom: -10px;
+        }
+    </style>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="site description" />
+    <meta name="keywords" content="put here keyoword to find easy by google" />
+    <div class="header">
+        <h5>Header</h5>
+    </div>
+</head>
+<body style="background-color:rgb(255, 255, 255)">
+    <div id="BaseDiv">
+        <!-- Logo -->
+        <p style="text-align: center;"><img alt="memories logo" src="Logo.png" style="width: 300px;height: 300px;"></p>
+        <div style="display: flex;margin-left:200px" id="ProductDiv">
+            <!-- Getting product image -->
+            <script>
+                processUser();
+                var ProductImageRef = document.createElement("img");
+                ProductImageRef.className = "ProductImage";
+                ProductImageRef.src = ProductImageFromURL;
+                document.getElementById('ProductDiv').appendChild(ProductImageRef);
+            </script>
+            <div id="ProductInfo" class="InfoSection">
+                <script>
+                    var ProductNameRef = document.createElement("h3");
+                    ProductNameRef.innerHTML = ProductNameFromURL;
+                    ProductNameRef.id = "ProductName";
+                    document.getElementById('ProductInfo').appendChild(ProductNameRef);
+                </script>
+                <script>
+                    var ProductPriceRef = document.createElement("h4");
+                    ProductPriceRef.innerHTML = ProductPriceFromURL;
+                    ProductPriceRef.id = "ProductPrice";
+                    document.getElementById('ProductInfo').appendChild(ProductPriceRef);
+                </script>
+                <input type="image" src="Images/BotaoComprar.png" style="margin-top:-5px;">
+                <script>
+                    var ProductDescriptionRef = document.createElement("h5");
+                    ProductDescriptionRef.innerHTML = ProductDescriptionFromURL;
+                    ProductDescriptionRef.id = "ProductDescription";
+                    document.getElementById('ProductInfo').appendChild(ProductDescriptionRef);
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+- carrinho de compras: https://www.smashingmagazine.com/2019/08/shopping-cart-html5-web-storage/
+- adaptar pagina de montagem para poder colocar tirinhas com 3 ou 4 fotos
+- Botão para finalizar pedido e ir para a página de compra
+- Página de compra com informações de endereço e botão do paypal
+- Mandar e-mail após finalizar compra
