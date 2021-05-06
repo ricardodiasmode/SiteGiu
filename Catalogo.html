@@ -6,42 +6,36 @@
             ProductName: "Box Memories",
             ProductPrice: "R$ 55,00 - 85,00",
             ProductDescription: "É uma caixinha em MDF, com dobradiça no tamanho 15x15.<br>Contém,<br><li>1 garrafinha de vidro para recado</li><br><li>1 porta retrato para Polaroid</li><br><li>1 varal + 10 pregadores</li><br><li>Pack de Polaroids (10, 20, 30) - sua escolha.</li><br>Box memories c/ 10 fotos - $55,00<br>Box memories c/ 20 fotos - $70,00<br>Box memories c/ 30 fotos - $85,00",
-            ProductImageId: "BoxMemoriesImage"
         },
         {
             ProductImage: "Images/Catalogo/ScrapBook/ScrapBookCapa.jpeg",
             ProductName: "Scrap Book",
-            ProductPrice: "R$ 55,00 - 85,00",
+            ProductPrice: "R$ 35,00 - 80,00",
             ProductDescription: "Tamanho PP, P e M<br>*Não inclui as fotos",
-            ProductImageId: "ScrapBookImage"
         },
         {
             ProductImage: "images/Catalogo/MemoryBoard.jpeg",
             ProductName: "Memory Board",
             ProductPrice: "R$ 28,00",
             ProductDescription: "Tamanho 40x40<br>Consulte cores disponíveis<br>*Não inclui as fotos",
-            ProductImageId: "MemoryBoardImage"
         },
         {
             ProductImage: "images/Catalogo/VaralComum.jpeg",
             ProductName: "Varal Comum",
             ProductPrice: "R$ 07,00",
             ProductDescription: "Vem com 10 mini pregadores<br>*Não inclui as fotos",
-            ProductImageId: "VaralComumImage"
         },
         {
             ProductImage: "images/Catalogo/VaralLed.jpeg",
             ProductName: "Varal Led",
             ProductPrice: "R$ 35,00",
             ProductDescription: "*Não inclui as fotos",
-            ProductImageId: "VaralLedImage"
         },
         {
             ProductImage: "images/Catalogo/ModelosFotos.jpeg",
             ProductName: "Polaroid Branca",
             ProductPrice: "R$ 1,50 - 3,50",
             ProductDescription: "<li>Polaroid borda branca</li><br><li>Polaroid com legenda</li><br><li>Polaroid com música</li><br><li>Polaroid com imã</li><br><li>Tirinha 3 fotos</li><br><li>Tirinha 4 fotos</li>",
-            ProductImageId: "ModelosFotosImage"
         }
     ];
 
@@ -87,7 +81,6 @@
                 InputProductImageToShow.type = "image";
                 InputProductImageToShow.className = "ImageContainer";
                 InputProductImageToShow.src = ProductInfo[i].ProductImage;
-                InputProductImageToShow.id = ProductInfo[i].ProductImageId;
                 FormRef.appendChild(InputProductImageToShow);
 
                 var ProductNameToShow = document.createElement("H3");
