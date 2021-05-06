@@ -86,6 +86,7 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+    <title>Memories - Página do Produto</title>
     <!-- Default content -->
     <style>
         .header
@@ -207,7 +208,13 @@
                     ProductPriceRef.id = "ProductPrice";
                     document.getElementById('ProductInfo').appendChild(ProductPriceRef);
                 </script>
-                <input type="image" src="Images/BotaoComprar.png" style="margin-top:-5px;">
+                <form action="Carrinho.html">
+                    <input id="ProductNameInput" type="hidden" name="ProductNameRef" value="">
+                    <script>
+                        document.getElementById("ProductNameInput").value = ProductNameFromURL;
+                    </script>
+                    <input type="image" src="Images/BotaoComprar.png" style="margin-top:-5px;">
+                </form>
                 <script>
                     var ProductDescriptionRef = document.createElement("h5");
                     ProductDescriptionRef.innerHTML = ProductDescriptionFromURL;

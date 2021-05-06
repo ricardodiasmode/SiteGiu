@@ -1,8 +1,15 @@
-//- adicionar mais fotos na pagina do produto
-- carrinho de compras: https://www.smashingmagazine.com/2019/08/shopping-cart-html5-web-storage/
-- adaptar pagina de montagem para poder colocar tirinhas com 3 ou 4 fotos
+Carrinho.html
+- criar botao para remover item no carrinho de compras
+- criar botao de "tipo" de produto na pagina do produto. Assim da pra escolher, por exemplo, a cor do scrap book.
 - Botão para finalizar pedido e ir para a página de compra
+
+Montar-Fotos.html
+- adaptar pagina de montagem para poder colocar tirinhas com 3 ou 4 fotos
+
+Finalizar-Compra.html
 - Página de compra com informações de endereço e botão do paypal
 - Mandar e-mail após finalizar compra
 
-refs: http://www.maropapelaria.com.br/
+Geral:
+- Ver se pagina funciona para android
+- Referencias: http://www.maropapelaria.com.br/
