@@ -3,6 +3,20 @@
     var ProductNameFromURL = "b";
     var ProductPriceFromURL = "c";
     var ProductDescriptionFromURL = "d";
+    
+    let ProductTypeArray = [
+        { ProductTypeFromURL: "none", },
+        { ProductTypeFromURL: "none", },
+        { ProductTypeFromURL: "none", },
+        { ProductTypeFromURL: "none", },
+        { ProductTypeFromURL: "none", },
+        { ProductTypeFromURL: "none", },
+    ];
+    
+    let ProductTypeSelected = [
+        { Tipo: "none" },
+        { Tipo: "none" },
+    ];
 
     // Creating arrays of images
     let BoxMemoriesImageArray = [
@@ -33,13 +47,20 @@
         ProductNameFromURL = urlRef.searchParams.get("ProductName");
         ProductPriceFromURL = urlRef.searchParams.get("ProductPrice");
         ProductDescriptionFromURL = urlRef.searchParams.get("ProductDescription");
+    
+        ProductTypeArray[0].ProductTypeFromURL = urlRef.searchParams.get("ProductType1");
+        ProductTypeArray[1].ProductTypeFromURL = urlRef.searchParams.get("ProductType2");
+        ProductTypeArray[2].ProductTypeFromURL = urlRef.searchParams.get("ProductType3");
+        ProductTypeArray[3].ProductTypeFromURL = urlRef.searchParams.get("ProductType4");
+        ProductTypeArray[4].ProductTypeFromURL = urlRef.searchParams.get("ProductType5");
+        ProductTypeArray[5].ProductTypeFromURL = urlRef.searchParams.get("ProductType6");
     }
 
     function GetImagesArrayByName(ProductName)
     {
         if(ProductName === 'Box Memories')
             return BoxMemoriesImageArray;
-        if(ProductName === 'Scrap Book')
+        if(ProductName === 'ScrapBook')
             return ScrapBookImageArray;
         return null;
     }
@@ -77,10 +98,11 @@
             var ProductImageRef = document.createElement("img");
             ProductImageRef.className = "ProductSecondaryImages";
             ProductImageRef.src = ImagesArray[i].ImageSrc;
-            ProductImageRef.onclick =  invoke;
+            ProductImageRef.onclick = invoke;
             document.getElementsByClassName('ProductSecondaryImagesDiv')[0].appendChild(ProductImageRef);
         }
     }
+
 </script>
 
 <!doctype html>
@@ -140,6 +162,7 @@
             margin-top: -15px;
             color: #FAACB7;
             font-weight: normal;
+            margin-bottom: 10px;
         }
         h5
         {
@@ -177,9 +200,20 @@
             width: 420px;
             overflow: auto;
         }
+        .TypeButton
+        {
+            width: 100px;
+            height: 50px;
+            border-style: hidden;
+            margin-bottom: 20px;
+            margin-right: 10px;
+            color:rgb(255, 255, 255);
+            background-color: #FAACB7;
+        }
     </style>
 
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="site description" />
     <meta name="keywords" content="put here keyoword to find easy by google" />
     <div class="header">
@@ -189,7 +223,7 @@
 <body style="background-color:rgb(255, 255, 255)">
     <div id="BaseDiv">
         <!-- Logo -->
-        <p style="text-align: center;"><img alt="memories logo" src="Logo.png" style="width: 300px;height: 300px;"></p>
+        <p style="text-align: center;"><img alt="memories logo" src="Images/Logo.png" style="width: 300px;height: 300px;"></p>
         <div style="display: flex;margin-left:200px" id="ProductInfoDiv">
             <!-- Getting product image -->
             <script>
@@ -197,19 +231,62 @@
             </script>
             <div id="ProductInfo" class="InfoSection">
                 <script>
+                    // Name
                     var ProductNameRef = document.createElement("h3");
                     ProductNameRef.innerHTML = ProductNameFromURL;
                     ProductNameRef.id = "ProductName";
                     document.getElementById('ProductInfo').appendChild(ProductNameRef);
                 </script>
                 <script>
+                    // Price
                     var ProductPriceRef = document.createElement("h4");
                     ProductPriceRef.innerHTML = ProductPriceFromURL;
                     ProductPriceRef.id = "ProductPrice";
                     document.getElementById('ProductInfo').appendChild(ProductPriceRef);
                 </script>
+                <script>
+                    // Types
+
+                    invoke2 = (event) => {
+                        ProductTypeSelected[0].Tipo = event.target.getAttribute('value');
+                        document.getElementById("ProductType1Input").value = ProductTypeSelected[0].Tipo;
+                    }
+                    
+                    invoke3 = (event) => {
+                        ProductTypeSelected[1].Tipo = document.getElementById('InputRecado').value;
+                        document.getElementById("ProductType2Input").value = ProductTypeSelected[1].Tipo;
+                    }
+
+                    var i=0;
+                    while(ProductTypeArray[i].ProductTypeFromURL != 'none' && ProductTypeArray[i].ProductTypeFromURL != null)
+                    {
+                        if(ProductTypeArray[i].ProductTypeFromURL == 'recado')
+                        {
+                            var InputTypeRef = document.createElement('input');
+                            InputTypeRef.type = 'text';
+                            InputTypeRef.id = "InputRecado";
+                            InputTypeRef.value = 'Digite o recado.';
+                            InputTypeRef.onchange = invoke3;
+                            document.getElementById('ProductInfo').appendChild(InputTypeRef);
+                        }
+                        else
+                        {
+                            var ButtonTypeRef = document.createElement('input');
+                            ButtonTypeRef.className = "TypeButton";
+                            ButtonTypeRef.type = 'button';
+                            ButtonTypeRef.value = ProductTypeArray[i].ProductTypeFromURL;
+                            ButtonTypeRef.onclick = invoke2;
+                            document.getElementById('ProductInfo').appendChild(ButtonTypeRef);
+                        }
+                        if(i == ProductTypeArray.length - 1)
+                            break;
+                        i++;
+                    };
+                </script>
                 <form action="Carrinho.html">
                     <input id="ProductNameInput" type="hidden" name="ProductNameRef" value="">
+                    <input id="ProductType1Input" type="hidden" name="ProductType1Ref" value="">
+                    <input id="ProductType2Input" type="hidden" name="ProductType2Ref" value="">
                     <script>
                         document.getElementById("ProductNameInput").value = ProductNameFromURL;
                     </script>

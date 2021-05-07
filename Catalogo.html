@@ -6,36 +6,84 @@
             ProductName: "Box Memories",
             ProductPrice: "R$ 55,00 - 85,00",
             ProductDescription: "É uma caixinha em MDF, com dobradiça no tamanho 15x15.<br>Contém,<br><li>1 garrafinha de vidro para recado</li><br><li>1 porta retrato para Polaroid</li><br><li>1 varal + 10 pregadores</li><br><li>Pack de Polaroids (10, 20, 30) - sua escolha.</li><br>Box memories c/ 10 fotos - $55,00<br>Box memories c/ 20 fotos - $70,00<br>Box memories c/ 30 fotos - $85,00",
+            ProductType1: "10 fotos",
+            ProductType2: "20 fotos",
+            ProductType3: "30 fotos",
+            ProductType4: "recado",
+            ProductType5: "none",
+            ProductType6: "none",
         },
         {
             ProductImage: "Images/Catalogo/ScrapBook/ScrapBookCapa.jpeg",
-            ProductName: "Scrap Book",
+            ProductName: "ScrapBook",
             ProductPrice: "R$ 35,00 - 80,00",
             ProductDescription: "Tamanho PP, P e M<br>*Não inclui as fotos",
+            ProductType1: "PP Preto",
+            ProductType2: "P Preto",
+            ProductType3: "M Preto",
+            ProductType4: "PP Kraft",
+            ProductType5: "P Kraft",
+            ProductType6: "M Kraft",
         },
         {
             ProductImage: "images/Catalogo/MemoryBoard.jpeg",
             ProductName: "Memory Board",
             ProductPrice: "R$ 28,00",
             ProductDescription: "Tamanho 40x40<br>Consulte cores disponíveis<br>*Não inclui as fotos",
+            ProductType1: "none",
+            ProductType2: "none",
+            ProductType3: "none",
+            ProductType4: "none",
+            ProductType5: "none",
+            ProductType6: "none",
         },
         {
             ProductImage: "images/Catalogo/VaralComum.jpeg",
             ProductName: "Varal Comum",
-            ProductPrice: "R$ 07,00",
+            ProductPrice: "R$ 7,00",
             ProductDescription: "Vem com 10 mini pregadores<br>*Não inclui as fotos",
+            ProductType1: "none",
+            ProductType2: "none",
+            ProductType3: "none",
+            ProductType4: "none",
+            ProductType5: "none",
+            ProductType6: "none",
         },
         {
             ProductImage: "images/Catalogo/VaralLed.jpeg",
             ProductName: "Varal Led",
             ProductPrice: "R$ 35,00",
             ProductDescription: "*Não inclui as fotos",
+            ProductType1: "none",
+            ProductType2: "none",
+            ProductType3: "none",
+            ProductType4: "none",
+            ProductType5: "none",
+            ProductType6: "none",
         },
         {
             ProductImage: "images/Catalogo/ModelosFotos.jpeg",
             ProductName: "Polaroid Branca",
-            ProductPrice: "R$ 1,50 - 3,50",
-            ProductDescription: "<li>Polaroid borda branca</li><br><li>Polaroid com legenda</li><br><li>Polaroid com música</li><br><li>Polaroid com imã</li><br><li>Tirinha 3 fotos</li><br><li>Tirinha 4 fotos</li>",
+            ProductPrice: "R$ 1,50 - 3,00",
+            ProductDescription: "Mínimo de 10 fotos.<br><li>Polaroid borda branca</li><br><li>Polaroid com legenda</li><br><li>Polaroid com música</li><br><li>Polaroid com imã</li><br>",
+            ProductType1: "10 fotos",
+            ProductType2: "20 fotos",
+            ProductType3: "30 fotos",
+            ProductType4: "none",
+            ProductType5: "none",
+            ProductType6: "none",
+        },
+        {
+            ProductImage: "images/Catalogo/Tirinha3Fotos.jpeg",
+            ProductName: "Tirinhas 3/4 Fotos",
+            ProductPrice: "R$ 3,00 - 3,50",
+            ProductDescription: "*Não há mínimo e está fora do cálculo das fotos polaroid",
+            ProductType1: "Tirinha 3 fotos",
+            ProductType2: "Tirinha 4 fotos",
+            ProductType3: "none",
+            ProductType4: "none",
+            ProductType5: "none",
+            ProductType6: "none",
         }
     ];
 
@@ -53,6 +101,7 @@
                 FormRef.action = "ProductPage.html";
                 SpanRef.appendChild(FormRef);
 
+                /* Product things */
                 var InputProductImage = document.createElement("input");
                 InputProductImage.type = "hidden";
                 InputProductImage.name = "ProductImage";
@@ -77,6 +126,45 @@
                 InputProductDescription.value = ProductInfo[i].ProductDescription;
                 FormRef.appendChild(InputProductDescription);
 
+                /* Types */
+
+                var InputProductType1 = document.createElement("input");
+                InputProductType1.type = "hidden";
+                InputProductType1.name = "ProductType1";
+                InputProductType1.value = ProductInfo[i].ProductType1;
+                FormRef.appendChild(InputProductType1);
+
+                var InputProductType2 = document.createElement("input");
+                InputProductType2.type = "hidden";
+                InputProductType2.name = "ProductType2";
+                InputProductType2.value = ProductInfo[i].ProductType2;
+                FormRef.appendChild(InputProductType2);
+
+                var InputProductType3 = document.createElement("input");
+                InputProductType3.type = "hidden";
+                InputProductType3.name = "ProductType3";
+                InputProductType3.value = ProductInfo[i].ProductType3;
+                FormRef.appendChild(InputProductType3);
+
+                var InputProductType4 = document.createElement("input");
+                InputProductType4.type = "hidden";
+                InputProductType4.name = "ProductType4";
+                InputProductType4.value = ProductInfo[i].ProductType4;
+                FormRef.appendChild(InputProductType4);
+
+                var InputProductType5 = document.createElement("input");
+                InputProductType5.type = "hidden";
+                InputProductType5.name = "ProductType5";
+                InputProductType5.value = ProductInfo[i].ProductType5;
+                FormRef.appendChild(InputProductType5);
+
+                var InputProductType6 = document.createElement("input");
+                InputProductType6.type = "hidden";
+                InputProductType6.name = "ProductType6";
+                InputProductType6.value = ProductInfo[i].ProductType6;
+                FormRef.appendChild(InputProductType6);
+
+                /* Image Input */
                 var InputProductImageToShow = document.createElement("input");
                 InputProductImageToShow.type = "image";
                 InputProductImageToShow.className = "ImageContainer";
@@ -108,6 +196,7 @@
 <html lang="pt-BR">
 <head>
     <title>Memories - Catálogo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
     <meta name="description" content="site description" />
     <meta name="keywords" content="put here keyoword to find easy by google" />
@@ -210,13 +299,13 @@
 
     </style>
     <div class="header">
-        <p class = "LetrasHeader"><a href="www.google.com.br">Meu carrinho</a></p>
+        <p class = "LetrasHeader"><a href="Carrinho.html">Meu carrinho</a></p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)">
     <div id="BaseDiv">
         <!-- Logo -->
-        <p style="text-align: center;"><img alt="memories logo" src="Logo.png" style="width: 300px;height: 300px;"></p>
+        <p style="text-align: center;"><img alt="memories logo" src="Images/Logo.png" style="width: 300px;height: 300px;"></p>
         <!-- Texto antes da linha -->
         <h2>Nossos produtos:</h2>
         <!-- Linha 01 catalogo -->
@@ -228,7 +317,7 @@
         <!-- Linha 02 catalogo -->
         <div id="Linha02Catalogo" class="LinhaCatalogo" style="margin-top:-10px">
             <script>
-                GenerateProducts(2, 4, 6);
+                GenerateProducts(2, 4, 7);
             </script>
         </div>
     </div>
