@@ -283,7 +283,8 @@
                         i++;
                     };
                 </script>
-                <form action="Carrinho.html">
+                <!-- Carrinho -->
+                <form id="FormCarrinho" action="">
                     <input id="ProductNameInput" type="hidden" name="ProductNameRef" value="">
                     <input id="ProductType1Input" type="hidden" name="ProductType1Ref" value="">
                     <input id="ProductType2Input" type="hidden" name="ProductType2Ref" value="">
@@ -293,6 +294,21 @@
                     <input type="image" src="Images/BotaoComprar.png" style="margin-top:-5px;">
                 </form>
                 <script>
+                    if(ProductNameFromURL == 'Box Memories' || ProductNameFromURL == 'Polaroid Branca')
+                    {
+                        document.getElementById("FormCarrinho").action= "Montar-Fotos.html";
+                        document.getElementById("ProductType1Input").value = "10 fotos";
+                    }
+                    else if(ProductNameFromURL == 'Tirinhas 3/4 Fotos')
+                    {
+                        document.getElementById("FormCarrinho").action= "Montar-Tirinhas.html";
+                        document.getElementById("ProductType1Input").value = "Tirinha 3 fotos";
+                    }
+                    else
+                        document.getElementById("FormCarrinho").action= "Carrinho.html";
+                </script>
+                <script>
+                    // Description
                     var ProductDescriptionRef = document.createElement("h5");
                     ProductDescriptionRef.innerHTML = ProductDescriptionFromURL;
                     ProductDescriptionRef.id = "ProductDescription";

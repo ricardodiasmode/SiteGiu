@@ -1,18 +1,13 @@
-Carrinho.html
-- Botão para finalizar pedido e ir para a página de compra(talvez colocar o botão de compra aqui mesmo)
-
-Catalogo.html
-- Criar botao para ir da pagina das fotos para a montagem(o tipo das fotos vai ser a quantidade, e o tipo da box vai ser quantidade e o recado)
-
 Montar-Fotos.html
-- melhorar design de onde ve as fotos criadas. Pode ser como na pagina do produto
+- Ao terminar, vai para o carrinho
+*legenda nao funcionando
 
 Montar-Tirinhas.html
-- criar pagina
+- Criar pagina.
 
-Finalizar-Compra.html
-- Página de compra com informações de endereço e botão do paypal
-- Mandar e-mail para giu após finalizar compra
+Carrinho.html
+- Botão de compra e locais para colocar endereço e informações adicionais.
+- Criar algoritmo em c++ que monta cada foto, pega todos os dados e envia por e-mail para giu, apos finalizar a compra.
 
 Geral:
 - Adaptar para android?

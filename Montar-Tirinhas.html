@@ -14,7 +14,6 @@
         {
             ColocarFoto(Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto);
             ResetPhoto();
-            UpdateCreatedPhotos();
         }
     }
 
@@ -242,17 +241,21 @@
         }
     }
 
-    function UpdateCreatedPhotos()
+    function OpenCreatedPhotosPage()
     {
+        // Deixando background mais escuro
+        document.getElementById("BaseDiv").style.backgroundColor = 'black';
+        document.getElementById("BaseDiv").style.opacity = '50%';
 
         // Pegando o div que segura as fotos
         const PhotoContent = document.getElementById('photos-content');
-
         // Limpando todos as fotos atuais
         while (PhotoContent.lastElementChild) 
         {
             PhotoContent.removeChild(PhotoContent.lastElementChild);
         }
+        // Deixando o modal visivel
+        document.getElementById("ModalCheckCreatedPhotos").style.display = "block";
 
         // Atribuindo as fotos para o modal
         var i;
@@ -263,6 +266,7 @@
         var LegendaText;
         for(i=1;i<ArrayPhoto.length;i++)
         {
+            console.log("id:" + i);
             // Criando span base
             NewPhotoAdded = document.createElement("span");
             NewPhotoAdded.style.display = "inline";
@@ -270,15 +274,13 @@
             // Criando imagem
             NewPhotoImage = document.createElement("img");
             NewPhotoImage.src = ArrayPhoto[i].ImagemFoto;
-            NewPhotoImage.style.paddingTop = 10;
+            NewPhotoImage.style.left = 38 + (i-1)*450;
             NewPhotoAdded.appendChild(NewPhotoImage);
 
             // Criando modelo
             NewPhotoModel = document.createElement("img");
             if(ArrayPhoto[i].ModeloFoto === 'm1')
             {
-                NewPhotoImage.style.left = 41 + (i-1)*150;
-                NewPhotoModel.style.left = 30 + (i-1)*150;
                 if(ArrayPhoto[i].TemMusica)
                 {
                     if(ArrayPhoto[i].MusicaVemDoYt)
@@ -294,8 +296,6 @@
             }
             else
             {
-                NewPhotoImage.style.left = 61 + (i-1)*150;
-                NewPhotoModel.style.left = 50 + (i-1)*150;
                 if(ArrayPhoto[i].TemMusica)
                 {
                     if(ArrayPhoto[i].MusicaVemDoYt)
@@ -309,15 +309,18 @@
                 NewPhotoImage.className = "ImagePhotoAddedM2";
                 NewPhotoModel.className = "PhotoAddedM2";
             }
+            console.log("modelo:" + ArrayPhoto[i].ModeloFoto);
             NewPhotoAdded.appendChild(NewPhotoModel);
 
             // Criando legenda
+            console.log("tem legenda:" + ArrayPhoto[i].TemLegenda);
             if(ArrayPhoto[i].TemLegenda)
             {
                 NewLegendaAdded = document.createElement("h1");
                 NewLegendaAdded.className = "LegendaPhotoAdded";
                 NewLegendaAdded.innerHTML = ArrayPhoto[i].LegendaFoto;
                 
+                console.log("legenda:" + ArrayPhoto[i].LegendaFoto);
                 NewLegendaAdded.style.display = "block";
                 var LegendaWidth = NewLegendaAdded.getBoundingClientRect().width;
                 if(ArrayPhoto[i].ModeloFoto === "m1")
@@ -332,6 +335,13 @@
             // Adicionando tudo ao modal
             PhotoContent.appendChild(NewPhotoAdded);
         }
+        
+        // Definindo a posicao para o meio da tela
+        var ModalRef = document.getElementById("ModalCheckCreatedPhotos");
+        var ModalWidth = ModalRef.getBoundingClientRect().width;
+        var ModalHeight = ModalRef.getBoundingClientRect().height;
+        ModalRef.style.left = (screen.width)/2 - ModalWidth/2;
+        ModalRef.style.top = (screen.height)/2 - 100;
     }
 
 </script>
@@ -367,32 +377,35 @@
         /* Photo Added */
         .PhotoAddedM1
         {
-            position: absolute;
-            width: 149px;
-            height: 169px;
+            position: relative;
+            width: 449px;
+            height: 507.5px;
         }
         .PhotoAddedM2
         {
-            position: absolute;
-            width: 110px;
-            height: 168px;
+            position: relative;
+            width: 449px;
+            height: 681.7px;
         }
 
         .ImagePhotoAddedM1
         {
             display: block;
             position: absolute;
-            width: 126px;
-            height: 126px;
-            
+            width: 372px;
+            height: 372px;
+            top: 55px;
+            left: 38px;
         }
 
         .ImagePhotoAddedM2
         {
             display: block;
             position: absolute;
-            width: 92px;
-            height: 123px;
+            width: 372px;
+            height: 503px;
+            top: 55px;
+            left: 38px;
         }
 
         .LegendaPhotoAdded
@@ -472,11 +485,9 @@
             
             <p><input onclick="AdicionarFoto()" type="button" name="AddPhotoButton" id="AddPhotoButton" value="Adicionar Foto"></p>
             
-            <!-- Preview das fotos feitas -->
-            <p><div id="photos-content" style="display:flex;height: 200px;">
-            </div></p>
+            <p><input onclick="OpenCreatedPhotosPage()" type="button" name="CheckCreatedPhotosButton" id="CheckCreatedPhotosButton" value="Ver Fotos Criadas"></p>
 
-            <!-- Preview da foto atual -->
+            <!-- Preview da foto -->
             <p>Como sua foto vai ficar: </p>
             <div class="base-image">
                 <img src="" id='basepreview' width="449" height="507.5" class="base-image"/>
@@ -484,7 +495,6 @@
                 <h1 id="previewlegenda" class="LegendaPhotoAdded">SuaLegenda</h1>
                 <script>SetupLegendaPreview();</script>
             </div>
-            <p>*resultado aproximado*</p>
             
             <!-- Definindo preview image -->
             <script>
@@ -523,5 +533,28 @@
             <input onclick="SetModelo('m2')" type="image" src="Images/Modelos/Modelo2Separado.png" alt="Modelo2Img" style="width:393.6px;height:597.6px;" id="m2" />
         </span>
     </div>
+        
+    <!-- Modal -->
+    <div class="modal" id="ModalCheckCreatedPhotos">
+        <div>
+            <input type="button" id="CloseModalButton" value="Fechar">
+        </div>
+        <div id="photos-content" style="display:flex">
+            <div class="photo-added">
+            </div>
+        </div>
+    </div>
+    <!-- Modal script -->
+    <script>        
+        // When the user clicks on <span> (x), close the modal
+        document.getElementById("CloseModalButton").onclick = function()
+        {
+            document.getElementById("ModalCheckCreatedPhotos").style.display = "none";
+        // Deixando background default
+        document.getElementById("BaseDiv").style.backgroundColor = 'transparent';
+        document.getElementById("BaseDiv").style.opacity = '100%';
+
+        }
+    </script>
 </body>
 </html>
