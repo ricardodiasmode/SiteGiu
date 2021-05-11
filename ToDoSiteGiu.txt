@@ -1,13 +1,14 @@
 Montar-Fotos.html
-- Ao terminar, vai para o carrinho
-*legenda nao funcionando
+//- Ao terminar, vai para o carrinho
+- Opção para remover foto criada
+- Melhorar design geral
 
 Montar-Tirinhas.html
 - Criar pagina.
 
 Carrinho.html
 - Botão de compra e locais para colocar endereço e informações adicionais.
-- Criar algoritmo em c++ que monta cada foto, pega todos os dados e envia por e-mail para giu, apos finalizar a compra.
+- Criar algoritmo em c++ que monta cada foto, pega todos os dados e envia por e-mail para giu, apos finalizar a compra.(as fotos estao na variavel PhotosInfo do Carrinho.html)
 
 Geral:
 - Adaptar para android?

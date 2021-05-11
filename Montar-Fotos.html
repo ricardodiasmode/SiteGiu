@@ -7,15 +7,16 @@
     var LinkMusicaEscolhida = "abc";
     var LegendaDaFoto = "abc";
     var ImagemDaFoto = "abc";
+    var ProductTypeFromURL = "abc";
+    var ProductType2FromURL = "abc";
+    var ProductNameFromURL = "abc";
 
-    function AdicionarFoto()
+    function processUser()
     {
-        if(ImagemDaFoto !== "abc")
-        {
-            ColocarFoto(Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto);
-            ResetPhoto();
-            UpdateCreatedPhotos();
-        }
+        var urlRef = new URL(window.location.href);
+        ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
+        ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
+        ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
     }
 
     // Creating array of photos
@@ -31,6 +32,32 @@
             ImagemFoto: "abc",
         },
     ];
+
+    function AdicionarFoto()
+    {
+        if(ImagemDaFoto !== "abc")
+        {
+            ColocarFoto(Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto);
+            ResetPhoto();
+            UpdateCreatedPhotos();
+            var URLToTravel = "Carrinho.html?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
+            var i = 0;
+            var NumberOfPhotos = 10;
+            if(ProductTypeFromURL == '10 fotos')
+                NumberOfPhotos = 10;
+            else if(ProductTypeFromURL == '20 fotos')
+                NumberOfPhotos = 20;
+            else
+                NumberOfPhotos = 30;
+            console.log("len:"+(ArrayPhoto.length-1));
+            console.log("NumberOfPhotos:"+NumberOfPhotos);
+            if((ArrayPhoto.length-1) == NumberOfPhotos)
+            {
+                localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));
+                window.location.href = URLToTravel;
+            }
+        }
+    }
 
     function ColocarFoto(ModeloFoto, TemMusica, MusicaVemDoYt, TemIma, TemLegenda, LinkMusica, LegendaFoto, ImagemFoto)
     {
@@ -488,6 +515,7 @@
             
             <!-- Definindo preview image -->
             <script>
+                processUser();
                 SetModeloResultado();
                 // Setup image preview
                 const PhotoFile = document.getElementById('PhotoToUpload');

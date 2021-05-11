@@ -3,6 +3,8 @@
     var ProductNameFromURL = "";
     var ProductType1 = "none";
     var ProductType2 = "none";
+    var PhotosInfo = "none";
+
     function processUser()
     {
         var urlRef = new URL(window.location.href);
@@ -109,6 +111,8 @@
             var i = 0;
             for (i = 0; i < localStorage.length; i++) {
                 key = localStorage.key(i); 
+                if(key == 'PhotosInfo')
+                    continue;
                 // key = localStorage.key(i) => Product name
                 var StorageValues = JSON.parse(localStorage.getItem(key) || '{}');
                 // StorageValues.Quantidade => Product amount
@@ -291,6 +295,8 @@
 
     <!-- Setting new product on cart -->
     <script>
+        if(localStorage.getItem('PhotosInfo') != null)
+            PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
         processUser();
         SaveItem();
     </script>
