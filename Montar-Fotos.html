@@ -49,8 +49,6 @@
                 NumberOfPhotos = 20;
             else
                 NumberOfPhotos = 30;
-            console.log("len:"+(ArrayPhoto.length-1));
-            console.log("NumberOfPhotos:"+NumberOfPhotos);
             if((ArrayPhoto.length-1) == NumberOfPhotos)
             {
                 localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));
@@ -269,6 +267,13 @@
         }
     }
 
+    // Remove photo function handle
+    invoke = (event) => {
+        let PhotoIDRef = event.target.getAttribute('name');
+        ArrayPhoto.splice(parseInt(PhotoIDRef[6]), 1);
+        document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
+    }
+
     function UpdateCreatedPhotos()
     {
 
@@ -288,10 +293,12 @@
         var NewPhotoModel;
         var NewLegendaAdded;
         var LegendaText;
+        var NewButtonDeletePhoto;
         for(i=1;i<ArrayPhoto.length;i++)
         {
             // Criando span base
             NewPhotoAdded = document.createElement("span");
+            NewPhotoAdded.id = "SpanID"+i;
             NewPhotoAdded.style.display = "inline";
 
             // Criando imagem
@@ -300,10 +307,22 @@
             NewPhotoImage.style.paddingTop = 10;
             NewPhotoAdded.appendChild(NewPhotoImage);
 
+            // Botao remover foto
+            NewButtonDeletePhoto = document.createElement('input');
+            NewButtonDeletePhoto.type = "button";
+            NewButtonDeletePhoto.name = NewPhotoAdded.id;
+            NewButtonDeletePhoto.value = "Remover foto";
+            NewButtonDeletePhoto.onclick = invoke;
+            NewButtonDeletePhoto.style.marginTop = 170;
+            NewButtonDeletePhoto.style.zIndex = 1;
+            NewPhotoAdded.appendChild(NewButtonDeletePhoto);
+
             // Criando modelo
             NewPhotoModel = document.createElement("img");
             if(ArrayPhoto[i].ModeloFoto === 'm1')
             {
+                NewButtonDeletePhoto.className = "ButtonRemovePhoto";
+                NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
                 NewPhotoImage.style.left = 41 + (i-1)*150;
                 NewPhotoModel.style.left = 30 + (i-1)*150;
                 if(ArrayPhoto[i].TemMusica)
@@ -321,6 +340,8 @@
             }
             else
             {
+                NewButtonDeletePhoto.className = "ButtonRemovePhoto";
+                NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
                 NewPhotoImage.style.left = 61 + (i-1)*150;
                 NewPhotoModel.style.left = 50 + (i-1)*150;
                 if(ArrayPhoto[i].TemMusica)
@@ -389,9 +410,15 @@
         }
     </style>
 
-    <!-- Modal style -->
+    <!-- Photo preview style -->
     <style>
         /* Photo Added */
+        .ButtonRemovePhoto
+        {
+            position: absolute;
+            width: 100px;
+            height: 25px;
+        }
         .PhotoAddedM1
         {
             position: absolute;

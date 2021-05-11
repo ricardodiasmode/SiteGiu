@@ -1,6 +1,5 @@
 Montar-Fotos.html
-//- Ao terminar, vai para o carrinho
-- Opção para remover foto criada
+//- Opção para remover foto criada
 - Melhorar design geral
 
 Montar-Tirinhas.html
