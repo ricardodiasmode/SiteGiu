@@ -211,7 +211,6 @@
         h4 {
             text-align: center;
             font-size: 18px;
-            margin-top: -10px;
             color: #FAACB7;
             font-weight: normal;
         }
@@ -246,6 +245,12 @@
             cursor:pointer;
         }
 
+        .InformacoesDiv
+        {
+            text-align: center;
+            padding-top: 20px;
+        }
+
         /* Table style */
         table {
         font-family: arial, sans-serif;
@@ -273,6 +278,7 @@
     <div id="BaseDiv">
         <!-- Logo -->
         <p style="text-align: center;"><img alt="memories logo" src="Images/Logo.png" style="width: 300px;height: 300px;"></p>
+        <!-- Carrinho -->
         <form name="ShoppingList">
             <fieldset>
                 <legend>Shopping cart</legend>
@@ -287,7 +293,34 @@
                 <table id="list"></table>
                 <p><input type="button" value="Remover Todos Os Produtos" onclick="ClearAll()"></p>
             </div>
-        </form>        
+        </form>   
+        <!-- Informações pessoais -->
+        <div class="InformacoesDiv">
+            <form action="mailto: ricardodiasmode@hotmail.com" method="post" enctype="multipart/form-data" name="EmailForm">
+                <h3>Informações pessoais</h3>
+                <label for="Nome">Seu nome e sobrenome:</label><br>
+                <input type="text" id="fname" name="Nome"><br><br>
+                <h4>Endereço para entrega</h4>
+                <label for="Estado">Estado:</label><br>
+                <input type="text" id="Estado" name="Estado"><br><br>
+                <label for="Cidade">Cidade:</label><br>
+                <input type="text" id="Cidade" name="Cidade"><br><br>
+                <label for="Bairro">Bairro:</label><br>
+                <input type="text" id="Bairro" name="Bairro"><br><br>
+                <label for="Rua">Rua:</label><br>
+                <input type="text" id="Rua" name="Rua"><br><br>
+                <label for="Número">Número:</label><br>
+                <input type="text" id="Número" name="Número"><br><br>
+                <label for="Complemento">Complemento:</label><br>
+                <input type="text" id="Complemento" name="Complemento"><br><br>
+                <label for="Referencia">Referência:</label><br>
+                <input type="text" id="Referencia" name="Referencia"><br><br>
+                <h4>Recado para nós</h4>
+                <label for="Recado">Qualquer coisa que queira nos dizer:</label><br>
+                <input type="text" id="Recado" name="Recado"><br><br>
+                <input type="submit" value="Completar pedido">
+              </form>
+        </div>
     </div>
     <div class="footer">
         <p>Footer</p>

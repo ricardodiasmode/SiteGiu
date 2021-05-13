@@ -1,6 +1,7 @@
 Carrinho.html
 - Botão de compra e locais para colocar endereço e informações adicionais.
-- Criar algoritmo em c++ que monta cada foto, pega todos os dados e envia por e-mail para giu, apos finalizar a compra.(as fotos estao na variavel PhotosInfo do Carrinho.html)
+- Adicionar algoritmo de montagem das fotos no site.
+- Pega todos os dados e envia por e-mail para giu, apos finalizar a compra.(as fotos estao na variavel PhotosInfo do Carrinho.html): https://docs.python.org/3/library/email.examples.html
 
 Montar-Fotos.html
 - Melhorar design geral
