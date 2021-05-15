@@ -3,6 +3,11 @@ try:
 except ImportError:
     import Image
 from PIL import ExifTags
+import sys
+
+# sys.argv[1] = modelo
+# sys.argv[2] = imagem 1
+# sys.argv[3] = imagem 2
 
 size = 735, 735
 
