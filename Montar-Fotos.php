@@ -1,11 +1,192 @@
 ﻿<script type="text/javascript" src="Montar-Fotos.js"></script>
 
+<script>    
+    var Modelo = 'm1';
+    var ComMusica = 0;
+    var MusicaDoYt = 0;
+    var ComIma = 0;
+    var ComLegenda = 0;
+    var LinkMusicaEscolhida = "none";
+    var LegendaDaFoto = "none";
+    var ImagemDaFoto = "none";    
+        
+    function CheckNumberOfPhotos(ArrayPhotoRef)
+    {
+        var NumberOfPhotos = 10;
+        if(ProductTypeFromURL == '10 fotos')
+            NumberOfPhotos = 10;
+        else if(ProductTypeFromURL == '20 fotos')
+            NumberOfPhotos = 20;
+        else
+            NumberOfPhotos = 30;
+        if((ArrayPhotoRef.length-1) == NumberOfPhotos-8)
+        {
+            // Criando url do carrinho
+            //var URLToTravel = "Carrinho.html?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
+            // Indo para o carrinho
+            //window.location.href = URLToTravel;
+        }
+    }
+
+    function AdicionarFoto(ArrayPhotoRef)
+    {
+        if(ImagemDaFoto !== "none")
+        {
+            // Adicionando foto no array
+            ArrayPhotoRef.push({Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto});
+            // Definindo a foto no localStorage
+            localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhotoRef));
+            // Verificando se alcançou o numero maximo de fotos
+            CheckNumberOfPhotos(ArrayPhotoRef);
+            GetDataFormValues();
+            document.getElementById('AdicionarFotoForm').submit();
+        }
+    }
+
+    // Variavel que segura as fotos ja criadas
+    if(localStorage.getItem('PhotosInfo') != null)
+        var PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
+    else
+        var PhotosInfo = ArrayPhoto;
+
+    // Remove photo from preview
+    invoke = (event) => {
+        let PhotoIDRef = event.target.getAttribute('name');
+        PhotosInfo.splice(parseInt(PhotoIDRef[6]), 1);
+        localStorage.setItem("PhotosInfo", JSON.stringify(PhotosInfo));
+        document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
+    }
+
+    // Gerando preview das fotos criadas
+    function UpdateCreatedPhotos(ArrayPhotoRef)
+    {
+        if(!ArrayPhotoRef)
+            return;
+        // Pegando o div que segura as fotos
+        const PhotoContent = document.getElementById('photos-content');
+
+        // Limpando todos as fotos atuais
+        while (PhotoContent.lastElementChild) 
+        {
+            PhotoContent.removeChild(PhotoContent.lastElementChild);
+        }
+
+        // Atribuindo as fotos ao div
+        var i;
+        var NewPhotoAdded;
+        var NewPhotoImage;
+        var NewPhotoModel;
+        var NewLegendaAdded;
+        var LegendaText;
+        var NewButtonDeletePhoto;
+        for(i=1;i<ArrayPhotoRef.length;i++)
+        {
+            // Criando span base
+            NewPhotoAdded = document.createElement("span");
+            NewPhotoAdded.id = "SpanID"+i;
+            NewPhotoAdded.style.display = "inline";
+
+            // Criando imagem
+            NewPhotoImage = document.createElement("img");
+            NewPhotoImage.src = ArrayPhotoRef[i].ImagemDaFoto;
+            NewPhotoImage.style.paddingTop = 10;
+            NewPhotoAdded.appendChild(NewPhotoImage);
+
+            // Botao remover foto
+            NewButtonDeletePhoto = document.createElement('input');
+            NewButtonDeletePhoto.type = "button";
+            NewButtonDeletePhoto.name = NewPhotoAdded.id;
+            NewButtonDeletePhoto.value = "Remover foto";
+            NewButtonDeletePhoto.onclick = invoke;
+            NewButtonDeletePhoto.style.marginTop = 170;
+            NewButtonDeletePhoto.style.zIndex = 1;
+            NewPhotoAdded.appendChild(NewButtonDeletePhoto);
+
+            // Criando modelo
+            NewPhotoModel = document.createElement("img");
+            if(ArrayPhotoRef[i].Modelo === 'm1')
+            {
+                NewButtonDeletePhoto.className = "ButtonRemovePhoto";
+                NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
+                NewPhotoImage.style.left = 41 + (i-1)*150;
+                NewPhotoModel.style.left = 30 + (i-1)*150;
+                if(ArrayPhotoRef[i].ComMusica)
+                {
+                    if(ArrayPhotoRef[i].MusicaDoYt)
+                        NewPhotoModel.src = "Images/Modelos/Modelo1yt.png";
+                    else
+                        NewPhotoModel.src = "Images/Modelos/Modelo1spotfy.png";
+                }
+                else
+                    NewPhotoModel.src = "Images/Modelos/Modelo1Separado.png";
+                    
+                NewPhotoImage.className = "ImagePhotoAddedM1";
+                NewPhotoModel.className = "PhotoAddedM1";
+            }
+            else
+            {
+                NewButtonDeletePhoto.className = "ButtonRemovePhoto";
+                NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
+                NewPhotoImage.style.left = 61 + (i-1)*150;
+                NewPhotoModel.style.left = 50 + (i-1)*150;
+                if(ArrayPhotoRef[i].ComMusica)
+                {
+                    if(ArrayPhotoRef[i].MusicaDoYt)
+                        NewPhotoModel.src = "Images/Modelos/Modelo2yt.png";
+                    else
+                        NewPhotoModel.src = "Images/Modelos/Modelo2spotfy.png";
+                }
+                else
+                    NewPhotoModel.src = "Images/Modelos/Modelo2Separado.png";
+                    
+                NewPhotoImage.className = "ImagePhotoAddedM2";
+                NewPhotoModel.className = "PhotoAddedM2";
+            }
+            NewPhotoAdded.appendChild(NewPhotoModel);
+
+            // Criando legenda
+            if(ArrayPhotoRef[i].ComLegenda)
+            {
+                NewLegendaAdded = document.createElement("h1");
+                NewLegendaAdded.style.fontSize = 15;
+                NewLegendaAdded.className = "LegendaPhotoAddedPreview";
+                NewLegendaAdded.innerHTML = ArrayPhotoRef[i].LegendaDaFoto;
+                NewLegendaAdded.zIndex = 3;
+                if(ArrayPhotoRef[i].Modelo === "m1")
+                {
+                    NewLegendaAdded.style.left = 80 + (i-1)*150;
+                    NewLegendaAdded.style.marginTop = "140px";
+                }
+                else
+                {
+                    NewLegendaAdded.style.left = 85 + (i-1)*150;
+                    NewLegendaAdded.style.marginTop = "135px";
+                }
+
+                NewPhotoAdded.appendChild(NewLegendaAdded);
+            }
+            // Adicionando tudo ao div
+            PhotoContent.appendChild(NewPhotoAdded);
+        }
+    }
+
+</script>
+
 <?php
 // TODO: Precaucoes: https://www.php.net/manual/en/function.move-uploaded-file.php
     if (isset($_POST['ModeloPassed']))
     {
-        $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$_POST['ComMusicaPassed']."_".$_POST['MusicaYtPassed']."_".$_POST['ComLegendaPassed']."_".$_POST['LinkMusicaPassed']."_"."Legenda="."_".$_POST['LegendaPassed'].".png"; // file name
-        if( move_uploaded_file($_FILES["PhotoToUpload"]["tmp_name"], "..\\SiteGiu\\uploads\\".$NomeCliente) ) {
+        // Pegando IdUnico
+        $IdFile = fopen("UniqueID.txt", "r+") or die("Unable to open file!");
+        $IdUnico = ((int)fgets($IdFile))+1;
+        fclose($IdFile);
+        // Update no arquivo
+        $IdFile = fopen("UniqueID.txt", "w") or die("Unable to open file!");
+        fwrite($IdFile, $IdUnico);
+        fclose($IdFile);
+
+        $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$_POST['ComMusicaPassed']."_".$_POST['MusicaYtPassed']."_".$_POST['ComLegendaPassed']."_".$_POST['LinkMusicaPassed']."_"."Legenda="."_".$_POST['LegendaPassed']."_".$IdUnico.".png"; // file name
+        if( move_uploaded_file($_FILES["PhotoToUpload"]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
             echo 'File uploaded';
         } else {
             echo 'Something went wrong uploading file';
@@ -66,7 +247,7 @@
         .PhotoAddedM1
         {
             position: absolute;
-            width: 149px;
+            width: 150px;
             height: 169px;
         }
         .PhotoAddedM2
@@ -97,6 +278,12 @@
         {
             position: absolute;
             display: none;
+        }
+
+        .LegendaPhotoAddedPreview
+        {
+            display: block;
+            position: absolute;
         }
 
         /* Modal */
@@ -184,17 +371,24 @@
                     document.getElementById("NomeClienteParagrafo").appendChild(ClientNameTB);
                 </script>
                 <p>Escolha sua foto: <input type="file" value="Escolha sua foto" name="PhotoToUpload" id="PhotoToUpload"></p>
-                <input type="hidden" name="ModeloPassed" id="ModeloPassed" value="">
-                <input type="hidden" name="ComMusicaPassed" id="ComMusicaPassed" value="">
-                <input type="hidden" name="MusicaYtPassed" id="MusicaYtPassed" value="">
-                <input type="hidden" name="ComLegendaPassed" id="ComLegendaPassed" value="">
-                <input type="hidden" name="LinkMusicaPassed" id="LinkMusicaPassed" value="">
-                <input type="hidden" name="LegendaPassed" id="LegendaPassed" value="">
-                <p><input onclick="GetDataFormValues();AdicionarFoto();" style="display:none" type="submit" name="AddPhotoButton" id="AddPhotoButton" value="Adicionar Foto"></p>
+                <input type="hidden" name="ModeloPassed" id="ModeloPassed" value="none">
+                <input type="hidden" name="ComMusicaPassed" id="ComMusicaPassed" value="none">
+                <input type="hidden" name="MusicaYtPassed" id="MusicaYtPassed" value="none">
+                <input type="hidden" name="ComLegendaPassed" id="ComLegendaPassed" value="none">
+                <input type="hidden" name="LinkMusicaPassed" id="LinkMusicaPassed" value="none">
+                <input type="hidden" name="LegendaPassed" id="LegendaPassed" value="none">
+                <p><input onclick="AdicionarFoto(PhotosInfo);" style="display:none" type="button" name="AddPhotoButton" id="AddPhotoButton" value="Adicionar Foto"></p>
             </form>
             
             <!-- Preview das fotos feitas -->
             <p><div id="photos-content" style="display:flex;height: 200px;">
+            <script>
+                // Check se ha foto para ser adicionada ao preview
+                if(localStorage.getItem('PhotosInfo') != null)
+                {
+                    UpdateCreatedPhotos(PhotosInfo);
+                }
+            </script>
             </div></p>
 
             <!-- Preview da foto atual -->

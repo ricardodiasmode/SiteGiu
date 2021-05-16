@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bdf2b43b-3808-4067-a4a8-db7f1735d7f9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/JoinImages.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JoinImages.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModeloQuadrado.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModeloQuadrado.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem1Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem2Ref.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem3Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem4Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem5Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem6Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem7Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/Imagem8Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestImages/ModeloRef.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Montar-Fotos.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Montar-Fotos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Montar-Fotos.php" beforeDir="false" afterPath="$PROJECT_DIR$/../Montar-Fotos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToDoSiteGiu.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../ToDoSiteGiu.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uploads/hgdfhd_m1_0_0_0_abc_Legenda=_SuaLegenda.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1scwrrbPIfWM5OzZngkVmoN9SrK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="ModeloQuadrado" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="JoinImages" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ModeloQuadrado.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.ModeloQuadrado" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bdf2b43b-3808-4067-a4a8-db7f1735d7f9" name="Default Changelist" comment="" />
+      <created>1621185388973</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621185388973</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

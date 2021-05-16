@@ -1,22 +1,6 @@
-var Modelo = 'm1';
-var ComMusica = 0;
-var MusicaDoYt = 0;
-var ComIma = 0;
-var ComLegenda = 0;
-var LinkMusicaEscolhida = "abc";
-var LegendaDaFoto = "abc";
-var ImagemDaFoto = "abc";
-var ProductTypeFromURL = "abc";
-var ProductType2FromURL = "abc";
-var ProductNameFromURL = "abc";
-
-function processUser()
-{
-    var urlRef = new URL(window.location.href);
-    ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
-    ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
-    ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
-}
+var ProductTypeFromURL = "none";
+var ProductType2FromURL = "none";
+var ProductNameFromURL = "none";
 
 // Creating array of photos
 let ArrayPhoto = [
@@ -26,50 +10,28 @@ let ArrayPhoto = [
         MusicaVemDoYt: 0,
         TemIma: 0,
         TemLegenda: 0,
-        LinkMusica: "abc",
-        LegendaFoto: "abc",
-        ImagemFoto: "abc",
+        LinkMusica: "none",
+        LegendaFoto: "none",
+        ImagemFoto: "none",
     },
 ];
 
-function AdicionarFoto()
+function processUser()
 {
-    if(ImagemDaFoto !== "abc")
-    {
-        ColocarFoto(Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto);
-        ResetPhoto();
-        UpdateCreatedPhotos();
-        var URLToTravel = "Carrinho.html?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
-        var i = 0;
-        var NumberOfPhotos = 10;
-        if(ProductTypeFromURL == '10 fotos')
-            NumberOfPhotos = 10;
-        else if(ProductTypeFromURL == '20 fotos')
-            NumberOfPhotos = 20;
-        else
-            NumberOfPhotos = 30;
-
-        if((ArrayPhoto.length-1) == NumberOfPhotos-8)
-        {
-            localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));
-            //window.location.href = URLToTravel;
-        }
-    }
+    var urlRef = new URL(window.location.href);
+    ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
+    ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
+    ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
 }
-
-function ColocarFoto(ModeloFoto, TemMusica, MusicaVemDoYt, TemIma, TemLegenda, LinkMusica, LegendaFoto, ImagemFoto)
-{
-    ArrayPhoto.push({ModeloFoto, TemMusica, MusicaVemDoYt, TemIma, TemLegenda, LinkMusica, LegendaFoto, ImagemFoto});
-}
-
+/*
 function ResetPhoto()
 {
     ComMusica = 0;
     MusicaDoYt = 0;
     ComLegenda = 0;
     ComImage = 0;
-    LinkMusicaEscolhida = "abc";
-    LegendaDaFoto = "abc";
+    LinkMusicaEscolhida = "none";
+    LegendaDaFoto = "none";
     document.getElementById('musicacb').checked = false;
     document.getElementById('legendacb').checked = false;
     document.getElementById('imacb').checked = false;
@@ -77,8 +39,8 @@ function ResetPhoto()
     ToggleCheckBox('legendacb');
     SetModelo('m1');
     document.getElementById('previewimage').style.display = "none";
-    SetPreviewImage("abc");
-}
+    SetPreviewImage("none");
+}*/
 
 function ToggleHideElement(id) {
 var Elem = document.getElementById(id);
@@ -264,120 +226,5 @@ function ChangeTextBox(id)
     {
         document.getElementById('previewlegenda').innerHTML = document.getElementById(id).value;
         SetupLegendaPreview();
-    }
-}
-
-// Remove photo function handle
-invoke = (event) => {
-    let PhotoIDRef = event.target.getAttribute('name');
-    ArrayPhoto.splice(parseInt(PhotoIDRef[6]), 1);
-    document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
-}
-
-function UpdateCreatedPhotos()
-{
-
-    // Pegando o div que segura as fotos
-    const PhotoContent = document.getElementById('photos-content');
-
-    // Limpando todos as fotos atuais
-    while (PhotoContent.lastElementChild) 
-    {
-        PhotoContent.removeChild(PhotoContent.lastElementChild);
-    }
-
-    // Atribuindo as fotos para o modal
-    var i;
-    var NewPhotoAdded;
-    var NewPhotoImage;
-    var NewPhotoModel;
-    var NewLegendaAdded;
-    var LegendaText;
-    var NewButtonDeletePhoto;
-    for(i=1;i<ArrayPhoto.length;i++)
-    {
-        // Criando span base
-        NewPhotoAdded = document.createElement("span");
-        NewPhotoAdded.id = "SpanID"+i;
-        NewPhotoAdded.style.display = "inline";
-
-        // Criando imagem
-        NewPhotoImage = document.createElement("img");
-        NewPhotoImage.src = ArrayPhoto[i].ImagemFoto;
-        NewPhotoImage.style.paddingTop = 10;
-        NewPhotoAdded.appendChild(NewPhotoImage);
-
-        // Botao remover foto
-        NewButtonDeletePhoto = document.createElement('input');
-        NewButtonDeletePhoto.type = "button";
-        NewButtonDeletePhoto.name = NewPhotoAdded.id;
-        NewButtonDeletePhoto.value = "Remover foto";
-        NewButtonDeletePhoto.onclick = invoke;
-        NewButtonDeletePhoto.style.marginTop = 170;
-        NewButtonDeletePhoto.style.zIndex = 1;
-        NewPhotoAdded.appendChild(NewButtonDeletePhoto);
-
-        // Criando modelo
-        NewPhotoModel = document.createElement("img");
-        if(ArrayPhoto[i].ModeloFoto === 'm1')
-        {
-            NewButtonDeletePhoto.className = "ButtonRemovePhoto";
-            NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
-            NewPhotoImage.style.left = 41 + (i-1)*150;
-            NewPhotoModel.style.left = 30 + (i-1)*150;
-            if(ArrayPhoto[i].TemMusica)
-            {
-                if(ArrayPhoto[i].MusicaVemDoYt)
-                    NewPhotoModel.src = "Images/Modelos/Modelo1yt.png";
-                else
-                    NewPhotoModel.src = "Images/Modelos/Modelo1spotfy.png";
-            }
-            else
-                NewPhotoModel.src = "Images/Modelos/Modelo1Separado.png";
-                
-            NewPhotoImage.className = "ImagePhotoAddedM1";
-            NewPhotoModel.className = "PhotoAddedM1";
-        }
-        else
-        {
-            NewButtonDeletePhoto.className = "ButtonRemovePhoto";
-            NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
-            NewPhotoImage.style.left = 61 + (i-1)*150;
-            NewPhotoModel.style.left = 50 + (i-1)*150;
-            if(ArrayPhoto[i].TemMusica)
-            {
-                if(ArrayPhoto[i].MusicaVemDoYt)
-                    NewPhotoModel.src = "Images/Modelos/Modelo2yt.png";
-                else
-                    NewPhotoModel.src = "Images/Modelos/Modelo2spotfy.png";
-            }
-            else
-                NewPhotoModel.src = "Images/Modelos/Modelo2Separado.png";
-                
-            NewPhotoImage.className = "ImagePhotoAddedM2";
-            NewPhotoModel.className = "PhotoAddedM2";
-        }
-        NewPhotoAdded.appendChild(NewPhotoModel);
-
-        // Criando legenda
-        if(ArrayPhoto[i].TemLegenda)
-        {
-            NewLegendaAdded = document.createElement("h1");
-            NewLegendaAdded.className = "LegendaPhotoAdded";
-            NewLegendaAdded.innerHTML = ArrayPhoto[i].LegendaFoto;
-            
-            NewLegendaAdded.style.display = "block";
-            var LegendaWidth = NewLegendaAdded.getBoundingClientRect().width;
-            if(ArrayPhoto[i].ModeloFoto === "m1")
-                NewLegendaAdded.style.top = "430px";
-            else
-                NewLegendaAdded.style.bottom = "50px";
-            NewLegendaAdded.style.left = 372/2 - LegendaWidth/4 + (i-1)*450;
-
-            NewPhotoAdded.appendChild(NewLegendaAdded);
-        }
-
-        // Adicionando tudo ao modal
-        PhotoContent.appendChild(NewPhotoAdded);
     }
 }

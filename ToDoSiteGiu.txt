@@ -2,24 +2,32 @@ Carrinho.html
 - Adicionar algoritmo de montagem das fotos no site:
 //1. Salvar a imagem numa pasta do servidor.
 //2. Renomear a imagem com os dados da foto.
-3. Mostrar fotos criadas após adicionar.
-4. Após montar todas as fotos chamar o algoritmo em PY para montar as fotos(com o nome do cliente como chave).
-*Perguntar na Montar-Fotos.php o nome do cliente, e salvar no LocalStorage(NAO PODER ENVIAR IMAGEM ENQUANTO NÃO DIGITAR O NOME).
-*Acrescentar no algoritmo: Passar o nome do cliente para o algoritmo como parametro para a montagem das fotos. Com o nome, pega imagem que o nome é: {NomeDoCliente}_{Modelo}{ComMusica}{ComLegenda}{LinkMusica}{Legenda=}
-- Depois que a pessoa montar as fotos, vai para a página do carrinho e aparece a mensagem na página: Parabéns {NomeDoCliente}! Suas fotos montadas foram enviadas para nós, agora basta preencher o formulário abaixo e finalizar a compra:
-- Depois de finalizar a compra, pega todos os dados e roda um programa que busca as fotos no servidor, tendo como chave o nome do cliente que está no LocalStorage, e envia por e-mail para giu junto com todos os dados pessoais, e depois deleta as fotos: https://docs.python.org/3/library/email.examples.html
+//3. Mostrar fotos criadas após adicionar.
+4. Após montar todas as fotos chamar o algoritmo em PY para montar as fotos.
+*refazer ModeloQuadrado.py para funcionar para modelo quadrado e modelo retangular
+5. Vai para a página do carrinho e aparece a mensagem na página: "Parabéns {NomeDoCliente}! Suas fotos montadas foram enviadas para nós, agora basta preencher o formulário abaixo e finalizar a compra:".
+6. Depois de finalizar a compra(um botão escrito Finalizar Compra, disponivel depois de preencher tudo):
+*tudo no mesmo programa
+6.1. Pega todos os dados e roda um programa que busca as fotos na pasta do servidor, tendo como chave o nome do cliente.
+6.2. Envia essas fotos por e-mail para giu junto com todos os dados pessoais: https://docs.python.org/3/library/email.examples.html
+6.3. Deleta as fotos do cliente da pasta.
+
+Montar-Tirinhas.html
+- Criar pagina.
+
+Bugs:
+- Ao criar 4 fotos, remover o 1 e 2, o 1 passa a ser a imagem de um dos que removeu.
+
+
+---------------------------------------- Para Depois ----------------------------------------
+
+- Adaptar para android?
+- Adicionar possibilidade de poder fazer mais um pedido de foto por vez (linha 54: localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));)
+
+Carrinho.html
+- Botão de compra: https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/introduction
 
 Montar-Fotos.html
 - Deixar claro qual resolução é ideal que seja a foto
 - Melhorar design geral
 *colocar preview no lugar da logo da memories
-- legenda bugada?
-
-Montar-Tirinhas.html
-- Criar pagina.
-
-Geral:
-- Adaptar para android?
-- Referencias: http://www.maropapelaria.com.br/
-- Botão de compra: https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/introduction
-- Adicionar possibilidade de poder fazer mais um pedido de foto por vez (linha 54: localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));)
