@@ -2,12 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdf2b43b-3808-4067-a4a8-db7f1735d7f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ModelosQuadradoRetangular.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModeloQuadrado.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModelosQuadradoRetangular.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModelosQuadradoRetangular.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Feliz_Imagem8Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Joao_12715810_1025184764208783_5787820707160259822_n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Joao_1Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Joao_Imagem2Ref.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Joao_Imagem3Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ModeloRef.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Ronaldo_Imagem4Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Ronaldo_Imagem6Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Ronaldo_Imagem7Ref.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Ronaldo_dfasfdas.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Montar-Fotos.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Montar-Fotos.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Montar-Fotos.php" beforeDir="false" afterPath="$PROJECT_DIR$/../Montar-Fotos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ProductPage.php" beforeDir="false" afterPath="$PROJECT_DIR$/../ProductPage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ToDoSiteGiu.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../ToDoSiteGiu.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UniqueID.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../UniqueID.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -3,21 +3,23 @@ Carrinho.html
 //1. Salvar a imagem numa pasta do servidor.
 //2. Renomear a imagem com os dados da foto.
 //3. Mostrar fotos criadas após adicionar.
-4. Após montar todas as fotos chamar o algoritmo em PY para montar as fotos.
-5. Vai para a página do carrinho e aparece a mensagem na página: "Parabéns {NomeDoCliente}! Suas fotos montadas foram enviadas para nós, agora basta preencher o formulário abaixo e finalizar a compra:".
-6. Depois de finalizar a compra(um botão escrito Finalizar Compra, disponivel depois de preencher tudo):
-*tudo no mesmo programa
-6.1. Pega todos os dados e roda um programa que busca as fotos na pasta do servidor, tendo como chave o nome do cliente.
-6.2. Envia essas fotos por e-mail para giu junto com todos os dados pessoais: https://docs.python.org/3/library/email.examples.html
-6.3. Deleta as fotos do cliente da pasta.
+4. Vai para a página do carrinho e aparece a mensagem na página: "Parabéns {NomeDoCliente}! Suas fotos montadas foram enviadas para nós, agora basta preencher o formulário abaixo e finalizar a compra:".
+5. Depois de finalizar a compra(um botão escrito Finalizar Compra, disponivel depois de preencher tudo):
+//5.1. Enviar e-mail para giu com todos os dados e fotos.
+5.2. Deleta da pasta as fotos enviadas.
+
+Montar-Fotos.html
+- Em vez de mostrar todas as fotos criadas, mostrar só a ultima
+- No AdicionarFoto(), adicionar apenas a foto criada no LocalStorage.setItem
 
 Montar-Tirinhas.html
 - Criar pagina.
 
+- Arrumar programa para abrir um cmd onde a giu vai escrever o nome do cliente e montar a foto para ela
+
 Bugs:
+- TB do nome deve sumir apos adicionar primeira foto
 - Ao criar 4 fotos, remover o 1 e 2, o 1 passa a ser a imagem de um dos que removeu.
-
-
 ---------------------------------------- Para Depois ----------------------------------------
 
 - Poder pedir número customizado de fotos(garantir que sempre seja par)

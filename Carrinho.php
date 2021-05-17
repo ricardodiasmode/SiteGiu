@@ -82,7 +82,6 @@
     }
 
     // Dynamically populate the table with shopping list items.
-    //Step below can be done via PHP and AJAX, too.
     function doShowAll() {
         if (CheckBrowser()) {
             // Criando a lista
@@ -111,7 +110,7 @@
             var i = 0;
             for (i = 0; i < localStorage.length; i++) {
                 key = localStorage.key(i); 
-                if(key == 'PhotosInfo')
+                if(key == 'PhotosInfo' || key == 'ClientName')
                     continue;
                 // key = localStorage.key(i) => Product name
                 var StorageValues = JSON.parse(localStorage.getItem(key) || '{}');
@@ -157,7 +156,11 @@
         }
     }
 
-
+    function CompletarPedido()
+    {
+        document.getElementById('Nome').value = localStorage.getItem('ClientName');
+        document.getElementById('EmailForm').submit();
+    }
 
 
 
@@ -271,7 +274,7 @@
 
     </style>
     <div class="header">
-        <p class = "LetrasHeader"><a href="Carrinho.html">Meu carrinho</a></p>
+        <p class = "LetrasHeader"><a href="Carrinho.php">Meu carrinho</a></p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)" onload="doShowAll()">
@@ -280,14 +283,6 @@
         <p style="text-align: center;"><img alt="memories logo" src="Images/Logo.png" style="width: 300px;height: 300px;"></p>
         <!-- Carrinho -->
         <form name="ShoppingList">
-            <fieldset>
-                <legend>Shopping cart</legend>
-                <label>Item: <input type="text" name="name"></label>
-                <label>Quantity: <input type="text" name="data"></label>
-        
-                <input type="button" value="Update" onclick="ModifyItem()">
-                <input type="button" value="Delete" onclick="RemoveItem()">
-            </fieldset>
             <div id="items_table" style="text-align: center;">
                 <h2>Meus Produtos</h2>
                 <table id="list"></table>
@@ -296,10 +291,12 @@
         </form>   
         <!-- Informações pessoais -->
         <div class="InformacoesDiv">
-            <form action="mailto: ricardodiasmode@hotmail.com" method="post" enctype="multipart/form-data" name="EmailForm">
+            <form action="SendMail.php" method="post" enctype="multipart/form-data" id="EmailForm">
                 <h3>Informações pessoais</h3>
                 <label for="Nome">Seu nome e sobrenome:</label><br>
-                <input type="text" id="fname" name="Nome"><br><br>
+                <input type="text" id="Nome" name="Nome"><br><br>
+                <label for="Nome">E-mail ou numero de telefone para contato:</label><br>
+                <input type="text" id="Contato" name="Contato"><br><br>
                 <h4>Endereço para entrega</h4>
                 <label for="Estado">Estado:</label><br>
                 <input type="text" id="Estado" name="Estado"><br><br>
@@ -310,7 +307,7 @@
                 <label for="Rua">Rua:</label><br>
                 <input type="text" id="Rua" name="Rua"><br><br>
                 <label for="Número">Número:</label><br>
-                <input type="text" id="Número" name="Número"><br><br>
+                <input type="text" id="Numero" name="Numero"><br><br>
                 <label for="Complemento">Complemento:</label><br>
                 <input type="text" id="Complemento" name="Complemento"><br><br>
                 <label for="Referencia">Referência:</label><br>
@@ -318,7 +315,7 @@
                 <h4>Recado para nós</h4>
                 <label for="Recado">Qualquer coisa que queira nos dizer:</label><br>
                 <input type="text" id="Recado" name="Recado"><br><br>
-                <input type="submit" value="Completar pedido">
+                <input type="button" onclick="CompletarPedido()" value="Completar pedido">
               </form>
         </div>
     </div>

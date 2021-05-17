@@ -8,20 +8,18 @@
     var ComLegenda = 0;
     var LinkMusicaEscolhida = "none";
     var LegendaDaFoto = "none";
-    var ImagemDaFoto = "none";    
-        
+    var ImagemDaFoto = "none"; 
+    var ProductNameFromURL = "none";   
+    var ProductTypeFromURL = "none";
+    var ProductType2FromURL = "none";
 
-    function RunJoinImagesProgram()
+    function processUser()
     {
-        ClientNameParam = document.getElementById('ClientNamePassed').value;
-        $.ajax({
-        type: "POST",
-        url: "JoinImages/ModelosQuadradoRetangular.py",
-        data: { param: ClientNameParam },
-        success: callbackFunc
-        });
-    }
-    
+        var urlRef = new URL(window.location.href);
+        ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
+        ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
+        ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
+    }    
 
     function CheckNumberOfPhotos(ArrayPhotoRef)
     {
@@ -32,13 +30,17 @@
             NumberOfPhotos = 20;
         else
             NumberOfPhotos = 30;
-        if((ArrayPhotoRef.length-1) == NumberOfPhotos-8)
+        if((ArrayPhotoRef.length-1) >= NumberOfPhotos-8)
         {
-            RunJoinImagesProgram();
             // Criando url do carrinho
-            //var URLToTravel = "Carrinho.html?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
+            var URLToTravel = "Carrinho.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
             // Indo para o carrinho
-            //window.location.href = URLToTravel;
+            window.location.href = URLToTravel;
+        }
+        else
+        {
+            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
+            document.getElementById('AdicionarFotoForm').submit();
         }
     }
 
@@ -50,10 +52,9 @@
             ArrayPhotoRef.push({Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto});
             // Definindo a foto no localStorage
             localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhotoRef));
+            GetDataFormValues();
             // Verificando se alcançou o numero maximo de fotos
             CheckNumberOfPhotos(ArrayPhotoRef);
-            GetDataFormValues();
-            document.getElementById('AdicionarFotoForm').submit();
         }
     }
 
@@ -183,11 +184,11 @@
             PhotoContent.appendChild(NewPhotoAdded);
         }
     }
-
 </script>
 
 <?php
 // TODO: Precaucoes: https://www.php.net/manual/en/function.move-uploaded-file.php
+
     if (isset($_POST['ModeloPassed']))
     {
         // Pegando IdUnico
@@ -207,8 +208,10 @@
         // Criando .txt com id e link da musica
         if (isset($_POST['LinkMusicaPassed']))
         {
-            $LinkMusicasFile = fopen("\\SiteGiu\\JoinImages\\uploads\\LinkMusicas.txt", "a");
-            $LinkMusicasFile = "\n".$IdUnico.":".$_POST['LinkMusicaPassed'];
+            $pathToLinkMusicas = "D:\\xampp\\htdocs\\SiteGiu\\JoinImages\\uploads\\LinkMusicas.txt";
+            $LinkMusicasFile = fopen($pathToLinkMusicas, "a");
+            $txt = $IdUnico.":".$_POST['LinkMusicaPassed']."\n";
+            fwrite($LinkMusicasFile, $txt);
             fclose($LinkMusicasFile);
         }
     }

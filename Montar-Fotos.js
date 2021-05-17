@@ -1,7 +1,3 @@
-var ProductTypeFromURL = "none";
-var ProductType2FromURL = "none";
-var ProductNameFromURL = "none";
-
 // Creating array of photos
 let ArrayPhoto = [
     {
@@ -15,14 +11,6 @@ let ArrayPhoto = [
         ImagemFoto: "none",
     },
 ];
-
-function processUser()
-{
-    var urlRef = new URL(window.location.href);
-    ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
-    ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
-    ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
-}
 
 function ToggleHideElement(id) {
 var Elem = document.getElementById(id);

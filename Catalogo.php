@@ -299,7 +299,7 @@
 
     </style>
     <div class="header">
-        <p class = "LetrasHeader"><a href="Carrinho.html">Meu carrinho</a></p>
+        <p class = "LetrasHeader"><a href="Carrinho.php">Meu carrinho</a></p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)">

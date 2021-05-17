@@ -236,7 +236,7 @@
     <meta name="description" content="site description" />
     <meta name="keywords" content="put here keyoword to find easy by google" />
     <div class="header">
-        <p class = "LetrasHeader"><a href="Carrinho.html">Meu carrinho</a></p>
+        <p class = "LetrasHeader"><a href="Carrinho.php">Meu carrinho</a></p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)">
@@ -320,7 +320,7 @@
                     }
                     else if(ProductNameFromURL == 'Tirinhas 3/4 Fotos')
                     {
-                        document.getElementById("FormCarrinho").action= "Montar-Tirinhas.html";
+                        document.getElementById("FormCarrinho").action= "Montar-Tirinhas.php";
                         document.getElementById("ProductType1Input").value = "Tirinha 3 fotos";
                     }
                     else

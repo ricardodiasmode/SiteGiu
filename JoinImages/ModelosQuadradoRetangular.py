@@ -6,6 +6,8 @@ import os
 import requests
 import qrcode
 
+f = open("guru99.txt", "w+")
+
 
 def GetMusicLinkById(UniqueId, ArrayOfLinks):
     for index in range(ArrayOfLinks):
