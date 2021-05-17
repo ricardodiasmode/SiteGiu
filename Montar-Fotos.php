@@ -10,6 +10,19 @@
     var LegendaDaFoto = "none";
     var ImagemDaFoto = "none";    
         
+
+    function RunJoinImagesProgram()
+    {
+        ClientNameParam = document.getElementById('ClientNamePassed').value;
+        $.ajax({
+        type: "POST",
+        url: "JoinImages/ModelosQuadradoRetangular.py",
+        data: { param: ClientNameParam },
+        success: callbackFunc
+        });
+    }
+    
+
     function CheckNumberOfPhotos(ArrayPhotoRef)
     {
         var NumberOfPhotos = 10;
@@ -21,6 +34,7 @@
             NumberOfPhotos = 30;
         if((ArrayPhotoRef.length-1) == NumberOfPhotos-8)
         {
+            RunJoinImagesProgram();
             // Criando url do carrinho
             //var URLToTravel = "Carrinho.html?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
             // Indo para o carrinho
@@ -184,12 +198,18 @@
         $IdFile = fopen("UniqueID.txt", "w") or die("Unable to open file!");
         fwrite($IdFile, $IdUnico);
         fclose($IdFile);
-
-        $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$_POST['ComMusicaPassed']."_".$_POST['MusicaYtPassed']."_".$_POST['ComLegendaPassed']."_".$_POST['LinkMusicaPassed']."_"."Legenda="."_".$_POST['LegendaPassed']."_".$IdUnico.".png"; // file name
+        $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$_POST['ComMusicaPassed']."_".$_POST['MusicaYtPassed']."_".$_POST['ComLegendaPassed']."_"."Legenda="."_".$_POST['LegendaPassed']."_".$IdUnico.".png"; // file name
         if( move_uploaded_file($_FILES["PhotoToUpload"]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
             echo 'File uploaded';
         } else {
             echo 'Something went wrong uploading file';
+        }
+        // Criando .txt com id e link da musica
+        if (isset($_POST['LinkMusicaPassed']))
+        {
+            $LinkMusicasFile = fopen("\\SiteGiu\\JoinImages\\uploads\\LinkMusicas.txt", "a");
+            $LinkMusicasFile = "\n".$IdUnico.":".$_POST['LinkMusicaPassed'];
+            fclose($LinkMusicasFile);
         }
     }
 ?>

@@ -23,24 +23,6 @@ function processUser()
     ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
     ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
 }
-/*
-function ResetPhoto()
-{
-    ComMusica = 0;
-    MusicaDoYt = 0;
-    ComLegenda = 0;
-    ComImage = 0;
-    LinkMusicaEscolhida = "none";
-    LegendaDaFoto = "none";
-    document.getElementById('musicacb').checked = false;
-    document.getElementById('legendacb').checked = false;
-    document.getElementById('imacb').checked = false;
-    ToggleCheckBox('musicacb');
-    ToggleCheckBox('legendacb');
-    SetModelo('m1');
-    document.getElementById('previewimage').style.display = "none";
-    SetPreviewImage("none");
-}*/
 
 function ToggleHideElement(id) {
 var Elem = document.getElementById(id);

@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdf2b43b-3808-4067-a4a8-db7f1735d7f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/JoinImages.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JoinImages.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ModeloQuadrado.py" beforeDir="false" afterPath="$PROJECT_DIR$/ModeloQuadrado.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem1Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem2Ref.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem3Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem4Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem5Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem6Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem7Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/Imagem8Ref.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestImages/ModeloRef.png" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/ModelosQuadradoRetangular.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ModeloQuadrado.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Montar-Fotos.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Montar-Fotos.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Montar-Fotos.php" beforeDir="false" afterPath="$PROJECT_DIR$/../Montar-Fotos.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ToDoSiteGiu.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../ToDoSiteGiu.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../uploads/hgdfhd_m1_0_0_0_abc_Legenda=_SuaLegenda.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +27,10 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
-    <configuration name="ModeloQuadrado" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ModelosQuadradoRetangular" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="JoinImages" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -52,7 +42,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ModeloQuadrado.py" />
+      <option name="SCRIPT_NAME" value="D:\xampp\htdocs\SiteGiu\JoinImages\ModelosQuadradoRetangular.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -63,7 +53,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ModeloQuadrado" />
+        <item itemvalue="Python.ModelosQuadradoRetangular" />
       </list>
     </recent_temporary>
   </component>
@@ -88,5 +78,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

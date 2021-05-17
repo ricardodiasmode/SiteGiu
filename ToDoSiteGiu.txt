@@ -4,7 +4,6 @@ Carrinho.html
 //2. Renomear a imagem com os dados da foto.
 //3. Mostrar fotos criadas após adicionar.
 4. Após montar todas as fotos chamar o algoritmo em PY para montar as fotos.
-*refazer ModeloQuadrado.py para funcionar para modelo quadrado e modelo retangular
 5. Vai para a página do carrinho e aparece a mensagem na página: "Parabéns {NomeDoCliente}! Suas fotos montadas foram enviadas para nós, agora basta preencher o formulário abaixo e finalizar a compra:".
 6. Depois de finalizar a compra(um botão escrito Finalizar Compra, disponivel depois de preencher tudo):
 *tudo no mesmo programa
@@ -21,6 +20,7 @@ Bugs:
 
 ---------------------------------------- Para Depois ----------------------------------------
 
+- Poder pedir número customizado de fotos(garantir que sempre seja par)
 - Adaptar para android?
 - Adicionar possibilidade de poder fazer mais um pedido de foto por vez (linha 54: localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));)
 
