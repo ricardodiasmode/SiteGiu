@@ -12,6 +12,7 @@
     var ProductNameFromURL = "none";   
     var ProductTypeFromURL = "none";
     var ProductType2FromURL = "none";
+    var IrParaCarrinho = "false";
 
     function processUser()
     {
@@ -19,7 +20,20 @@
         ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
         ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
         ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
+        IrParaCarrinho = urlRef.searchParams.get("IrParaCarrinho");
+        CheckIrParaCarrinho();
     }    
+
+    function CheckIrParaCarrinho()
+    {
+        if(IrParaCarrinho == 'true')
+        {
+            // Criando url do carrinho
+            var URLToTravel = "Carrinho.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
+            // Indo para o carrinho
+            window.location.href = URLToTravel;
+        }
+    }
 
     function CheckNumberOfPhotos(ArrayPhotoRef)
     {
@@ -30,16 +44,15 @@
             NumberOfPhotos = 20;
         else
             NumberOfPhotos = 30;
-        if((ArrayPhotoRef.length-1) >= NumberOfPhotos-8)
+        if((ArrayPhotoRef.length-1) < NumberOfPhotos-8)
         {
-            // Criando url do carrinho
-            var URLToTravel = "Carrinho.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
-            // Indo para o carrinho
-            window.location.href = URLToTravel;
+            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho;
+            document.getElementById('AdicionarFotoForm').submit();
         }
         else
         {
-            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL;
+            IrParaCarrinho = 'true';
+            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho;
             document.getElementById('AdicionarFotoForm').submit();
         }
     }
@@ -381,7 +394,7 @@
                 <script>
                     // Set client name
                     SetNomeCliente = (event) => {
-                        let ClientNameRef = event.target.getAttribute('value');
+                        let ClientNameRef = document.getElementById('ClientNamePassed').value;
                         localStorage.setItem("ClientName", ClientNameRef);
                         document.getElementById("AddPhotoButton").style.display = "inline-block";
                     }

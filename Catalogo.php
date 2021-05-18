@@ -324,6 +324,12 @@
     <div class="footer">
         <p>Footer</p>
     </div>
+    <script>
+        if(localStorage.getItem('FezPedido') == 'true')
+        {
+            localStorage.clear();
+        }
+    </script>
 
 </body>
 </html>

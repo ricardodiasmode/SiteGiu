@@ -159,10 +159,30 @@
     function CompletarPedido()
     {
         document.getElementById('Nome').value = localStorage.getItem('ClientName');
+        localStorage.setItem('FezPedido', 'true');
         document.getElementById('EmailForm').submit();
     }
 
 
+
+    function CheckDadosPreenchidos()
+    {
+        NomeDoCliente = document.getElementById('Nome');
+        ContatoCliente = document.getElementById('Contato');
+        CidadeCliente = document.getElementById('Cidade');
+        BairroCliente = document.getElementById('Bairro');
+        RuaCliente = document.getElementById('Rua');
+        Numero = document.getElementById('Numero');
+        if(NomeDoCliente.value != ""
+        && ContatoCliente.value != ""
+        && CidadeCliente.value != ""
+        && BairroCliente.value != ""
+        && RuaCliente.value != ""
+        && Numero.value != "")
+        {
+            document.getElementById('BotaoCompletarPedido').style.display = "block";
+        }
+    }
 
 </script>
 
@@ -272,6 +292,13 @@
         background-color: #dddddd;
         }
 
+        .Logo {
+            display: block;
+            width: 300px;
+            height: 300px;
+            margin: auto;
+        }
+
     </style>
     <div class="header">
         <p class = "LetrasHeader"><a href="Carrinho.php">Meu carrinho</a></p>
@@ -280,7 +307,10 @@
 <body style="background-color:rgb(255, 255, 255)" onload="doShowAll()">
     <div id="BaseDiv">
         <!-- Logo -->
-        <p style="text-align: center;"><img alt="memories logo" src="Images/Logo.png" style="width: 300px;height: 300px;"></p>
+        <p style="text-align: center; display: block">
+        <h2 id="MensagemParaCliente" style="display: block;margin: auto;"></h2>
+        <img alt="memories logo" src="Images/Logo.png" class="Logo" id="SiteLogo">
+        </p>
         <!-- Carrinho -->
         <form name="ShoppingList">
             <div id="items_table" style="text-align: center;">
@@ -293,21 +323,21 @@
         <div class="InformacoesDiv">
             <form action="SendMail.php" method="post" enctype="multipart/form-data" id="EmailForm">
                 <h3>Informações pessoais</h3>
-                <label for="Nome">Seu nome e sobrenome:</label><br>
-                <input type="text" id="Nome" name="Nome"><br><br>
-                <label for="Nome">E-mail ou numero de telefone para contato:</label><br>
-                <input type="text" id="Contato" name="Contato"><br><br>
+                <label for="Nome">Seu nome e sobrenome*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Nome" name="Nome"><br><br>
+                <label for="Nome">E-mail ou numero de telefone para contato*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Contato" name="Contato"><br><br>
                 <h4>Endereço para entrega</h4>
-                <label for="Estado">Estado:</label><br>
-                <input type="text" id="Estado" name="Estado"><br><br>
-                <label for="Cidade">Cidade:</label><br>
-                <input type="text" id="Cidade" name="Cidade"><br><br>
-                <label for="Bairro">Bairro:</label><br>
-                <input type="text" id="Bairro" name="Bairro"><br><br>
-                <label for="Rua">Rua:</label><br>
-                <input type="text" id="Rua" name="Rua"><br><br>
-                <label for="Número">Número:</label><br>
-                <input type="text" id="Numero" name="Numero"><br><br>
+                <label for="Estado">Estado*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Estado" name="Estado"><br><br>
+                <label for="Cidade">Cidade*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Cidade" name="Cidade"><br><br>
+                <label for="Bairro">Bairro*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Bairro" name="Bairro"><br><br>
+                <label for="Rua">Rua*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Rua" name="Rua"><br><br>
+                <label for="Número">Número*:</label><br>
+                <input onchange="CheckDadosPreenchidos()" type="text" id="Numero" name="Numero"><br><br>
                 <label for="Complemento">Complemento:</label><br>
                 <input type="text" id="Complemento" name="Complemento"><br><br>
                 <label for="Referencia">Referência:</label><br>
@@ -315,20 +345,35 @@
                 <h4>Recado para nós</h4>
                 <label for="Recado">Qualquer coisa que queira nos dizer:</label><br>
                 <input type="text" id="Recado" name="Recado"><br><br>
-                <input type="button" onclick="CompletarPedido()" value="Completar pedido">
+                <input type="button" onclick="CompletarPedido()" value="Completar pedido" style="width: 150px; display:none; margin: auto" id="BotaoCompletarPedido">
               </form>
         </div>
     </div>
     <div class="footer">
         <p>Footer</p>
     </div>
-
-    <!-- Setting new product on cart -->
+    
     <script>
+        // Setting new product on cart
         if(localStorage.getItem('PhotosInfo') != null)
             PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
         processUser();
         SaveItem();
+        
+        // Setting message or logo
+        if(ProductNameFromURL == "Box Memories"
+        || ProductNameFromURL == "Polaroid Branca"
+        || ProductNameFromURL == "Tirinhas 3/4 Fotos")
+        {
+            document.getElementById("MensagemParaCliente").innerHTML = "Parabéns " + 
+            localStorage.getItem('ClientName') +
+            "! Suas fotos montadas foram enviadas para nós, agora você pode voltar para nosso catálogo ou preencher o formulário abaixo e finalizar a compra:";
+            document.getElementById('SiteLogo').remove();
+        }
+        else
+        {
+            document.getElementById('MensagemParaCliente').remove();
+        }
     </script>
 </body>
 </html>

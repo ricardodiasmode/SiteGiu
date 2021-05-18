@@ -45,24 +45,38 @@ if (isset($_POST['Nome']))
         $mail->AddAddress( 'ricardodiasmode@hotmail.com' );
 
 
-        $path    = 'JoinImages\uploads';
+        $path = 'JoinImages\uploads';
         $files = array_diff(scandir($path), array('.', '..'));
         foreach ($files as $file_to_attach)
         {
-            if(str_contains (basename($file_to_attach, ".d").PHP_EOL, "Ricardo" ))
+            if(str_contains (basename($file_to_attach, ".d").PHP_EOL, "Ricardo" )
+            || str_contains (basename($file_to_attach, ".d").PHP_EOL, "LinkMusicas" ))
             {
-                echo $file_to_attach;
+                //echo $file_to_attach;
                 $mail->AddAttachment( $path . "/" . $file_to_attach );
             }
         }
 
-        if(!$mail->Send()) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
-            } else {
-            echo "Message has been sent";
+        if(!$mail->Send()) 
+        {
+            //echo "Mailer Error: " . $mail->ErrorInfo;
+        }
+        else 
+        {
+            $path = 'JoinImages\uploads';
+            $files = array_diff(scandir($path), array('.', '..'));
+            //echo "Message has been sent";
+            foreach ($files as $file_to_delete)
+            {
+                if(str_contains (basename($file_to_delete, ".d").PHP_EOL, "Ricardo" ))
+                {
+                    unlink($path."\\".$file_to_delete);
+                }
             }
+            header("Location:Catalogo.php");
+        }
     }catch(Exception $e) {
-        echo 'Message: ' .$e->getMessage();
+        //echo 'Message: ' .$e->getMessage();
       }
 }
 ?>
