@@ -3,7 +3,7 @@
     var ProductNameFromURL = "";
     var ProductType1 = "none";
     var ProductType2 = "none";
-    var PhotosInfo = "none";
+    //var PhotosInfo = "none";
 
     function processUser()
     {
@@ -46,27 +46,9 @@
         doShowAll();
     }
 
-    //Change an existing key-value in HTML5 storage.
-    function ModifyItem() 
-    {
-        var name1 = document.forms.ShoppingList.name.value;
-        var data1 = document.forms.ShoppingList.data.value;
-        //check if name1 is already exists
-
-        //Check if key exists.
-        if (localStorage.getItem(name1) !=null)
-        {
-            //update
-            localStorage.setItem(name1,data1);
-            document.forms.ShoppingList.data.value = localStorage.getItem(name1);
-        }
-
-        doShowAll();
-    }
-
     function RemoveItem(ItemName)
     {
-        document.forms.ShoppingList.data.value=localStorage.removeItem(ItemName);
+        localStorage.removeItem(ItemName);
         doShowAll();
     }
 
@@ -118,7 +100,8 @@
                 // StorageValues.Tipo1 => Product type 1
                 // StorageValues.Tipo2 => Product type 2
                 // Criando tabela
-                var CurrentItemRow = ItemHeader.insertRow(i+1);
+                
+                var CurrentItemRow = ItemHeader.insertRow(ItemHeader.getElementsByTagName('tr').length);
                 var CurrentItemCell = CurrentItemRow.insertCell(0);
                 var CurrentQuantidadeCell = CurrentItemRow.insertCell(1);
                 CurrentItemCell.innerHTML = "<b>"+ key +"</b>";
@@ -355,8 +338,8 @@
     
     <script>
         // Setting new product on cart
-        if(localStorage.getItem('PhotosInfo') != null)
-            PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
+        //if(localStorage.getItem('PhotosInfo') != null)
+        //    PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
         processUser();
         SaveItem();
         

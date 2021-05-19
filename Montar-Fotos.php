@@ -13,6 +13,7 @@
     var ProductTypeFromURL = "none";
     var ProductType2FromURL = "none";
     var IrParaCarrinho = "false";
+    var NumeroFotosMontadas = "0";
 
     function processUser()
     {
@@ -21,6 +22,7 @@
         ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
         ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
         IrParaCarrinho = urlRef.searchParams.get("IrParaCarrinho");
+        NumeroFotosMontadas = urlRef.searchParams.get("NumeroFotosMontadas");
         CheckIrParaCarrinho();
     }    
 
@@ -35,7 +37,7 @@
         }
     }
 
-    function CheckNumberOfPhotos(ArrayPhotoRef)
+    function CheckNumberOfPhotos()
     {
         var NumberOfPhotos = 10;
         if(ProductTypeFromURL == '10 fotos')
@@ -44,15 +46,23 @@
             NumberOfPhotos = 20;
         else
             NumberOfPhotos = 30;
-        if((ArrayPhotoRef.length-1) < NumberOfPhotos-8)
+        if(parseInt(NumeroFotosMontadas) <= NumberOfPhotos-7 || NumeroFotosMontadas == null)
         {
-            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho;
+            if(NumeroFotosMontadas == null)
+                NumeroFotosMontadas = "1";
+            else
+            {   
+                var auxint = parseInt(NumeroFotosMontadas);
+                auxint = auxint+1;
+                NumeroFotosMontadas = auxint.toString();
+            }
+            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
             document.getElementById('AdicionarFotoForm').submit();
         }
         else
         {
             IrParaCarrinho = 'true';
-            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho;
+            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
             document.getElementById('AdicionarFotoForm').submit();
         }
     }
@@ -62,7 +72,7 @@
         if(ImagemDaFoto !== "none")
         {
             // Adicionando foto no array
-            ArrayPhotoRef.push({Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto});
+            ArrayPhotoRef = {Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto};
             // Definindo a foto no localStorage
             localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhotoRef));
             GetDataFormValues();
@@ -75,13 +85,12 @@
     if(localStorage.getItem('PhotosInfo') != null)
         var PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
     else
-        var PhotosInfo = ArrayPhoto;
+        var PhotosInfo = ArrayPhoto[ArrayPhoto.length-1];
 
     // Remove photo from preview
     invoke = (event) => {
         let PhotoIDRef = event.target.getAttribute('name');
-        PhotosInfo.splice(parseInt(PhotoIDRef[6]), 1);
-        localStorage.setItem("PhotosInfo", JSON.stringify(PhotosInfo));
+        localStorage.removeItem("PhotosInfo");
         document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
     }
 
@@ -100,102 +109,99 @@
         }
 
         // Atribuindo as fotos ao div
-        var i;
         var NewPhotoAdded;
         var NewPhotoImage;
         var NewPhotoModel;
         var NewLegendaAdded;
         var LegendaText;
         var NewButtonDeletePhoto;
-        for(i=1;i<ArrayPhotoRef.length;i++)
+        // Criando span base
+        NewPhotoAdded = document.createElement("span");
+        NewPhotoAdded.id = "SpanID";
+        NewPhotoAdded.style.display = "inline";
+
+        // Criando imagem
+        NewPhotoImage = document.createElement("img");
+        NewPhotoImage.src = ArrayPhotoRef.ImagemDaFoto;
+        NewPhotoImage.style.paddingTop = 10;
+        NewPhotoAdded.appendChild(NewPhotoImage);
+
+        // Botao remover foto
+        NewButtonDeletePhoto = document.createElement('input');
+        NewButtonDeletePhoto.type = "button";
+        NewButtonDeletePhoto.name = NewPhotoAdded.id;
+        NewButtonDeletePhoto.value = "Remover foto";
+        NewButtonDeletePhoto.onclick = invoke;
+        NewButtonDeletePhoto.style.marginTop = 170;
+        NewButtonDeletePhoto.style.zIndex = 1;
+        NewPhotoAdded.appendChild(NewButtonDeletePhoto);
+
+        // Criando modelo
+        NewPhotoModel = document.createElement("img");
+        if(ArrayPhotoRef.Modelo === 'm1')
         {
-            // Criando span base
-            NewPhotoAdded = document.createElement("span");
-            NewPhotoAdded.id = "SpanID"+i;
-            NewPhotoAdded.style.display = "inline";
-
-            // Criando imagem
-            NewPhotoImage = document.createElement("img");
-            NewPhotoImage.src = ArrayPhotoRef[i].ImagemDaFoto;
-            NewPhotoImage.style.paddingTop = 10;
-            NewPhotoAdded.appendChild(NewPhotoImage);
-
-            // Botao remover foto
-            NewButtonDeletePhoto = document.createElement('input');
-            NewButtonDeletePhoto.type = "button";
-            NewButtonDeletePhoto.name = NewPhotoAdded.id;
-            NewButtonDeletePhoto.value = "Remover foto";
-            NewButtonDeletePhoto.onclick = invoke;
-            NewButtonDeletePhoto.style.marginTop = 170;
-            NewButtonDeletePhoto.style.zIndex = 1;
-            NewPhotoAdded.appendChild(NewButtonDeletePhoto);
-
-            // Criando modelo
-            NewPhotoModel = document.createElement("img");
-            if(ArrayPhotoRef[i].Modelo === 'm1')
+            NewButtonDeletePhoto.className = "ButtonRemovePhoto";
+            NewButtonDeletePhoto.style.left = 55;// + (i-1)*150;
+            NewPhotoImage.style.left = 41;// + (i-1)*150;
+            NewPhotoModel.style.left = 30;// + (i-1)*150;
+            if(ArrayPhotoRef.ComMusica)
             {
-                NewButtonDeletePhoto.className = "ButtonRemovePhoto";
-                NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
-                NewPhotoImage.style.left = 41 + (i-1)*150;
-                NewPhotoModel.style.left = 30 + (i-1)*150;
-                if(ArrayPhotoRef[i].ComMusica)
-                {
-                    if(ArrayPhotoRef[i].MusicaDoYt)
-                        NewPhotoModel.src = "Images/Modelos/Modelo1yt.png";
-                    else
-                        NewPhotoModel.src = "Images/Modelos/Modelo1spotfy.png";
-                }
+                if(ArrayPhotoRef.MusicaDoYt)
+                    NewPhotoModel.src = "Images/Modelos/Modelo1yt.png";
                 else
-                    NewPhotoModel.src = "Images/Modelos/Modelo1Separado.png";
-                    
-                NewPhotoImage.className = "ImagePhotoAddedM1";
-                NewPhotoModel.className = "PhotoAddedM1";
+                    NewPhotoModel.src = "Images/Modelos/Modelo1spotfy.png";
+            }
+            else
+                NewPhotoModel.src = "Images/Modelos/Modelo1Separado.png";
+                
+            NewPhotoImage.className = "ImagePhotoAddedM1";
+            NewPhotoModel.className = "PhotoAddedM1";
+        }
+        else
+        {
+            NewButtonDeletePhoto.className = "ButtonRemovePhoto";
+            NewButtonDeletePhoto.style.left = 55;// + (i-1)*150;
+            NewPhotoImage.style.left = 61;// + (i-1)*150;
+            NewPhotoModel.style.left = 50;// + (i-1)*150;
+            if(ArrayPhotoRef.ComMusica)
+            {
+                if(ArrayPhotoRef.MusicaDoYt)
+                    NewPhotoModel.src = "Images/Modelos/Modelo2yt.png";
+                else
+                    NewPhotoModel.src = "Images/Modelos/Modelo2spotfy.png";
+            }
+            else
+                NewPhotoModel.src = "Images/Modelos/Modelo2Separado.png";
+                
+            NewPhotoImage.className = "ImagePhotoAddedM2";
+            NewPhotoModel.className = "PhotoAddedM2";
+        }
+        NewPhotoAdded.appendChild(NewPhotoModel);
+
+        // Criando legenda
+        if(ArrayPhotoRef.ComLegenda)
+        {
+            NewLegendaAdded = document.createElement("h1");
+            NewLegendaAdded.style.fontSize = 15;
+            NewLegendaAdded.className = "LegendaPhotoAddedPreview";
+            NewLegendaAdded.innerHTML = ArrayPhotoRef.LegendaDaFoto;
+            NewLegendaAdded.zIndex = 3;
+            if(ArrayPhotoRef.Modelo === "m1")
+            {
+                NewLegendaAdded.style.left = 80;// + (i-1)*150;
+                NewLegendaAdded.style.marginTop = "140px";
             }
             else
             {
-                NewButtonDeletePhoto.className = "ButtonRemovePhoto";
-                NewButtonDeletePhoto.style.left = 55 + (i-1)*150;
-                NewPhotoImage.style.left = 61 + (i-1)*150;
-                NewPhotoModel.style.left = 50 + (i-1)*150;
-                if(ArrayPhotoRef[i].ComMusica)
-                {
-                    if(ArrayPhotoRef[i].MusicaDoYt)
-                        NewPhotoModel.src = "Images/Modelos/Modelo2yt.png";
-                    else
-                        NewPhotoModel.src = "Images/Modelos/Modelo2spotfy.png";
-                }
-                else
-                    NewPhotoModel.src = "Images/Modelos/Modelo2Separado.png";
-                    
-                NewPhotoImage.className = "ImagePhotoAddedM2";
-                NewPhotoModel.className = "PhotoAddedM2";
+                NewLegendaAdded.style.left = 85;// + (i-1)*150;
+                NewLegendaAdded.style.marginTop = "135px";
             }
-            NewPhotoAdded.appendChild(NewPhotoModel);
 
-            // Criando legenda
-            if(ArrayPhotoRef[i].ComLegenda)
-            {
-                NewLegendaAdded = document.createElement("h1");
-                NewLegendaAdded.style.fontSize = 15;
-                NewLegendaAdded.className = "LegendaPhotoAddedPreview";
-                NewLegendaAdded.innerHTML = ArrayPhotoRef[i].LegendaDaFoto;
-                NewLegendaAdded.zIndex = 3;
-                if(ArrayPhotoRef[i].Modelo === "m1")
-                {
-                    NewLegendaAdded.style.left = 80 + (i-1)*150;
-                    NewLegendaAdded.style.marginTop = "140px";
-                }
-                else
-                {
-                    NewLegendaAdded.style.left = 85 + (i-1)*150;
-                    NewLegendaAdded.style.marginTop = "135px";
-                }
-
-                NewPhotoAdded.appendChild(NewLegendaAdded);
-            }
-            // Adicionando tudo ao div
-            PhotoContent.appendChild(NewPhotoAdded);
+            NewPhotoAdded.appendChild(NewLegendaAdded);
         }
+        // Adicionando tudo ao div
+        PhotoContent.appendChild(NewPhotoAdded);
+    
     }
 </script>
 
@@ -392,19 +398,41 @@
             <form action="Montar-Fotos.php" method="post" id="AdicionarFotoForm" enctype="multipart/form-data">
                 <p id="NomeClienteParagrafo"><label for="ClientNamePassed" id="ClientNamePassedlabel">Seu Nome: </label></p>
                 <script>
+                    // Generate GUID
+                    function uuidv4() {
+                    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                    );
+                    }
                     // Set client name
                     SetNomeCliente = (event) => {
                         let ClientNameRef = document.getElementById('ClientNamePassed').value;
+                        ClientNameRef = ClientNameRef + uuidv4();
                         localStorage.setItem("ClientName", ClientNameRef);
                         document.getElementById("AddPhotoButton").style.display = "inline-block";
                     }
-                    // Criando text box onde o cliente vai colocar o nome dele
-                    var ClientNameTB = document.createElement("input");
-                    ClientNameTB.type = "text";
-                    ClientNameTB.id = "ClientNamePassed";
-                    ClientNameTB.name = "ClientNamePassed";
-                    ClientNameTB.onchange = SetNomeCliente;
-                    document.getElementById("NomeClienteParagrafo").appendChild(ClientNameTB);
+
+                    if(localStorage.getItem('ClientName') == null)
+                    {
+                        // Criando text box onde o cliente vai colocar o nome dele
+                        var ClientNameTB = document.createElement("input");
+                        ClientNameTB.type = "text";
+                        ClientNameTB.id = "ClientNamePassed";
+                        ClientNameTB.name = "ClientNamePassed";
+                        ClientNameTB.onchange = SetNomeCliente;
+                        document.getElementById("NomeClienteParagrafo").appendChild(ClientNameTB);
+                    }
+                    else
+                    {
+                        // Criando text box onde o cliente vai colocar o nome dele
+                        var ClientNameTB = document.createElement("input");
+                        ClientNameTB.type = "hidden";
+                        ClientNameTB.id = "ClientNamePassed";
+                        ClientNameTB.name = "ClientNamePassed";
+                        ClientNameTB.value = localStorage.getItem('ClientName');
+                        document.getElementById("NomeClienteParagrafo").appendChild(ClientNameTB);
+                        document.getElementById('ClientNamePassedlabel').remove();
+                    }
                 </script>
                 <p>Escolha sua foto: <input type="file" value="Escolha sua foto" name="PhotoToUpload" id="PhotoToUpload"></p>
                 <input type="hidden" name="ModeloPassed" id="ModeloPassed" value="none">
@@ -414,6 +442,10 @@
                 <input type="hidden" name="LinkMusicaPassed" id="LinkMusicaPassed" value="none">
                 <input type="hidden" name="LegendaPassed" id="LegendaPassed" value="none">
                 <p><input onclick="AdicionarFoto(PhotosInfo);" style="display:none" type="button" name="AddPhotoButton" id="AddPhotoButton" value="Adicionar Foto"></p>
+            <script>
+                if(localStorage.getItem('ClientName') != null)
+                    document.getElementById('AddPhotoButton').style.display = "inline-block";
+            </script>
             </form>
             
             <!-- Preview das fotos feitas -->

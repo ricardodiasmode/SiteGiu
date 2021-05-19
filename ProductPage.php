@@ -324,7 +324,7 @@
                         document.getElementById("ProductType1Input").value = "Tirinha 3 fotos";
                     }
                     else
-                        document.getElementById("FormCarrinho").action= "Carrinho.html";
+                        document.getElementById("FormCarrinho").action= "Carrinho.php";
                 </script>
                 <script>
                     // Description
