@@ -49,7 +49,7 @@ if (isset($_POST['Nome']))
         $files = array_diff(scandir($path), array('.', '..'));
         foreach ($files as $file_to_attach)
         {
-            if(str_contains (basename($file_to_attach, ".d").PHP_EOL, "Ricardo" )
+            if(str_contains (basename($file_to_attach, ".d").PHP_EOL, $ClientName )
             || str_contains (basename($file_to_attach, ".d").PHP_EOL, "LinkMusicas" ))
             {
                 //echo $file_to_attach;
@@ -68,7 +68,7 @@ if (isset($_POST['Nome']))
             //echo "Message has been sent";
             foreach ($files as $file_to_delete)
             {
-                if(str_contains (basename($file_to_delete, ".d").PHP_EOL, "Ricardo" ))
+                if(str_contains (basename($file_to_delete, ".d").PHP_EOL, $ClientName ))
                 {
                     unlink($path."\\".$file_to_delete);
                 }

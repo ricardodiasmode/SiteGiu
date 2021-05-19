@@ -71,6 +71,7 @@
     {
         if(ImagemDaFoto !== "none")
         {
+            document.getElementById('ClientNamePassed').value = localStorage.getItem("ClientName");
             // Adicionando foto no array
             ArrayPhotoRef = {Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto};
             // Definindo a foto no localStorage
@@ -87,11 +88,30 @@
     else
         var PhotosInfo = ArrayPhoto[ArrayPhoto.length-1];
 
+
+    // Remove photo from folder
+    function RemovePhotoFromFolder(){
+        if(localStorage.getItem('ClientName') != null)
+        {
+            var ClientNameRef = localStorage.getItem('ClientName');
+            $.ajax(
+            {
+                type: "GET",
+                url: "RemovePhotoFromFolder.php",
+                data: { ClientName: ClientNameRef },
+                success: function(msg){
+                    console.log(msg);
+                }
+            });
+        }
+    }
+
     // Remove photo from preview
     invoke = (event) => {
         let PhotoIDRef = event.target.getAttribute('name');
         localStorage.removeItem("PhotosInfo");
         document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
+        RemovePhotoFromFolder();
     }
 
     // Gerando preview das fotos criadas
@@ -407,7 +427,10 @@
                     // Set client name
                     SetNomeCliente = (event) => {
                         let ClientNameRef = document.getElementById('ClientNamePassed').value;
-                        ClientNameRef = ClientNameRef + uuidv4();
+                        if(localStorage.getItem('ClientName') == null)
+                            ClientNameRef = ClientNameRef + uuidv4();
+                        else
+                            ClientNameRef = localStorage.getItem('ClientName');
                         localStorage.setItem("ClientName", ClientNameRef);
                         document.getElementById("AddPhotoButton").style.display = "inline-block";
                     }
@@ -429,7 +452,7 @@
                         ClientNameTB.type = "hidden";
                         ClientNameTB.id = "ClientNamePassed";
                         ClientNameTB.name = "ClientNamePassed";
-                        ClientNameTB.value = localStorage.getItem('ClientName');
+                        ClientNameTB.value = localStorage.getItem('ClientName') + uuidv4();
                         document.getElementById("NomeClienteParagrafo").appendChild(ClientNameTB);
                         document.getElementById('ClientNamePassedlabel').remove();
                     }

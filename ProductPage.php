@@ -214,8 +214,6 @@
         {
             font-family: Arial;
             font-size: 18px;
-            text-align: right;
-            margin-right: 200px;
             margin-top: 15px;
             font-weight: bold;
         }
@@ -236,7 +234,12 @@
     <meta name="description" content="site description" />
     <meta name="keywords" content="put here keyoword to find easy by google" />
     <div class="header">
-        <p class = "LetrasHeader"><a href="Carrinho.php">Meu carrinho</a></p>
+        <p class = "LetrasHeader" style="text-align: right; margin-right: 315px;" >
+        <a style="position:absolute" href="Carrinho.php">Meu Carrinho</a>
+        </p>
+        <p class = "LetrasHeader" style="text-align: left; margin-left: 200px; margin-top: -5px;" >
+        <a style="position:absolute" href="Catalogo.php">Voltar para o Catálogo</a>
+        </p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)">

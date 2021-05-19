@@ -11,6 +11,7 @@
         ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
         ProductType1 = urlRef.searchParams.get("ProductType1Ref");
         ProductType2 = urlRef.searchParams.get("ProductType2Ref");
+        window.history.replaceState({}, document.title, "/SiteGiu/" + "Carrinho.php");
     }
 
     /*
@@ -46,12 +47,6 @@
         doShowAll();
     }
 
-    function RemoveItem(ItemName)
-    {
-        localStorage.removeItem(ItemName);
-        doShowAll();
-    }
-
     function ClearAll() 
     {
         localStorage.clear();
@@ -60,7 +55,8 @@
 
     invoke = (event) => {
         let ItemNameRef = event.target.getAttribute('name');
-        RemoveItem(ItemNameRef);
+        localStorage.removeItem(ItemNameRef);
+        doShowAll();
     }
 
     // Dynamically populate the table with shopping list items.
@@ -91,16 +87,19 @@
             // Produtos
             var i = 0;
             for (i = 0; i < localStorage.length; i++) {
-                key = localStorage.key(i); 
+
+                // key = localStorage.key(i) => Product name
+                key = localStorage.key(i);
+
                 if(key == 'PhotosInfo' || key == 'ClientName')
                     continue;
-                // key = localStorage.key(i) => Product name
-                var StorageValues = JSON.parse(localStorage.getItem(key) || '{}');
+
                 // StorageValues.Quantidade => Product amount
                 // StorageValues.Tipo1 => Product type 1
                 // StorageValues.Tipo2 => Product type 2
+                var StorageValues = JSON.parse(localStorage.getItem(key) || '{}');
+
                 // Criando tabela
-                
                 var CurrentItemRow = ItemHeader.insertRow(ItemHeader.getElementsByTagName('tr').length);
                 var CurrentItemCell = CurrentItemRow.insertCell(0);
                 var CurrentQuantidadeCell = CurrentItemRow.insertCell(1);
@@ -224,8 +223,6 @@
         {
             font-family: Arial;
             font-size: 18px;
-            text-align: right;
-            margin-right: 200px;
             margin-top: 15px;
             font-weight: bold;
         }
@@ -284,7 +281,12 @@
 
     </style>
     <div class="header">
-        <p class = "LetrasHeader"><a href="Carrinho.php">Meu carrinho</a></p>
+        <p class = "LetrasHeader" style="text-align: right; margin-right: 315px;" >
+        <a style="position:absolute" href="Carrinho.php">Meu Carrinho</a>
+        </p>
+        <p class = "LetrasHeader" style="text-align: left; margin-left: 200px; margin-top: -5px;" >
+        <a style="position:absolute" href="Catalogo.php">Voltar para o Catálogo</a>
+        </p>
     </div>
 </head>
 <body style="background-color:rgb(255, 255, 255)" onload="doShowAll()">

@@ -1,24 +1,22 @@
-Carrinho.html
-//- Botao de remover produto no carrinho nao esta funcionando.
-- Quando remove 2 elementos de uma vez buga
-
 Montar-Fotos.html
-//- TB do nome deve sumir apos adicionar primeira foto.
-//- Em vez de mostrar todas as fotos criadas, mostrar só a ultima
-- Verificar se remocao esta funcionando bem.
-*remover foto tambem deve excluir a pasta do folder
+//- Fazer GUID aparecer na primeira foto upada.
+//- Verificar se remocao esta funcionando bem.
+//- Remover foto tambem deve excluir a pasta do folder
+
+Carrinho.html
+//- Quando remove o produto e da refresh na pagina, o produto volta pro carrinho.
+
+//- Colocar catalogo no header do carrinho e da product page.
+- Arrumar programa para abrir um cmd onde a giu vai escrever o nome do cliente e montar a foto para ela.
 
 Montar-Tirinhas.html
 - Criar pagina.
 
-- Colocar catalogo no header
-- Arrumar programa para abrir um cmd onde a giu vai escrever o nome do cliente e montar a foto para ela.
-
 ---------------------------------------- Para Depois ----------------------------------------
 
-- Poder pedir número customizado de fotos(garantir que sempre seja par)
+- Poder pedir número customizado de fotos(garantir que sempre seja par, ou multiplo de 3/4 para quando for tirinha).
 - Adaptar para android?
-- Adicionar possibilidade de poder fazer mais um pedido de foto por vez (linha 54: localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhoto));)
+- Adicionar possibilidade de poder fazer mais um pedido de foto por vez.
 
 Carrinho.html
 - Botão de compra do mercado pago: https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/introduction
