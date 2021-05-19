@@ -1,15 +1,10 @@
-Montar-Fotos.html
-//- Fazer GUID aparecer na primeira foto upada.
-//- Verificar se remocao esta funcionando bem.
-//- Remover foto tambem deve excluir a pasta do folder
-
-Carrinho.html
-//- Quando remove o produto e da refresh na pagina, o produto volta pro carrinho.
-
-//- Colocar catalogo no header do carrinho e da product page.
 - Arrumar programa para abrir um cmd onde a giu vai escrever o nome do cliente e montar a foto para ela.
+* ler o codigo e fazer todos os "TODO"
 
-Montar-Tirinhas.html
+Montar-Fotos.php
+- Ao dar refresh na pagina nao pode criar outra foto na pagina(usar mesmo esquema que usou no carrinho.php)
+
+Montar-Tirinhas.php
 - Criar pagina.
 
 ---------------------------------------- Para Depois ----------------------------------------
@@ -18,10 +13,10 @@ Montar-Tirinhas.html
 - Adaptar para android?
 - Adicionar possibilidade de poder fazer mais um pedido de foto por vez.
 
-Carrinho.html
+Carrinho.php
 - Botão de compra do mercado pago: https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/introduction
 
-Montar-Fotos.html
+Montar-Fotos.php
 - Deixar claro qual resolução é ideal que seja a foto
 - Melhorar design geral
 *colocar preview no lugar da logo da memories

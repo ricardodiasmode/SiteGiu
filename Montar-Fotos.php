@@ -46,7 +46,13 @@
             NumberOfPhotos = 20;
         else
             NumberOfPhotos = 30;
-        if(parseInt(NumeroFotosMontadas) <= NumberOfPhotos-7 || NumeroFotosMontadas == null)
+        if(parseInt(NumeroFotosMontadas) >= NumberOfPhotos-8 || NumeroFotosMontadas == null)
+        {
+            IrParaCarrinho = 'true';
+            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
+            document.getElementById('AdicionarFotoForm').submit();
+        }
+        else
         {
             if(NumeroFotosMontadas == null)
                 NumeroFotosMontadas = "1";
@@ -56,12 +62,6 @@
                 auxint = auxint+1;
                 NumeroFotosMontadas = auxint.toString();
             }
-            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
-            document.getElementById('AdicionarFotoForm').submit();
-        }
-        else
-        {
-            IrParaCarrinho = 'true';
             document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
             document.getElementById('AdicionarFotoForm').submit();
         }

@@ -350,9 +350,7 @@
         || ProductNameFromURL == "Polaroid Branca"
         || ProductNameFromURL == "Tirinhas 3/4 Fotos")
         {
-            document.getElementById("MensagemParaCliente").innerHTML = "Parabéns " + 
-            localStorage.getItem('ClientName') +
-            "! Suas fotos montadas foram enviadas para nós, agora você pode voltar para nosso catálogo ou preencher o formulário abaixo e finalizar a compra:";
+            document.getElementById("MensagemParaCliente").innerHTML = "Parabéns! Suas fotos montadas foram enviadas para nós, agora você pode voltar para nosso catálogo ou preencher o formulário abaixo e finalizar a compra:";
             document.getElementById('SiteLogo').remove();
         }
         else
