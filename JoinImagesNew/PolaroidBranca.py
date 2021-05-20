@@ -43,16 +43,14 @@ def GetYoutubeImage(LinkMusicaCompleto):
 # Pegando a font da legenda, para caso haja uma
 FontLegenda = ImageFont.truetype('rage-italic.ttf', 200)
 
-# TODO: Abrir um cmd que pergunta o nome do cliente
 # Pegando o nome do cliente. Formato do nome da foto: NomeCliente_Modelo_ComMusica_DoYoutube_ComLegenda_Legenda=_LegendaPassada_IdUnico
-ClientName = sys.argv[1]
+ClientName = input('Digite o nome do cliente: ')
 
 # Mudando o diretorio de trabalho do programa depois de pegar a font da legenda
 os.chdir("uploads")
 
 ImageArray = []
 ImagePropertiesArray = []
-ImageNewName = ""
 i = 0
 # Pegando Imagens e adicionando ao array
 for file in glob.glob("*.png"):
@@ -60,8 +58,6 @@ for file in glob.glob("*.png"):
     ImageProperties = ImageName.split("_")
     if ImageProperties[0] == ClientName:
         ImageArray.append(file)
-        # Definindo o novo nome da imagem como o NomeDoClient_IdUnico
-        ImageNewName += ImageProperties[0] + "_" + ImageProperties[7]
         ImagePropertiesArray.append(ImageProperties)
     i += 1
 
@@ -77,23 +73,22 @@ ImagePos1Array = []
 ImagePos2Array = []
 i = 0
 for j in ImagePropertiesArray:
+
     # Verifica qual modelo eh
-    # TODO: Colocar dois id's em cada tupla, que sao os index da imagem respectiva do ImagePropertiesArray,
-    # que corresponde a imagem no array ImageArray
     if j[1] == "m1":
         # Checa se o array esta vazio
         if len(ModelosArray) > 0:
             # Percorre o array em busca de uma posicao com modelo equivalente e posicao vazia
             for ModeloRef in ModelosArray:
                 if ModeloRef[1] == 0 and ModeloRef[2] == "m1":
-                    ModeloRef[1] = 1
+                    ModeloRef = (ModeloRef[0], 1, ModeloRef[2], ModeloRef[3], i)
                 else:
                     # Se nao houver posicao vazia, ou nao houver posicao com o mesmo modelo, cria uma
                     if ModeloRef == ModelosArray[len(ModelosArray)-1]:
-                        ModelosArray.append((Image.open("ModeloQuadrado.png"), 0, "m1"))
+                        ModelosArray.append((Image.open("ModeloQuadrado.png"), 0, "m1", i, 0))
         # Se o array esta vazio, adiciona uma primeira posicao
         else:
-            ModelosArray.append((Image.open("ModeloQuadrado.png"), 0, "m1"))
+            ModelosArray.append((Image.open("ModeloQuadrado.png"), 0, "m1", i, 0))
         SizeArray.append((735, 735))
         ImagePos1Array.append((161, 226))
         ImagePos2Array.append((1067, 226))
@@ -103,45 +98,57 @@ for j in ImagePropertiesArray:
             # Percorre o array em busca de uma posicao com modelo equivalente e posicao vazia
             for ModeloRef in ModelosArray:
                 if ModeloRef[1] == 0 and ModeloRef[2] == "m1":
-                    ModeloRef[1] = 1
+                    ModeloRef = (ModeloRef[0], 1, ModeloRef[2], ModeloRef[3], i)
                 else:
                     # Se nao houver posicao vazia, ou nao houver posicao com o mesmo modelo, cria uma
                     if ModeloRef == ModelosArray[len(ModelosArray)-1]:
-                        ModelosArray.append((Image.open("ModeloRetangular.png"), 0, "m2"))
+                        ModelosArray.append((Image.open("ModeloRetangular.png"), 0, "m2", i, 0))
         # Se o array esta vazio, adiciona uma primeira posicao
         else:
-            ModelosArray.append((Image.open("ModeloRetangular.png"), 0, "m2"))
+            ModelosArray.append((Image.open("ModeloRetangular.png"), 0, "m2", i, 0))
         SizeArray.append((391, 526))
         ImagePos1Array.append((140, 99))
         ImagePos2Array.append((712, 93))
-    ModelosArray[i] = ModelosArray[i].convert("RGBA")
+
     # Verifica se tem musica
     if j[2] == '1':
         # Verifica se a musica eh do spotify
         if j[3] == '0':
             LinkDaMusica = GetMusicLinkById(j[7], LinkMusicasLines)
-            SpotifyImage = GetSpotifyImage(LinkDaMusica)
-            SpotifyImageLocation = (200, 200)
-            # Colocando imagem no modelo
-            ModelosArray[i].paste(SpotifyImage, SpotifyImageLocation)
+            MusicImage = GetSpotifyImage(LinkDaMusica)
+            MusicImageLocation = (200, 200)
         # Se for do youtube
         else:
             LinkDaMusica = GetMusicLinkById(j[7], LinkMusicasLines)
-            YoutubeQRCodeImage = GetYoutubeImage(LinkDaMusica)
-            YoutubeImageLocation = (200, 200)
-            # Colocando imagem no modelo
-            ModelosArray[i].paste(YoutubeQRCodeImage, YoutubeImageLocation)
+            MusicImage = GetYoutubeImage(LinkDaMusica)
+            MusicImageLocation = (200, 200)
+        # Procurando Modelo da imagem
+        for k in range(len(ModelosArray)):
+            if ModelosArray[k][3] == i or ModelosArray[k][4] == i:
+                # Colocando imagem no modelo
+                ModelosArray[k][0].paste(MusicImage, MusicImageLocation)
+                break
     # Se nao tem musica, verifica se tem legenda
     elif j[4] == '1':
         LegendaFoto = j[6]
-        # TODO: Em vez de colocar a legenda na imagem, trocar para colocar no modelo
-        # Convert our image into an editable format
-        ImageObj = Image.open(ImageArray[i])
-        DrawImage = ImageDraw.Draw(ImageObj)
-        ImagePosition = (15, 15)
-        ImageColor = (0, 0, 0)
-        DrawImage.text(ImagePosition, LegendaFoto, ImageColor, font=FontLegenda)
-        ImageObj.save(ImageArray[i])
+        # Procurando Modelo da imagem
+        for k in range(len(ModelosArray)):
+            if ModelosArray[k][3] == i or ModelosArray[k][4] == i:
+                # Convert our image into an editable format
+                DrawImage = ImageDraw.Draw(ModelosArray[k][0])
+                ImagePosition = (15, 15)
+                ImageColor = (0, 0, 0)
+                # Colocando legenda
+                DrawImage.text(ImagePosition, LegendaFoto, ImageColor, font=FontLegenda)
+                break
+
+    # Procurando Modelo da imagem
+    for k in range(len(ModelosArray)):
+        if ModelosArray[k][3] == i or ModelosArray[k][4] == i:
+            # Convertendo para RGBA
+            ModelosArray[k] = (ModelosArray[k][0].convert("RGBA"), ModelosArray[k][1], ModelosArray[k][2],
+                               ModelosArray[k][3], ModelosArray[k][4])
+            break
     i += 1
 
 # Corrigindo rotacao
@@ -172,11 +179,25 @@ for ImageRef in ImageArray:
     i += 1
 
 i = 0
+j = 0
+k = 0
 for ModeloRef in ModelosArray:
-    ImageObjAux = Image.open(ImageArray[i])
-    ModeloRef.paste(ImageObjAux, ImagePos1Array[i])
-    i += 1
-    ModeloRef.paste(ImageObjAux, ImagePos2Array[i])
-    ModeloRef.save(ImageNewName + ".png", "PNG")
+    # searching for first image by id in the 3rd index
+    for j in range(len(ImageArray)):
+        print('\nProcurando primeiro id: '+str(j))
+        if j == ModeloRef[3]:
+            print('\nId encontrado: '+str(j))
+            ImageObjAux = Image.open(ImageArray[j])
+            # searching for second image by id in the 4rd index
+            for k in range(len(ImageArray)):
+                print('\nProcurando segundo id: '+str(k))
+                if k == ModeloRef[4]:
+                    print('\nId encontrado: '+str(k))
+                    Image2ObjAux = Image.open(ImageArray[k])
+                    ModeloRef[0].paste(ImageObjAux, ImagePos1Array[j])
+                    ModeloRef[0].paste(Image2ObjAux, ImagePos2Array[k])
+                    ImageNewName = ImagePropertiesArray[j][0] + ImagePropertiesArray[j][7]
+                    ModeloRef[0].save(ImageNewName + ".png", "PNG")
+                    print('uma imagem salva')
 
 LinkMusicasFile.close()
