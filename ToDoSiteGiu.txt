@@ -1,5 +1,5 @@
 - Arrumar programa para abrir um cmd onde a giu vai escrever o nome do cliente e montar a foto para ela.
-* ler o codigo e fazer todos os "TODO"
+* testar com musica do spotify(apenas alterar no nome da imagem e no LinkMusicas.txt)
 
 Montar-Fotos.php
 - Ao dar refresh na pagina nao pode criar outra foto na pagina(usar mesmo esquema que usou no carrinho.php)

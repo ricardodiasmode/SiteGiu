@@ -19,10 +19,10 @@
 <span class="moduletype">Script</span>  <div class="import">
 imports:
     <a href="#PIL">PIL</a>
- &#8226;   <a href="#PIL.ExifTags">PIL.ExifTags</a>
  &#8226;   <a href="#PIL.Image">PIL.Image</a>
  &#8226;   <a href="#PIL.ImageDraw">PIL.ImageDraw</a>
  &#8226;   <a href="#PIL.ImageFont">PIL.ImageFont</a>
+ &#8226;   <a href="#PIL.ImageOps">PIL.ImageOps</a>
  &#8226;   <a href="#_bootlocale">_bootlocale</a>
  &#8226;   <a href="#_collections_abc">_collections_abc</a>
  &#8226;   <a href="#_weakrefset">_weakrefset</a>
@@ -174,7 +174,6 @@ imports:
  &#8226;   <a href="#sre_compile">sre_compile</a>
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
- &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#traceback">traceback</a>
  &#8226;   <a href="#types">types</a>
  &#8226;   <a href="#warnings">warnings</a>
@@ -423,7 +422,6 @@ imported by:
 imports:
     <a href="#PIL">PIL</a>
  &#8226;   <a href="#PIL.BmpImagePlugin">PIL.BmpImagePlugin</a>
- &#8226;   <a href="#PIL.ExifTags">PIL.ExifTags</a>
  &#8226;   <a href="#PIL.GifImagePlugin">PIL.GifImagePlugin</a>
  &#8226;   <a href="#PIL.GimpGradientFile">PIL.GimpGradientFile</a>
  &#8226;   <a href="#PIL.GimpPaletteFile">PIL.GimpPaletteFile</a>
@@ -436,6 +434,7 @@ imports:
  &#8226;   <a href="#PIL.ImageFilter">PIL.ImageFilter</a>
  &#8226;   <a href="#PIL.ImageFont">PIL.ImageFont</a>
  &#8226;   <a href="#PIL.ImageMode">PIL.ImageMode</a>
+ &#8226;   <a href="#PIL.ImageOps">PIL.ImageOps</a>
  &#8226;   <a href="#PIL.ImagePalette">PIL.ImagePalette</a>
  &#8226;   <a href="#PIL.ImagePath">PIL.ImagePath</a>
  &#8226;   <a href="#PIL.ImageQt">PIL.ImageQt</a>
@@ -471,7 +470,6 @@ imported by:
  &#8226;   <a href="#PIL.DcxImagePlugin">PIL.DcxImagePlugin</a>
  &#8226;   <a href="#PIL.DdsImagePlugin">PIL.DdsImagePlugin</a>
  &#8226;   <a href="#PIL.EpsImagePlugin">PIL.EpsImagePlugin</a>
- &#8226;   <a href="#PIL.ExifTags">PIL.ExifTags</a>
  &#8226;   <a href="#PIL.FitsStubImagePlugin">PIL.FitsStubImagePlugin</a>
  &#8226;   <a href="#PIL.FliImagePlugin">PIL.FliImagePlugin</a>
  &#8226;   <a href="#PIL.FpxImagePlugin">PIL.FpxImagePlugin</a>
@@ -494,6 +492,7 @@ imported by:
  &#8226;   <a href="#PIL.ImageFilter">PIL.ImageFilter</a>
  &#8226;   <a href="#PIL.ImageFont">PIL.ImageFont</a>
  &#8226;   <a href="#PIL.ImageMode">PIL.ImageMode</a>
+ &#8226;   <a href="#PIL.ImageOps">PIL.ImageOps</a>
  &#8226;   <a href="#PIL.ImagePalette">PIL.ImagePalette</a>
  &#8226;   <a href="#PIL.ImagePath">PIL.ImagePath</a>
  &#8226;   <a href="#PIL.ImageQt">PIL.ImageQt</a>
@@ -688,23 +687,6 @@ imports:
   <div class="import">
 imported by:
     <a href="#PIL.Image">PIL.Image</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="PIL.ExifTags"></a>
-  <a target="code" href="///D:/xampp/htdocs/sitegiu/joinimagesnew/venv/lib/site-packages/PIL/ExifTags.py" type="text/plain"><tt>PIL.ExifTags</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#PIL">PIL</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#PIL">PIL</a>
- &#8226;   <a href="#PolaroidBranca.py">PolaroidBranca.py</a>
 
   </div>
 
@@ -1090,6 +1072,7 @@ imported by:
  &#8226;   <a href="#PIL.ImageFile">PIL.ImageFile</a>
  &#8226;   <a href="#PIL.ImageFilter">PIL.ImageFilter</a>
  &#8226;   <a href="#PIL.ImageFont">PIL.ImageFont</a>
+ &#8226;   <a href="#PIL.ImageOps">PIL.ImageOps</a>
  &#8226;   <a href="#PIL.ImagePath">PIL.ImagePath</a>
  &#8226;   <a href="#PIL.ImageQt">PIL.ImageQt</a>
  &#8226;   <a href="#PIL.ImageShow">PIL.ImageShow</a>
@@ -1165,6 +1148,7 @@ imported by:
  &#8226;   <a href="#PIL.Image">PIL.Image</a>
  &#8226;   <a href="#PIL.ImageDraw">PIL.ImageDraw</a>
  &#8226;   <a href="#PIL.ImageDraw2">PIL.ImageDraw2</a>
+ &#8226;   <a href="#PIL.ImageOps">PIL.ImageOps</a>
  &#8226;   <a href="#PIL.ImagePalette">PIL.ImagePalette</a>
 
   </div>
@@ -1344,6 +1328,27 @@ imports:
 imported by:
     <a href="#PIL">PIL</a>
  &#8226;   <a href="#PIL.Image">PIL.Image</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="PIL.ImageOps"></a>
+  <a target="code" href="///D:/xampp/htdocs/sitegiu/joinimagesnew/venv/lib/site-packages/PIL/ImageOps.py" type="text/plain"><tt>PIL.ImageOps</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#PIL">PIL</a>
+ &#8226;   <a href="#PIL.Image">PIL.Image</a>
+ &#8226;   <a href="#PIL.ImageColor">PIL.ImageColor</a>
+ &#8226;   <a href="#functools">functools</a>
+ &#8226;   <a href="#operator">operator</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#PIL">PIL</a>
+ &#8226;   <a href="#PolaroidBranca.py">PolaroidBranca.py</a>
 
   </div>
 
@@ -9747,6 +9752,7 @@ imports:
   <div class="import">
 imported by:
     <a href="#PIL.ImageFilter">PIL.ImageFilter</a>
+ &#8226;   <a href="#PIL.ImageOps">PIL.ImageOps</a>
  &#8226;   <a href="#PolaroidBranca.py">PolaroidBranca.py</a>
  &#8226;   <a href="#asyncio.base_events">asyncio.base_events</a>
  &#8226;   <a href="#asyncio.coroutines">asyncio.coroutines</a>
@@ -12059,7 +12065,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#PolaroidBranca.py">PolaroidBranca.py</a>
+    <a href="#PIL.ImageOps">PIL.ImageOps</a>
+ &#8226;   <a href="#PolaroidBranca.py">PolaroidBranca.py</a>
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#email._header_value_parser">email._header_value_parser</a>
  &#8226;   <a href="#fractions">fractions</a>
@@ -14239,7 +14246,6 @@ imported by:
  &#8226;   <a href="#PIL.PyAccess">PIL.PyAccess</a>
  &#8226;   <a href="#PIL.SpiderImagePlugin">PIL.SpiderImagePlugin</a>
  &#8226;   <a href="#PIL.features">PIL.features</a>
- &#8226;   <a href="#PolaroidBranca.py">PolaroidBranca.py</a>
  &#8226;   <a href="#_bootlocale">_bootlocale</a>
  &#8226;   <a href="#_collections_abc">_collections_abc</a>
  &#8226;   <a href="#_osx_support">_osx_support</a>
