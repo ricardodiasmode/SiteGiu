@@ -1,5 +1,4 @@
-- Arrumar programa para abrir um cmd onde a giu vai escrever o nome do cliente e montar a foto para ela.
-* testar com musica do spotify(apenas alterar no nome da imagem e no LinkMusicas.txt)
+- Fazer outro programa para as tirinhas
 
 Montar-Fotos.php
 - Ao dar refresh na pagina nao pode criar outra foto na pagina(usar mesmo esquema que usou no carrinho.php)
@@ -9,7 +8,7 @@ Montar-Tirinhas.php
 
 ---------------------------------------- Para Depois ----------------------------------------
 
-- Poder pedir número customizado de fotos(garantir que sempre seja par, ou multiplo de 3/4 para quando for tirinha).
+- Poder pedir número customizado de fotos.
 - Adaptar para android?
 - Adicionar possibilidade de poder fazer mais um pedido de foto por vez.
 
