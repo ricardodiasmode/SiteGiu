@@ -1,10 +1,8 @@
 - Fazer outro programa para as tirinhas
+*ao entrar no product page da tirinha, deve limpar a variavel do local storage que segura o numero de fotos da tirinha
 
-Montar-Fotos.php
-- Ao dar refresh na pagina nao pode criar outra foto na pagina(usar mesmo esquema que usou no carrinho.php)
-
-Montar-Tirinhas.php
-- Criar pagina.
+Carrinho.php
+- Deve ser mandado por e-mail também os produtos do carrinho
 
 ---------------------------------------- Para Depois ----------------------------------------
 

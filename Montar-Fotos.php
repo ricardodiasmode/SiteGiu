@@ -23,6 +23,7 @@
         ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
         IrParaCarrinho = urlRef.searchParams.get("IrParaCarrinho");
         NumeroFotosMontadas = urlRef.searchParams.get("NumeroFotosMontadas");
+        window.history.replaceState({}, document.title, "/SiteGiu/" + "Montar-Fotos.php");
         CheckIrParaCarrinho();
     }    
 
@@ -46,7 +47,7 @@
             NumberOfPhotos = 20;
         else
             NumberOfPhotos = 30;
-        if(parseInt(NumeroFotosMontadas) >= NumberOfPhotos-8 || NumeroFotosMontadas == null)
+        if(parseInt(NumeroFotosMontadas) >= NumberOfPhotos)
         {
             IrParaCarrinho = 'true';
             document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
@@ -427,6 +428,12 @@
                     // Set client name
                     SetNomeCliente = (event) => {
                         let ClientNameRef = document.getElementById('ClientNamePassed').value;
+                        if (ClientNameRef == "")
+                        {
+                            localStorage.setItem("ClientName", "");
+                            document.getElementById("AddPhotoButton").style.display = "none";
+                            return;
+                        }
                         if(localStorage.getItem('ClientName') == null)
                             ClientNameRef = ClientNameRef + uuidv4();
                         else
@@ -435,7 +442,7 @@
                         document.getElementById("AddPhotoButton").style.display = "inline-block";
                     }
 
-                    if(localStorage.getItem('ClientName') == null)
+                    if(localStorage.getItem('ClientName') == null || localStorage.getItem('ClientName') == "")
                     {
                         // Criando text box onde o cliente vai colocar o nome dele
                         var ClientNameTB = document.createElement("input");

@@ -77,7 +77,7 @@
             ProductImage: "images/Catalogo/Tirinha3Fotos.jpeg",
             ProductName: "Tirinhas 3/4 Fotos",
             ProductPrice: "R$ 3,00 - 3,50",
-            ProductDescription: "*Não há mínimo e está fora do cálculo das fotos polaroid",
+            ProductDescription: "Não há mínimo de fotos.<br><br>Para a tirinha de 3 fotos, mande um múltiplo de 3 de fotos. Ex.: 3,6,9,12...<br>Para a tirinha de 4, mande um múltiplo de 4 fotos. Ex.: 4,8,12,16...<br><br>*Está fora do cálculo do mínimo de fotos das fotos polaroid.",
             ProductType1: "Tirinha 3 fotos",
             ProductType2: "Tirinha 4 fotos",
             ProductType3: "none",
