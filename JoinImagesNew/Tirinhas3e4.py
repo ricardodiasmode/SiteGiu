@@ -19,6 +19,7 @@ for file in glob.glob("*.png"):
     if ImageProperties[0] == ClientName:
         ImageArray.append(file)
         ImagePropertiesArray.append(ImageProperties)
+        print("Adicionado: "+str(file))
 
 # Pegando Modelos e adicionando ao array
 ModelosArray = []
@@ -90,44 +91,38 @@ for k in range(len(ModelosArray)):
                 # Pegando localizacao da imagem
                 if j == 2:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (278, 394)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (320, 210)
                 elif j == 3:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 500)
+                        ImagePos = (278, 983)
                     else:
-                        ImagePos = (200, 500)
+                        ImagePos = (320, 703)
                 elif j == 4:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 600)
+                        ImagePos = (278, 1568)
                     else:
-                        ImagePos = (200, 600)
+                        ImagePos = (320, 1193)
                 elif j == 5:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 700)
+                        ImagePos = (984, 392)
                     else:
-                        ImagePos = (200, 700)
+                        ImagePos = (320, 1686)
                 elif j == 6:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 800)
+                        ImagePos = (984, 983)
                     else:
-                        ImagePos = (200, 800)
+                        ImagePos = (1001, 208)
                 elif j == 7:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 900)
+                        ImagePos = (984, 1568)
                     else:
-                        ImagePos = (200, 900)
+                        ImagePos = (1001, 701)
                 elif j == 8:
-                    if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 1000)
-                    else:
-                        ImagePos = (200, 1000)
+                    ImagePos = (1003, 1193)
                 else:
-                    if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 1100)
-                    else:
-                        ImagePos = (200, 1100)
+                    ImagePos = (1003, 1686)
                 # Abrindo a imagem
                 ImageObjAux = Image.open(ImageArray[i])
                 ModelosArray[k][0].paste(ImageObjAux, ImagePos)

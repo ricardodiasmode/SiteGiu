@@ -249,37 +249,37 @@
         .image-previewt2__image1 {
             display: none;
             position: absolute;
-            width: 160px;
-            height: 160px;
-            top: 25px;
-            left: 40px;
+            width: 155px;
+            height: 155px;
+            top: 28px;
+            left: 56px;
         }
 
         .image-previewt2__image2 {
             display: none;
             position: absolute;
-            width: 160px;
-            height: 160px;
+            width: 155px;
+            height: 155px;
             top: 193px;
-            left: 40px;
+            left: 56px;
         }
 
         .image-previewt2__image3 {
             display: none;
             position: absolute;
-            width: 160px;
-            height: 160px;
+            width: 155px;
+            height: 155px;
             top: 358px;
-            left: 41px;
+            left: 57px;
         }
 
         .image-previewt2__image4 {
             display: none;
             position: absolute;
-            width: 160px;
-            height: 160px;
-            top: 524px;
-            left: 41px;
+            width: 155px;
+            height: 155px;
+            top: 523px;
+            left: 56px;
         }
     </style>
 
@@ -458,7 +458,7 @@
                     document.getElementById("basepreview").src = "Images/Modelos/ModeloTirinha3Preview.png";
                 else
                 {
-                    document.getElementById("basepreview").style.width = 238;
+                    //document.getElementById("basepreview").style.width = 238;
                     document.getElementById("basepreview").src = "Images/Modelos/ModeloTirinha4Preview.png";
                 }
                 // Verificando classe das fotos

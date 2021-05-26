@@ -1,6 +1,3 @@
-Programa tirinhas:
-- Arrumar localizacao das fotos
-
 Carrinho.php
 - Deve ser mandado por e-mail também os produtos do carrinho
 
