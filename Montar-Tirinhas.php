@@ -59,6 +59,7 @@
         // Adicionando foto no array
         ArrayPhotoRef = {Modelo, Imagem1DaFoto, Imagem2DaFoto, Imagem3DaFoto, Imagem4DaFoto};
         // Definindo a foto no localStorage
+        localStorage.removeItem('PhotosInfo');
         localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhotoRef));
         document.getElementById('ModeloPassed').value = Modelo;
         if(ArrayPhotoRef.Imagem1DaFoto != "none")
@@ -388,16 +389,6 @@
                 <img src="" alt="Faça o upload para ver como sua foto vai ficar" class="image-previewt2__image4" id="previewimage4">
             </div>
             <p>*resultado aproximado*</p>
-            <!-- Verificando classe das fotos -->
-            <script>
-                if(ProductTypeFromURL != "Tirinha 3 fotos")
-                {
-                    document.getElementById('previewimage1').className = "image-previewt2__image1";
-                    document.getElementById('previewimage2').className = "image-previewt2__image2";
-                    document.getElementById('previewimage3').className = "image-previewt2__image3";
-                    document.getElementById('previewimage4').className = "image-previewt2__image4";
-                }
-            </script>
             
             <!-- Preview das fotos feitas -->
             <script>
@@ -461,7 +452,7 @@
                                     document.getElementById("PhotoToUpload3").style.display = "none";
                                     if(ProductTypeFromURL == "Tirinha 3 fotos")
                                     {
-                                        document.getElementById("FinalizarPedidoButton").style.display = "block";
+                                        document.getElementById("AddPhotoButton").style.display = "block";
                                     }
                                     else
                                         document.getElementById("PhotoToUpload4").style.display = "block";
@@ -490,6 +481,15 @@
                 {
                     document.getElementById("basepreview").style.width = 238;
                     document.getElementById("basepreview").src = "Images/Modelos/ModeloTirinha4Preview.png";
+                }
+                // Verificando classe das fotos
+                if(ProductTypeFromURL != "Tirinha 3 fotos")
+                {
+                    console.log(ProductTypeFromURL);
+                    document.getElementById('previewimage1').className = "image-previewt2__image1";
+                    document.getElementById('previewimage2').className = "image-previewt2__image2";
+                    document.getElementById('previewimage3').className = "image-previewt2__image3";
+                    document.getElementById('previewimage4').className = "image-previewt2__image4";
                 }
             </script>
 

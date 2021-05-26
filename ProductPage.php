@@ -318,11 +318,13 @@
                 <script>
                     if(ProductNameFromURL == 'Box Memories' || ProductNameFromURL == 'Polaroid Branca')
                     {
+                        localStorage.removeItem('PhotosInfo');
                         document.getElementById("FormCarrinho").action= "Montar-Fotos.php";
                         document.getElementById("ProductType1Input").value = "10 fotos";
                     }
                     else if(ProductNameFromURL == 'Tirinhas 3/4 Fotos')
                     {
+                        localStorage.removeItem('PhotosInfo');
                         document.getElementById("FormCarrinho").action= "Montar-Tirinhas.php";
                         document.getElementById("ProductType1Input").value = "Tirinha 3 fotos";
                     }
