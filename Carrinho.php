@@ -3,7 +3,6 @@
     var ProductNameFromURL = "";
     var ProductType1 = "none";
     var ProductType2 = "none";
-    //var PhotosInfo = "none";
 
     function processUser()
     {
@@ -144,8 +143,6 @@
         localStorage.setItem('FezPedido', 'true');
         document.getElementById('EmailForm').submit();
     }
-
-
 
     function CheckDadosPreenchidos()
     {

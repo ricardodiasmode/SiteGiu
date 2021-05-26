@@ -41,24 +41,25 @@ for i in range(len(ImagePropertiesArray)):
                 else:
                     RangeMax = 10
                 for k in range(2, RangeMax):
+                    print("Para o modelo: "+str(j)+" / Checando posicao: "+str(k)+", de valor: "+str(ModelosArray[j][k]))
                     if ModelosArray[j][k] is None:
                         ModelosArray[j][k] = i
                         Added = True
+                        print("Adicionou.")
+                        break
                     else:
-                        ModelosArray[j][k] = ModelosArray[j][k]
+                        print("Não adicionou.")
             # Se nao houver posicao vazia, ou nao houver posicao com o mesmo modelo, cria uma
-            elif ModelosArray[j] == ModelosArray[len(ModelosArray) - 1]:
+            if ModelosArray[j] == ModelosArray[len(ModelosArray) - 1] and Added is False:
                 if CodigoModeloAtual == "t1":
-                    ModelosArray.append((Image.open(NomeArquivoModelo), CodigoModeloAtual, i, None, None, None, None, None))
+                    ModelosArray.append([Image.open(NomeArquivoModelo), CodigoModeloAtual, i, None, None, None, None, None])
                 else:
                     ModelosArray.append([Image.open(NomeArquivoModelo), CodigoModeloAtual, i, None, None, None, None, None, None, None])
-                ModelosArray[len(ModelosArray) - 1] = (ModelosArray[len(ModelosArray) - 1][0].convert("RGBA"))
-            if Added:
-                break
-    # Se o array esta vazio, adiciona uma primeira posicao
+                ModelosArray[len(ModelosArray) - 1][0] = (ModelosArray[len(ModelosArray) - 1][0].convert("RGBA"))
+    # Se o array de modelos esta vazio, adiciona uma primeira posicao
     else:
         if CodigoModeloAtual == "t1":
-            ModelosArray.append((Image.open(NomeArquivoModelo), CodigoModeloAtual, i, None, None, None, None, None))
+            ModelosArray.append([Image.open(NomeArquivoModelo), CodigoModeloAtual, i, None, None, None, None, None])
         else:
             ModelosArray.append([Image.open(NomeArquivoModelo), CodigoModeloAtual, i, None, None, None, None, None, None, None])
         ModelosArray[len(ModelosArray) - 1][0] = ModelosArray[len(ModelosArray) - 1][0].convert("RGBA")
@@ -82,10 +83,10 @@ for ImageRef in ImageArray:
 i = 0
 j = 0
 k = 0
-for ModeloRef in ModelosArray:
+for k in range(len(ModelosArray)):
     for i in range(len(ImageArray)):
-        for j in range(len(ModeloRef)):
-            if i == ModeloRef[j]:
+        for j in range(len(ModelosArray[k])):
+            if i == ModelosArray[k][j]:
                 # Pegando localizacao da imagem
                 if j == 2:
                     if ImagePropertiesArray[i][1] == "t1":
@@ -94,43 +95,43 @@ for ModeloRef in ModelosArray:
                         ImagePos = (200, 400)
                 elif j == 3:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 500)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 500)
                 elif j == 4:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 600)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 600)
                 elif j == 5:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 700)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 700)
                 elif j == 6:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 800)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 800)
                 elif j == 7:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 900)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 900)
                 elif j == 8:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 1000)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 1000)
                 else:
                     if ImagePropertiesArray[i][1] == "t1":
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 1100)
                     else:
-                        ImagePos = (200, 400)
+                        ImagePos = (200, 1100)
                 # Abrindo a imagem
                 ImageObjAux = Image.open(ImageArray[i])
-                ModeloRef[0].paste(ImageObjAux, ImagePos)
+                ModelosArray[k][0].paste(ImageObjAux, ImagePos)
                 ImageNewName = ImagePropertiesArray[i][0] + ImagePropertiesArray[i][2]
-                ModeloRef[0].save(ImageNewName + ".png", "PNG")
                 break
+    ModelosArray[k][0].save(ImageNewName + ".png", "PNG")
 

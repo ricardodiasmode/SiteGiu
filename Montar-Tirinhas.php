@@ -1,6 +1,6 @@
 ﻿<script type="text/javascript" src="Montar-Tirinhas.js"></script>
 
-<script>    
+<script type="text/javascript">    
     var Modelo = 't1';
     var Imagem1DaFoto = "none"; 
     var Imagem2DaFoto = "none"; 
@@ -16,8 +16,8 @@
     function processUser()
     {
         var urlRef = new URL(window.location.href);
-        ProductNameFromURL = urlRef.searchParams.get("ProductNameRef");
         ProductTypeFromURL = urlRef.searchParams.get("ProductType1Ref");
+        ProductNameFromURL =  (ProductTypeFromURL == "Tirinha 3 fotos") ? "Tirinha 3 fotos" : "Tirinha 4 fotos";
         ProductType2FromURL = urlRef.searchParams.get("ProductType2Ref");
         IrParaCarrinho = urlRef.searchParams.get("IrParaCarrinho");
         NumeroFotosMontadas = urlRef.searchParams.get("NumeroFotosMontadas");
@@ -52,74 +52,60 @@
         }
     }
 
-    function AdicionarFoto(ArrayPhotoRef)
+    function AdicionarFoto()
     {
         document.getElementById('ClientNamePassed').value = localStorage.getItem("ClientName");
         Modelo = (ProductTypeFromURL == "Tirinha 3 fotos") ? "t1" : "t2";
         // Adicionando foto no array
-        ArrayPhotoRef = {Modelo, Imagem1DaFoto, Imagem2DaFoto, Imagem3DaFoto, Imagem4DaFoto};
-        // Definindo a foto no localStorage
-        localStorage.removeItem('PhotosInfo');
-        localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhotoRef));
         document.getElementById('ModeloPassed').value = Modelo;
-        if(ArrayPhotoRef.Imagem1DaFoto != "none")
+        if(Imagem1DaFoto != "none")
         {
             ImagesUploaded[0] = 1;
         }
-        if(ArrayPhotoRef.Imagem2DaFoto != "none")
+        if(Imagem2DaFoto != "none")
         {
             ImagesUploaded[1] = 1;
         }
-        if(ArrayPhotoRef.Imagem3DaFoto != "none")
+        if(Imagem3DaFoto != "none")
         {
             ImagesUploaded[2] = 1;
         }
-        if(ArrayPhotoRef.Imagem4DaFoto != "none" && ProductTypeFromURL != "Tirinha 3 fotos")
+        if(Imagem4DaFoto != "none" && ProductTypeFromURL != "Tirinha 3 fotos")
         {
             ImagesUploaded[3] = 1;
         }
         // Verificando se alcançou o numero maximo de fotos
-        CheckNumberOfPhotos(ArrayPhotoRef);
+        CheckNumberOfPhotos();
     }
 
-    function RemoveAllPhotos(ArrayPhotoRef)
+    function RemoveAllPhotos()
     {
-        if(ArrayPhotoRef.Imagem1DaFoto != "none")
+        document.getElementById("FinalizarFotoButton").style.display = "none";
+        if(Imagem1DaFoto != "none")
         {
-            ArrayPhotoRef.Imagem1DaFoto = "none";
-            RemovePhotoFromFolder();
+            document.getElementById('PhotoToUpload1').style.display = "inline-block";
+            document.getElementById('previewimage1').style.display = "none";
+            Imagem1DaFoto = "none";
         }
-        if(ArrayPhotoRef.Imagem2DaFoto != "none")
+        if(Imagem2DaFoto != "none")
         {
-            ArrayPhotoRef.Imagem2DaFoto = "none";
-            RemovePhotoFromFolder();
+            document.getElementById('PhotoToUpload2').style.display = "none";
+            document.getElementById('previewimage2').style.display = "none";
+            Imagem2DaFoto = "none";
         }
-        if(ArrayPhotoRef.Imagem3DaFoto != "none")
+        if(Imagem3DaFoto != "none")
         {
-            ArrayPhotoRef.Imagem3DaFoto = "none";
-            RemovePhotoFromFolder();
+            document.getElementById('PhotoToUpload3').style.display = "none";
+            document.getElementById('previewimage3').style.display = "none";
+            Imagem3DaFoto = "none";
         }
-        if(ArrayPhotoRef.Imagem4DaFoto != "none" && ProductTypeFromURL != "Tirinha 3 fotos")
+        if(Imagem4DaFoto != "none" && ProductTypeFromURL != "Tirinha 3 fotos")
         {
-            ArrayPhotoRef.Imagem4DaFoto = "none";
-            RemovePhotoFromFolder();
+            document.getElementById('PhotoToUpload4').style.display = "none";
+            document.getElementById('previewimage4').style.display = "none";
+            Imagem4DaFoto = "none";
         }
-        localStorage.removeItem('PhotosInfo');
-        var PhotosInfo = ArrayPhoto;
     }
-
-    // Variavel que segura as fotos ja criadas
-    if(localStorage.getItem('PhotosInfo') != null)
-    {
-        var PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
-        Imagem1DaFoto = PhotosInfo.Imagem1DaFoto;
-        Imagem2DaFoto = PhotosInfo.Imagem2DaFoto;
-        Imagem3DaFoto = PhotosInfo.Imagem3DaFoto;
-        Imagem4DaFoto = PhotosInfo.Imagem4DaFoto;
-    }
-    else
-        var PhotosInfo = ArrayPhoto;
-
 
     // Remove photo from folder
     function RemovePhotoFromFolder(){
@@ -139,31 +125,29 @@
     }
 
     // Gerando preview das fotos criadas
-    function UpdateCreatedPhotos(ArrayPhotoRef)
+    function UpdateCreatedPhotos()
     {
-        if(!ArrayPhotoRef)
-            return;
         var i =0;
-        if(PhotosInfo.Imagem1DaFoto != "none")
+        if(Imagem1DaFoto != "none")
         {
-            document.getElementById("previewimage1").src = PhotosInfo.Imagem1DaFoto;
+            document.getElementById("previewimage1").src = Imagem1DaFoto;
             document.getElementById("previewimage1").style.display = "block";
         }
-        if(PhotosInfo.Imagem2DaFoto != "none")
+        if(Imagem2DaFoto != "none")
         {
-            document.getElementById("previewimage2").src = PhotosInfo.Imagem2DaFoto;
+            document.getElementById("previewimage2").src = Imagem2DaFoto;
             document.getElementById("previewimage2").style.display = "block";
         }
-        if(PhotosInfo.Imagem3DaFoto != "none")
+        if(Imagem3DaFoto != "none")
         {
-            document.getElementById("previewimage3").src = PhotosInfo.Imagem3DaFoto;
+            document.getElementById("previewimage3").src = Imagem3DaFoto;
             document.getElementById("previewimage3").style.display = "block";
         }
         if(ProductTypeFromURL != "Tirinha 3 fotos")
         {
-            if(PhotosInfo.Imagem4DaFoto != "none")
+            if(Imagem4DaFoto != "none")
             {
-                document.getElementById("previewimage4").src = PhotosInfo.Imagem4DaFoto;
+                document.getElementById("previewimage4").src = Imagem4DaFoto;
                 document.getElementById("previewimage4").style.display = "block";
             }
         }
@@ -175,10 +159,15 @@
 
     if (isset($_POST['ModeloPassed']))
     {
-        if($_POST['ModeloPassed'] == "Tirinha 3 fotos")
+        if($_POST['ModeloPassed'] == "t1")
             $Iteracoes = 3;
         else
             $Iteracoes = 4;
+
+        $Photo1ToUploadRef = $_FILES["PhotoToUpload1"];
+        $Photo2ToUploadRef = $_FILES["PhotoToUpload2"];
+        $Photo3ToUploadRef = $_FILES["PhotoToUpload3"];
+        $Photo4ToUploadRef = $_FILES["PhotoToUpload4"];
 
         for ($i = 0; $i<$Iteracoes;$i++)
         {
@@ -199,8 +188,8 @@
                 $PhotoToUploadRef = "PhotoToUpload3";
             else if($i == 3)
                 $PhotoToUploadRef = "PhotoToUpload4";
-            $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$IdUnico.".png"; // file name
-            if( move_uploaded_file($_FILES[$PhotoToUploadRef]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
+            $FileName = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$IdUnico.".png"; // file name
+            if( move_uploaded_file($_FILES[$PhotoToUploadRef]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$FileName) ) {
                 echo 'File uploaded';
             } else {
                 echo 'Something went wrong uploading file';
@@ -322,7 +311,6 @@
                         if (ClientNameRef == "")
                         {
                             localStorage.setItem("ClientName", "");
-                            document.getElementById("AddPhotoButton").style.display = "none";
                             return;
                         }
                         if(localStorage.getItem('ClientName') == null)
@@ -330,7 +318,6 @@
                         else
                             ClientNameRef = localStorage.getItem('ClientName');
                         localStorage.setItem("ClientName", ClientNameRef);
-                        document.getElementById("AddPhotoButton").style.display = "inline-block";
                     }
 
                     if(localStorage.getItem('ClientName') == null || localStorage.getItem('ClientName') == "")
@@ -363,18 +350,14 @@
                     }
                 </script>
 
-                <p>Escolha sua foto: <input type="file" value="Escolha sua foto" name="PhotoToUpload1" id="PhotoToUpload1" style="display:none">
+                <p>Escolha sua foto: <input type="file" value="Escolha sua foto" name="PhotoToUpload1" id="PhotoToUpload1">
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload2" id="PhotoToUpload2" style="display:none">
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload3" id="PhotoToUpload3" style="display:none">
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload4" style="display:none"></p>
                 <input type="hidden" name="ModeloPassed" id="ModeloPassed" value="none">
-                <p><input onclick="AdicionarFoto(PhotosInfo);" style="display:none" type="button" name="AddPhotoButton" id="AddPhotoButton" value="Finalizar Foto"></p>
-            <script>
-                if(localStorage.getItem('ClientName') != null)
-                    document.getElementById('AddPhotoButton').style.display = "inline-block";
-            </script>
+                <p><input onclick="AdicionarFoto();" style="display:none" type="button" name="FinalizarFotoButton" id="FinalizarFotoButton" value="Finalizar Foto"></p>
             </form>
-            <p><input onclick="RemoveAllPhotos(PhotosInfo);" type="button" name="RemovePhotosButton" id="RemovePhotosButton" value="Remover Fotos"></p>
+            <p><input onclick="RemoveAllPhotos();" type="button" name="RemovePhotosButton" id="RemovePhotosButton" value="Remover Fotos"></p>
         </span>
 
         <span style="margin-left: auto; margin-right: auto;text-align: center; vertical-align: top;">
@@ -393,12 +376,7 @@
             <!-- Preview das fotos feitas -->
             <script>
                 // Check se ha foto para ser adicionada ao preview
-                if(localStorage.getItem('PhotosInfo') != null)
-                {
-                    UpdateCreatedPhotos(PhotosInfo);
-                }
-                else
-                    document.getElementById("PhotoToUpload1").style.display = "block";
+                UpdateCreatedPhotos();
                     
                 // Setup image preview
                 const PhotoImage1 = document.getElementById('previewimage1');
@@ -433,7 +411,7 @@
                                     PhotoImage1.style.display = "block";
                                     document.getElementById("PhotoToUpload1").style.display = "none";
                                     document.getElementById("PhotoToUpload2").style.display = "block";
-                                    PhotosInfo.Imagem1DaFoto = this.result;
+                                    Imagem1DaFoto = this.result;
                                 }
                                 else if(PhotoImage2.style.display != "block")
                                 {
@@ -442,7 +420,7 @@
                                     PhotoImage2.style.display = "block";
                                     document.getElementById("PhotoToUpload2").style.display = "none";
                                     document.getElementById("PhotoToUpload3").style.display = "block";
-                                    PhotosInfo.Imagem2DaFoto = this.result;
+                                    Imagem2DaFoto = this.result;
                                 }
                                 else if(PhotoImage3.style.display != "block")
                                 {
@@ -452,18 +430,19 @@
                                     document.getElementById("PhotoToUpload3").style.display = "none";
                                     if(ProductTypeFromURL == "Tirinha 3 fotos")
                                     {
-                                        document.getElementById("AddPhotoButton").style.display = "block";
+                                        document.getElementById("FinalizarFotoButton").style.display = "block";
                                     }
                                     else
                                         document.getElementById("PhotoToUpload4").style.display = "block";
-                                    PhotosInfo.Imagem3DaFoto = this.result;
+                                    Imagem3DaFoto = this.result;
                                 }
                                 else if(PhotoImage4.style.display != "block" && ProductTypeFromURL != "Tirinha 3 fotos")
                                 {
                                     Imagem4DaFoto = this.result;
                                     PhotoImage4.setAttribute("src", this.result);
                                     PhotoImage4.style.display = "block";
-                                    PhotosInfo.Imagem4DaFoto = this.result;
+                                    Imagem4DaFoto = this.result;
+                                    document.getElementById("FinalizarFotoButton").style.display = "block";
                                 }
                             });
 

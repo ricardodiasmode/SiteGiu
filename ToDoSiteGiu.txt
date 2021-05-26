@@ -1,5 +1,5 @@
-- Fazer outro programa para as tirinhas
-*ao entrar no product page da tirinha, deve limpar a variavel do local storage que segura o numero de fotos da tirinha
+Programa tirinhas:
+- Arrumar localizacao das fotos
 
 Carrinho.php
 - Deve ser mandado por e-mail também os produtos do carrinho
