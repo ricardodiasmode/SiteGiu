@@ -1,16 +1,12 @@
-Carrinho.php
-- Deve ser mandado por e-mail também os produtos do carrinho
-
----------------------------------------- Para Depois ----------------------------------------
-
-- Poder pedir número customizado de fotos.
-- Adaptar para android?
-- Adicionar possibilidade de poder fazer mais um pedido de foto por vez.
-
-Carrinho.php
-- Botão de compra do mercado pago: https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/introduction
-
 Montar-Fotos.php
 - Deixar claro qual resolução é ideal que seja a foto
 - Melhorar design geral
-*colocar preview no lugar da logo da memories
+
+- Colocar para mandar pro e-mail da giulia, em vez do meu
+
+---------------------------------------- Para Depois ----------------------------------------
+
+- Adaptar para android?
+
+Carrinho.php
+- Botão de compra do mercado pago: https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/introduction

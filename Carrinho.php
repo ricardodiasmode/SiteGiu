@@ -141,6 +141,25 @@
     {
         document.getElementById('Nome').value = localStorage.getItem('ClientName');
         localStorage.setItem('FezPedido', 'true');
+        var ProductString = "";
+        // Pegando produtos no carrinho
+        for (i = 0; i < localStorage.length; i++) 
+        {
+            // key = localStorage.key(i) => Product name
+            key = localStorage.key(i);
+
+            if(key == 'PhotosInfo' || key == 'ClientName' || key == 'FezPedido')
+                continue;
+            if(ProductString == "")
+                ProductString = String(key);
+            else
+                ProductString += ", "+String(key);
+        }
+        var ProductsInput = document.createElement('input');
+        ProductsInput.type = "hidden";
+        ProductsInput.value = ProductString;
+        ProductsInput.name = "PurchasedProducts";
+        document.getElementById('EmailForm').appendChild(ProductsInput);
         document.getElementById('EmailForm').submit();
     }
 

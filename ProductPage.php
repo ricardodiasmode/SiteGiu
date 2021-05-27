@@ -313,14 +313,14 @@
                     <script>
                         document.getElementById("ProductNameInput").value = ProductNameFromURL;
                     </script>
-                    <input type="image" src="Images/BotaoComprar.png" style="margin-top:-5px;">
+                    <input type="image" src="Images/BotaoComprar.png" style="margin-top:5px;">
                 </form>
                 <script>
                     if(ProductNameFromURL == 'Box Memories' || ProductNameFromURL == 'Polaroid Branca')
                     {
                         localStorage.removeItem('PhotosInfo');
                         document.getElementById("FormCarrinho").action= "Montar-Fotos.php";
-                        document.getElementById("ProductType1Input").value = "10 fotos";
+                        //document.getElementById("ProductType1Input").value = "10 fotos";
                     }
                     else if(ProductNameFromURL == 'Tirinhas 3/4 Fotos')
                     {

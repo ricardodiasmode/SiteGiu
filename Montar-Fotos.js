@@ -96,37 +96,6 @@ function ToggleCheckBox(id) {
     }
 }
 
-function SetModelo(id) {
-    Modelo = id;
-    SetModeloResultado();
-}
-
-function SetModeloResultado()
-{
-    if(Modelo === 'm1')
-    {
-        document.getElementById('basepreview').src = "Images/Modelos/Modelo1Separado.png";
-        document.getElementById('basepreview').width = "449";
-        document.getElementById('basepreview').height = "507.5";
-        document.getElementById('previewimage').width = "372";
-        document.getElementById('previewimage').height = "372";
-        document.getElementById('previewimage').style.top = "40px";
-        document.getElementById('previewimage').style.left = "38px";
-        SetupLegendaPreview();
-    }
-    else
-    {
-        document.getElementById('basepreview').src = "Images/Modelos/Modelo2Separado.png";
-        document.getElementById('basepreview').width = "449";
-        document.getElementById('basepreview').height = "681.7";
-        document.getElementById('previewimage').width = "355";
-        document.getElementById('previewimage').height = "480";
-        document.getElementById('previewimage').style.top = "44px";
-        document.getElementById('previewimage').style.left = "44px";
-        SetupLegendaPreview();
-    }
-}
-
 function SetPreviewImage(srcToSet)
 {
     ImagemDaFoto = srcToSet;
@@ -144,7 +113,7 @@ function SetupLegendaPreview()
         document.getElementById('previewlegenda').style.bottom = "50px";
 
     var LegendaWidth = document.getElementById('previewlegenda').getBoundingClientRect().width;
-    var CurrentImageWidth = document.getElementById('previewimage').width;
+    var CurrentImageWidth = document.getElementById('PreviewCurrentImage').width;
     document.getElementById('previewlegenda').style.left = CurrentImageWidth/2 - LegendaWidth/4;
     LegendaDaFoto = document.getElementById('previewlegenda').innerHTML;
 }

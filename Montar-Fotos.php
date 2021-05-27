@@ -62,6 +62,7 @@
                 var auxint = parseInt(NumeroFotosMontadas);
                 auxint = auxint+1;
                 NumeroFotosMontadas = auxint.toString();
+                document.getElementById('NumeroFotosMontadas').value = NumeroFotosMontadas;
             }
             document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
             document.getElementById('AdicionarFotoForm').submit();
@@ -224,6 +225,67 @@
         PhotoContent.appendChild(NewPhotoAdded);
     
     }
+
+    function SetModelo(id) {
+        Modelo = id;
+        SetModeloResultado();
+    }
+
+    function SetModeloResultado()
+    {
+        if(Modelo === 'm1')
+        {
+            document.getElementById('basepreview').src = "Images/Modelos/Modelo1Separado.png";
+            document.getElementById('basepreview').width = "449";
+            document.getElementById('basepreview').height = "507.5";
+            document.getElementById('PreviewCurrentImage').width = "372";
+            document.getElementById('PreviewCurrentImage').height = "372";
+            document.getElementById('PreviewCurrentImage').style.top = "257px";
+            document.getElementById('PreviewCurrentImage').style.left = "463px";
+        }
+        else
+        {
+            document.getElementById('basepreview').src = "Images/Modelos/Modelo2Separado.png";
+            document.getElementById('basepreview').width = "449";
+            document.getElementById('basepreview').height = "681.7";
+            document.getElementById('PreviewCurrentImage').width = "358";
+            document.getElementById('PreviewCurrentImage').height = "480";
+            document.getElementById('PreviewCurrentImage').style.top = "263px";
+            document.getElementById('PreviewCurrentImage').style.left = "470px";
+        }
+        document.getElementById('Molde1Button').style.display = "none";
+        document.getElementById('Molde2Button').style.display = "none";
+        document.getElementById('DivPreviewFotoAtual').style.display = "block";
+        document.getElementById('ContinuarButton').style.display = "inline-block";
+    }
+
+    function ContinuarProximaEtapa()
+    {
+        // Verificar se ja colocou o nome
+        if(localStorage.getItem('ClientName') != null)
+        {
+            // Removendo da tela o cb de colocar nome
+            document.getElementById('NomeClienteParagrafo').style.display = "none";
+            document.getElementById('ClientNamePassed').style.display = "none";
+            // Deixando Visivel modelos para escolha
+            document.getElementById('TextoInstrucao').innerText = "2. Escolha seu Molde";
+            if(document.getElementById('Molde1Button').style.display == "none")
+            {
+                document.getElementById('Molde1Button').style.display = "inline-block";
+                document.getElementById('Molde2Button').style.display = "inline-block";
+                document.getElementById("ContinuarButton").style.display = "none";
+            }
+            else
+            {
+                if (NumeroFotosMontadas == "0" || NumeroFotosMontadas == null || NumeroFotosMontadas == "none")
+                {
+                    document.getElementById('PhotoToUpload1').style.display = "none";
+                    document.getElementById('EscolhaFotoText').style.display = "none";
+                }
+                document.getElementById('SpanExtrasDaFoto').style.display = "inline-block";
+            }
+        }
+    }
 </script>
 
 <?php
@@ -239,8 +301,9 @@
         $IdFile = fopen("UniqueID.txt", "w") or die("Unable to open file!");
         fwrite($IdFile, $IdUnico);
         fclose($IdFile);
+        $NumeroFotosMontadas = $__POST['NumeroFotosMontadas'];
         $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$_POST['ComMusicaPassed']."_".$_POST['MusicaYtPassed']."_".$_POST['ComLegendaPassed']."_"."Legenda="."_".$_POST['LegendaPassed']."_".$IdUnico.".png"; // file name
-        if( move_uploaded_file($_FILES["PhotoToUpload"]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
+        if( move_uploaded_file($_FILES["PhotoToUpload1"]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
             echo 'File uploaded';
         } else {
             echo 'Something went wrong uploading file';
@@ -284,17 +347,9 @@
     </style>
 
     <style>
-        .base-image {
-            position: relative;
-            top: 0;
-            left: 0;
-        }
-
-        .image-previewm1__image {
+        .PreviewCurrentImage {
             display: none;
             position: absolute;
-            top: 40px;
-            left: 38px;
         }
     </style>
 
@@ -348,27 +403,6 @@
             display: block;
             position: absolute;
         }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            animation-name: animatetop;
-            animation-duration: 0.4s;
-            background-color: rgb(0, 0, 0);
-            background-image: "url('Images/ModalBackgroundImage.jpg')";
-            max-width: 450px;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-        /* Add Animation */
-        @keyframes animatetop {
-        from {top: -300px; opacity: 0}
-        to {top: 0; opacity: 1}
-        }
     </style>
 
     <meta charset="utf-8" />
@@ -378,46 +412,47 @@
 </head>
 <body style="background-image: url('Images/BackgroundImage.jpg')">
     <!-- Escolhendo modelos -->
-    <div id="BaseDiv" style="display:flex">
+    <div id="BaseDiv" style="display:block;width:100%;margin-top:50px">
 
         <span style="text-align: left; vertical-align: top;">
-            <input onclick="SetModelo('m1')" type="image" src="Images/Modelos/Modelo1Separado.png" alt="Modelo1Img" style="width:449px;height:507.5px;" id="m1" />
+            <input onclick="SetModelo('m1')" type="image" src="Images/Modelos/Modelo1Separado.png" alt="Modelo1Img" style="display:none;position:absolute;width:449px;height:507.5px;left:0;top:0px" id="Molde1Button" />
         </span>
 
-        <span style="text-align: center; vertical-align: top;">
-            <img src="Images/Logo.png" alt="Our logo" style="width:400px;height:400px;" id="logo">
-            
-            <!-- Escolhendo se tem musica ou nao -->
-            <p><input onclick="ToggleCheckBox('musicacb')" type="checkbox" id="musicacb" name="musicacb">
-            <label for="musicacb">Com Musica?</label></p>
+        <span style="text-align: center; vertical-align:top;">
+            <h1 id='TextoInstrucao'>1. Escreva seu Nome</h1>
+            <span id='SpanExtrasDaFoto' style="display:none">
+                <!-- Escolhendo se tem musica ou nao -->
+                <p><input onclick="ToggleCheckBox('musicacb')" type="checkbox" id="musicacb" name="musicacb">
+                <label for="musicacb">Com Musica?</label></p>
 
-            <!-- Escolhendo se a musica vem do youtube -->
-            <p><input onclick="ToggleCheckBox('ytcb')" style="display:none" type="checkbox" id="ytcb" name="ytcb">
-            <label style="display:none" id="ytlb" for="ytcb">Do youtube?</label></p>
-            
-            <!-- Escolhendo se a musica vem do spotify -->
-            <p><input onclick="ToggleCheckBox('spotifycb')" style="display:none" type="checkbox" id="spotifycb" name="spotifycb">
-            <label style="display:none" id="spotifylb" for="spotifycb">Do spotify?</label></p>
+                <!-- Escolhendo se a musica vem do youtube -->
+                <p><input onclick="ToggleCheckBox('ytcb')" style="display:none" type="checkbox" id="ytcb" name="ytcb">
+                <label style="display:none" id="ytlb" for="ytcb">Do youtube?</label></p>
+                
+                <!-- Escolhendo se a musica vem do spotify -->
+                <p><input onclick="ToggleCheckBox('spotifycb')" style="display:none" type="checkbox" id="spotifycb" name="spotifycb">
+                <label style="display:none" id="spotifylb" for="spotifycb">Do spotify?</label></p>
 
-            <!-- Escolhendo o link da musica -->
-            <p><label for="linkmusicatb" style="display:none" id="linkmusicatblabel">Cole o link da musica: </label>
-            <input onchange="ChangeTextBox('linkmusicatb')" type="text" id="linkmusicatb" name="linkmusicatb" style="display:none;"></p>
+                <!-- Escolhendo o link da musica -->
+                <p><label for="linkmusicatb" style="display:none" id="linkmusicatblabel">Cole o link da musica: </label>
+                <input onchange="ChangeTextBox('linkmusicatb')" type="text" id="linkmusicatb" name="linkmusicatb" style="display:none;"></p>
+                
+                <!-- Escolhendo se tem legenda ou nao -->
+                <p><input onclick="ToggleCheckBox('legendacb')" type="checkbox" id="legendacb" name="legendacb">
+                <label for="legendacb">Com Legenda?</label></p>
             
-            <!-- Escolhendo se tem legenda ou nao -->
-            <p><input onclick="ToggleCheckBox('legendacb')" type="checkbox" id="legendacb" name="legendacb">
-            <label for="legendacb">Com Legenda?</label></p>
-           
-            <!-- Escolhendo o texto da legenda -->
-            <p><label for="legendatb" style="display:none" id="legendatblabel">Digite a legenda: </label>
-            <input onchange="ChangeTextBox('legendatb')" type="text" maxlength="15" id="legendatb" name="legendatb" style="display:none;"></p>
-            
-            <!-- Escolhendo se tem ima ou nao -->
-            <p><input onclick="ToggleIma()" type="checkbox" id="imacb" name="imacb">
-            <label for="imacb">Com Imã?</label></p>
+                <!-- Escolhendo o texto da legenda -->
+                <p><label for="legendatb" style="display:none" id="legendatblabel">Digite a legenda: </label>
+                <input onchange="ChangeTextBox('legendatb')" type="text" maxlength="15" id="legendatb" name="legendatb" style="display:none;"></p>
+                
+                <!-- Escolhendo se tem ima ou nao -->
+                <p><input onclick="ToggleIma()" type="checkbox" id="imacb" name="imacb">
+                <label for="imacb">Com Imã?</label></p>
+            </span>
 
             <!-- Fazendo o upload da foto -->
             <form action="Montar-Fotos.php" method="post" id="AdicionarFotoForm" enctype="multipart/form-data">
-                <p id="NomeClienteParagrafo"><label for="ClientNamePassed" id="ClientNamePassedlabel">Seu Nome: </label></p>
+                <p id="NomeClienteParagrafo"><label for="ClientNamePassed" id="ClientNamePassedlabel">Seu Nome*: </label></p>
                 <script>
                     // Generate GUID
                     function uuidv4() {
@@ -431,7 +466,7 @@
                         if (ClientNameRef == "")
                         {
                             localStorage.setItem("ClientName", "");
-                            document.getElementById("AddPhotoButton").style.display = "none";
+                            document.getElementById("ContinuarButton").style.display = "none";
                             return;
                         }
                         if(localStorage.getItem('ClientName') == null)
@@ -439,7 +474,7 @@
                         else
                             ClientNameRef = localStorage.getItem('ClientName');
                         localStorage.setItem("ClientName", ClientNameRef);
-                        document.getElementById("AddPhotoButton").style.display = "inline-block";
+                        document.getElementById("ContinuarButton").style.display = "inline-block";
                     }
 
                     if(localStorage.getItem('ClientName') == null || localStorage.getItem('ClientName') == "")
@@ -464,19 +499,43 @@
                         document.getElementById('ClientNamePassedlabel').remove();
                     }
                 </script>
-                <p>Escolha sua foto: <input type="file" value="Escolha sua foto" name="PhotoToUpload" id="PhotoToUpload"></p>
+                <p><span id="EscolhaFotoText" style="display:none">Escolha sua foto:</span> <input type="file" value="Escolha sua foto" name="PhotoToUpload1" id="PhotoToUpload1" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload2" id="PhotoToUpload2" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload3" id="PhotoToUpload3" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload4" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload5" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload6" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload7" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload8" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload9" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload10" style="display:none"></p>
+                <input type="hidden" value="" name="NumeroFotosMontadas" id="NumeroFotosMontadas">
                 <input type="hidden" name="ModeloPassed" id="ModeloPassed" value="none">
                 <input type="hidden" name="ComMusicaPassed" id="ComMusicaPassed" value="none">
                 <input type="hidden" name="MusicaYtPassed" id="MusicaYtPassed" value="none">
                 <input type="hidden" name="ComLegendaPassed" id="ComLegendaPassed" value="none">
                 <input type="hidden" name="LinkMusicaPassed" id="LinkMusicaPassed" value="none">
                 <input type="hidden" name="LegendaPassed" id="LegendaPassed" value="none">
-                <p><input onclick="AdicionarFoto(PhotosInfo);" style="display:none" type="button" name="AddPhotoButton" id="AddPhotoButton" value="Adicionar Foto"></p>
             <script>
                 if(localStorage.getItem('ClientName') != null)
                     document.getElementById('AddPhotoButton').style.display = "inline-block";
             </script>
             </form>
+
+            <!-- Preview da foto atual -->
+            <p style="text-align: center;">
+                <input onclick="ContinuarProximaEtapa()" style="display:none" type="button" name="ContinuarButton" id="ContinuarButton" value="Continuar">
+            </p>
+            <div id="DivPreviewFotoAtual" style="display: none;text-align: center;">
+            <p>Como sua foto vai ficar:</p>
+            <p>
+                <img src="" id='basepreview' width="449" height="507.5"/>
+                <img src="" alt="Faça o upload para ver como sua foto vai ficar" class="PreviewCurrentImage" id="PreviewCurrentImage">
+            </p>
+            <h1 id="previewlegenda" class="LegendaPhotoAdded">SuaLegenda</h1>
+            
+            <p>*resultado aproximado*</p>
+            </div>
             
             <!-- Preview das fotos feitas -->
             <p><div id="photos-content" style="display:flex;height: 200px;">
@@ -488,24 +547,13 @@
                 }
             </script>
             </div></p>
-
-            <!-- Preview da foto atual -->
-            <p>Como sua foto vai ficar: </p>
-            <div class="base-image">
-                <img src="" id='basepreview' width="449" height="507.5" class="base-image"/>
-                <img src="" width="372" height="372" alt="Faça o upload para ver como sua foto vai ficar" class="image-previewm1__image" id="previewimage">
-                <h1 id="previewlegenda" class="LegendaPhotoAdded">SuaLegenda</h1>
-                <script>SetupLegendaPreview();</script>
-            </div>
-            <p>*resultado aproximado*</p>
             
             <!-- Definindo preview image -->
             <script>
                 processUser();
-                SetModeloResultado();
                 // Setup image preview
-                const PhotoFile = document.getElementById('PhotoToUpload');
-                const PhotoImage = document.getElementById('previewimage');
+                const PhotoFile = document.getElementById('PhotoToUpload1');
+                const PhotoImage = document.getElementById('PreviewCurrentImage');
 
                 PhotoFile.addEventListener("change", function() 
                 { 
@@ -534,7 +582,7 @@
         </span>
 
         <span style="text-align: right; vertical-align: top;">
-            <input onclick="SetModelo('m2')" type="image" src="Images/Modelos/Modelo2Separado.png" alt="Modelo2Img" style="width:393.6px;height:597.6px;" id="m2" />
+            <input onclick="SetModelo('m2')" type="image" src="Images/Modelos/Modelo2Separado.png" alt="Modelo2Img" style="display:none;position:absolute;width:393.6px;height:597.6px;right:0px;top:0px" id="Molde2Button" />
         </span>
     </div>
 </body>

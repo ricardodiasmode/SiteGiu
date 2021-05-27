@@ -16,17 +16,19 @@ if (isset($_POST['Nome']))
     $ClientComplemento = $_POST['Complemento'];
     $ClientReferencia = $_POST['Referencia'];
     $ClientRecado = $_POST['Recado'];
+    $ClientProducts = $_POST['PurchasedProducts'];
     
-    $bodytext = "Nome do cliente: ".$ClientName."\n".
-    "Contato do cliente: ".$ClientContato."\n".
-    "Estado do cliente: ".$ClientEstado."\n".
-    "Cidade do cliente: ".$ClientCidade."\n".
-    "Bairro do cliente: ".$ClientBairro."\n".
-    "Rua do cliente: ".$ClientRua."\n".
-    "Numero do cliente: ".$ClientNumero."\n".
-    "Complemento do endereco: ".$ClientComplemento."\n".
-    "Referencia do endereco: ".$ClientReferencia."\n".
-    "Recado: ".$ClientRecado;
+    $bodytext = "Nome do cliente: ".$ClientName."\r\n".
+    "Contato do cliente: ".$ClientContato."\r\n".
+    "Estado do cliente: ".$ClientEstado."\r\n".
+    "Cidade do cliente: ".$ClientCidade."\r\n".
+    "Bairro do cliente: ".$ClientBairro."\r\n".
+    "Rua do cliente: ".$ClientRua."\r\n".
+    "Numero do cliente: ".$ClientNumero."\r\n".
+    "Complemento do endereco: ".$ClientComplemento."\r\n".
+    "Referencia do endereco: ".$ClientReferencia."\r\n".
+    "Recado: ".$ClientRecado."\r\n".
+    "Pedido: ".$ClientProducts;
 
     try{
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
