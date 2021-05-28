@@ -1,6 +1,8 @@
 Montar-Fotos.php
-- Deixar claro qual resolução é ideal que seja a foto
-- Melhorar design geral
+- verificar se esta enviando corretamente
+
+Montar-Tirinhas.php
+- Precaucoes(copiar do montar-fotos)
 
 - Colocar para mandar pro e-mail da giulia, em vez do meu
 

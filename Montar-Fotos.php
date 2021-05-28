@@ -1,4 +1,160 @@
-﻿<script type="text/javascript" src="Montar-Fotos.js"></script>
+﻿<script type="text/javascript">
+
+    function ToggleHideElement(id) {
+    var Elem = document.getElementById(id);
+    if (Elem.style.display === "none") {
+        Elem.style.display = "block";
+    } else {
+        Elem.style.display = "none";
+    }
+    }
+
+    function SetElemText(id, text) {
+        document.getElementById(id).textContent = text;
+    }
+
+    function UnHideUploadPhotoPage() {
+        ToggleHideElement('models');
+        ToggleHideElement('uploadphoto');
+    }
+
+    function ToggleIma()
+    {
+        if(ComIma) { ComIma = 0; }
+        else { ComIma = 1; }
+    }
+
+    function ToggleCheckBox(id) {
+        var Elem = document.getElementById(id);
+        if(Elem.checked === true)
+        {
+            if(id === 'musicacb')
+            {
+                document.getElementById('legendacb').checked = false;
+                ComLegenda = 0;
+                ComMusica = 1;
+                document.getElementById('legendatb').style.display = "none";
+                document.getElementById('legendatblabel').style.display = "none";
+                document.getElementById('linkmusicatb').style.display = "inline";
+                document.getElementById('linkmusicatblabel').style.display = "inline";
+                SetupLegendaPreview();
+                SetupMusicaPreview();
+            }
+            else if (id === 'legendacb')
+            {
+                document.getElementById('musicacb').checked = false;
+                ComMusica = 0;
+                ComLegenda = 1;
+                SetupMusicaPreview();
+                SetupLegendaPreview();
+                document.getElementById('legendatb').style.display = "inline";
+                document.getElementById('legendatblabel').style.display = "inline";
+                document.getElementById('linkmusicatb').style.display = "none";
+                document.getElementById('linkmusicatblabel').style.display = "none";
+            }
+            else if (id === 'ytcb')
+            {
+                MusicaDoYt = 1;
+                document.getElementById('spotifycb').checked = false;
+                SetupMusicaPreview();
+            }
+            else if (id === 'spotifycb')
+            {
+                MusicaDoYt = 0;
+                document.getElementById('ytcb').checked = false;
+                SetupMusicaPreview();
+            }
+        }
+        else
+        {
+            if(id === 'musicacb')
+            {
+                ComMusica = 0;
+                document.getElementById('linkmusicatb').style.display = "none";
+                document.getElementById('linkmusicatblabel').style.display = "none";
+                SetupMusicaPreview();
+            }
+            else if (id === 'legendacb')
+            {
+                ComLegenda = 0;
+                document.getElementById('legendatb').style.display = "none";
+                document.getElementById('legendatblabel').style.display = "none";
+                SetupLegendaPreview();
+            }
+        }
+    }
+
+    function SetPreviewImage(srcToSet)
+    {
+        ImagemDaFoto = srcToSet;
+    }
+
+    function SetupLegendaPreview()
+    {
+        if(document.getElementById('legendacb').checked === true)
+            document.getElementById('previewlegenda').style.display = "inline-block";
+        else
+            document.getElementById('previewlegenda').style.display = "none";
+        if(Modelo === "m1")
+            document.getElementById('previewlegenda').style.bottom = "15px";
+        else
+            document.getElementById('previewlegenda').style.bottom = "-130px";
+        var LegendaWidth = document.getElementById('previewlegenda').getBoundingClientRect().width;
+        document.getElementById('previewlegenda').style.left = -LegendaWidth/2;
+        LegendaDaFoto = document.getElementById('previewlegenda').innerHTML;
+    }
+
+    function SetupMusicaPreview()
+    {
+        if(document.getElementById('musicacb').checked === false)
+        {        
+            document.getElementById('ytcb').style.display = "none"; 
+            document.getElementById('ytlb').style.display = "none"; 
+            document.getElementById('spotifycb').style.display = "none"; 
+            document.getElementById('spotifylb').style.display = "none"; 
+            if(Modelo === "m1")
+                document.getElementById('basepreview').src = "Images/Modelos/Modelo1Separado.png";
+            else
+                document.getElementById('basepreview').src = "Images/Modelos/Modelo2Separado.png";
+        }
+        else
+        {     
+            document.getElementById('ytcb').style.display = "inline"; 
+            document.getElementById('ytlb').style.display = "inline"; 
+            document.getElementById('spotifycb').style.display = "inline"; 
+            document.getElementById('spotifylb').style.display = "inline"; 
+            if(document.getElementById('ytcb').checked === true)
+            {   
+                if(Modelo === "m1")
+                    document.getElementById('basepreview').src = "Images/Modelos/Modelo1yt.png";
+                else
+                    document.getElementById('basepreview').src = "Images/Modelos/Modelo2yt.png";
+            }
+            else if(document.getElementById('spotifycb').checked === true)
+            {   
+                if(Modelo === "m1")
+                    document.getElementById('basepreview').src = "Images/Modelos/Modelo1spotfy.png";
+                else
+                    document.getElementById('basepreview').src = "Images/Modelos/Modelo2spotfy.png";
+            }
+        }
+            
+    }
+
+    function ChangeTextBox(id)
+    {
+        if(id === "linkmusicatb")
+        {
+            LinkMusicaEscolhida = document.getElementById(id).value;
+        }
+        else if(id === "legendatb")
+        {
+            document.getElementById('previewlegenda').innerHTML = document.getElementById(id).value;
+            SetupLegendaPreview();
+        }
+    }
+
+</script>
 
 <script>    
     var Modelo = 'm1';
@@ -14,6 +170,8 @@
     var ProductType2FromURL = "none";
     var IrParaCarrinho = "false";
     var NumeroFotosMontadas = "0";
+    var PhotosInfo = [];
+    var i;
 
     function processUser()
     {
@@ -38,20 +196,30 @@
         }
     }
 
-    function CheckNumberOfPhotos()
+    function CheckNumberOfPhotos(QuerFinalizar)
     {
+        document.getElementById('ClientNamePassed').value = localStorage.getItem("ClientName");
+        PhotosInfo.push({Modelo: Modelo, ComMusica: ComMusica, MusicaDoYt: MusicaDoYt, ComLegenda: ComLegenda, LegendaDaFoto: LegendaDaFoto, LinkMusicaEscolhida: LinkMusicaEscolhida});
+        document.getElementById('CaracteristicasPhotos').value = PhotosInfo;
         var NumberOfPhotos = 10;
-        if(ProductTypeFromURL == '10 fotos')
-            NumberOfPhotos = 10;
-        else if(ProductTypeFromURL == '20 fotos')
-            NumberOfPhotos = 20;
-        else
-            NumberOfPhotos = 30;
         if(parseInt(NumeroFotosMontadas) >= NumberOfPhotos)
         {
-            IrParaCarrinho = 'true';
-            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
-            document.getElementById('AdicionarFotoForm').submit();
+            if(document.getElementById('TextoInstrucao').innerText == "5. Mais Fotos?")
+            {
+                document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
+                document.getElementById('AdicionarFotoForm').submit();
+            }
+            else
+            {
+                document.getElementById('TextoInstrucao').innerText = "5. Mais Fotos?";
+                document.getElementById('FinalizarPedidoButton').style.display = "inline-block";
+                if(QuerFinalizar)
+                {
+                    IrParaCarrinho = 'true';
+                    document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
+                    document.getElementById('AdicionarFotoForm').submit();
+                }
+            }
         }
         else
         {
@@ -64,35 +232,14 @@
                 NumeroFotosMontadas = auxint.toString();
                 document.getElementById('NumeroFotosMontadas').value = NumeroFotosMontadas;
             }
-            document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
-            document.getElementById('AdicionarFotoForm').submit();
+            document.getElementById('TextoInstrucao').innerText = "5. Agora faca pelo menos mais "+(10-NumeroFotosMontadas).toString()+" fotos";
+            document.getElementById('SpanExtrasDaFoto').style.display = "none";
         }
     }
-
-    function AdicionarFoto(ArrayPhotoRef)
-    {
-        if(ImagemDaFoto !== "none")
-        {
-            document.getElementById('ClientNamePassed').value = localStorage.getItem("ClientName");
-            // Adicionando foto no array
-            ArrayPhotoRef = {Modelo, ComMusica, MusicaDoYt, ComIma, ComLegenda, LinkMusicaEscolhida, LegendaDaFoto, ImagemDaFoto};
-            // Definindo a foto no localStorage
-            localStorage.setItem("PhotosInfo", JSON.stringify(ArrayPhotoRef));
-            GetDataFormValues();
-            // Verificando se alcançou o numero maximo de fotos
-            CheckNumberOfPhotos(ArrayPhotoRef);
-        }
-    }
-
-    // Variavel que segura as fotos ja criadas
-    if(localStorage.getItem('PhotosInfo') != null)
-        var PhotosInfo = JSON.parse(localStorage.getItem('PhotosInfo') || '{}');
-    else
-        var PhotosInfo = ArrayPhoto[ArrayPhoto.length-1];
 
 
     // Remove photo from folder
-    function RemovePhotoFromFolder(){
+    /*function RemovePhotoFromFolder(){
         if(localStorage.getItem('ClientName') != null)
         {
             var ClientNameRef = localStorage.getItem('ClientName');
@@ -111,7 +258,6 @@
     // Remove photo from preview
     invoke = (event) => {
         let PhotoIDRef = event.target.getAttribute('name');
-        localStorage.removeItem("PhotosInfo");
         document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
         RemovePhotoFromFolder();
     }
@@ -224,7 +370,7 @@
         // Adicionando tudo ao div
         PhotoContent.appendChild(NewPhotoAdded);
     
-    }
+    }*/
 
     function SetModelo(id) {
         Modelo = id;
@@ -240,7 +386,7 @@
             document.getElementById('basepreview').height = "507.5";
             document.getElementById('PreviewCurrentImage').width = "372";
             document.getElementById('PreviewCurrentImage').height = "372";
-            document.getElementById('PreviewCurrentImage').style.top = "257px";
+            document.getElementById('PreviewCurrentImage').style.top = "332px";
             document.getElementById('PreviewCurrentImage').style.left = "463px";
         }
         else
@@ -250,13 +396,16 @@
             document.getElementById('basepreview').height = "681.7";
             document.getElementById('PreviewCurrentImage').width = "358";
             document.getElementById('PreviewCurrentImage').height = "480";
-            document.getElementById('PreviewCurrentImage').style.top = "263px";
+            document.getElementById('PreviewCurrentImage').style.top = "339px";
             document.getElementById('PreviewCurrentImage').style.left = "470px";
         }
         document.getElementById('Molde1Button').style.display = "none";
         document.getElementById('Molde2Button').style.display = "none";
         document.getElementById('DivPreviewFotoAtual').style.display = "block";
         document.getElementById('ContinuarButton').style.display = "inline-block";
+        document.getElementById('EscolhaFotoText').style.display = "inline-block";
+        document.getElementById('PhotoToUpload1').style.display = "inline-block";
+        document.getElementById('TextoInstrucao').innerText = "3. Escolha sua Foto";
     }
 
     function ContinuarProximaEtapa()
@@ -271,18 +420,33 @@
             document.getElementById('TextoInstrucao').innerText = "2. Escolha seu Molde";
             if(document.getElementById('Molde1Button').style.display == "none")
             {
-                document.getElementById('Molde1Button').style.display = "inline-block";
-                document.getElementById('Molde2Button').style.display = "inline-block";
-                document.getElementById("ContinuarButton").style.display = "none";
-            }
-            else
-            {
-                if (NumeroFotosMontadas == "0" || NumeroFotosMontadas == null || NumeroFotosMontadas == "none")
+                if(document.getElementById('EscolhaFotoText').style.display == "inline-block")
                 {
-                    document.getElementById('PhotoToUpload1').style.display = "none";
+                    document.getElementById('TextoInstrucao').innerText = "4. Escolha os Adicionais";
                     document.getElementById('EscolhaFotoText').style.display = "none";
+                    for (i=1;i<11;i++)
+                    {
+                        var IdPhotoToUpload;
+                        IdPhotoToUpload = "PhotoToUpload"+i.toString();
+                        document.getElementById(IdPhotoToUpload).style.display = "none";
+                    }
+                    document.getElementById('SpanExtrasDaFoto').style.display = "inline-block";
                 }
-                document.getElementById('SpanExtrasDaFoto').style.display = "inline-block";
+                else
+                {
+                    if(document.getElementById('SpanExtrasDaFoto').style.display == "inline-block")
+                    {
+                        CheckNumberOfPhotos(false);
+                    }
+                    else
+                    {
+                        document.getElementById('DivPreviewFotoAtual').style.display = "none";
+                        document.getElementById('PreviewCurrentImage').style.display = "none";
+                        document.getElementById('Molde1Button').style.display = "inline-block";
+                        document.getElementById('Molde2Button').style.display = "inline-block";
+                        document.getElementById("ContinuarButton").style.display = "none";
+                    }
+                }
             }
         }
     }
@@ -291,46 +455,49 @@
 <?php
 // TODO: Precaucoes: https://www.php.net/manual/en/function.move-uploaded-file.php
 
-    if (isset($_POST['ModeloPassed']))
+    if (isset($_POST['CaracteristicasPhotos']))
     {
-        // Pegando IdUnico
-        $IdFile = fopen("UniqueID.txt", "r+") or die("Unable to open file!");
-        $IdUnico = ((int)fgets($IdFile))+1;
-        fclose($IdFile);
-        // Update no arquivo
-        $IdFile = fopen("UniqueID.txt", "w") or die("Unable to open file!");
-        fwrite($IdFile, $IdUnico);
-        fclose($IdFile);
-        $NumeroFotosMontadas = $__POST['NumeroFotosMontadas'];
-        $NomeCliente = $_POST['ClientNamePassed']."_".$_POST['ModeloPassed']."_".$_POST['ComMusicaPassed']."_".$_POST['MusicaYtPassed']."_".$_POST['ComLegendaPassed']."_"."Legenda="."_".$_POST['LegendaPassed']."_".$IdUnico.".png"; // file name
-        if( move_uploaded_file($_FILES["PhotoToUpload1"]["tmp_name"], "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
-            echo 'File uploaded';
-        } else {
-            echo 'Something went wrong uploading file';
-        }
-        // Criando .txt com id e link da musica
-        if (isset($_POST['LinkMusicaPassed']))
+        $CaracteristicasArray = $_POST['CaracteristicasPhotos'];
+        $pathToLinkMusicas = "D:\\xampp\\htdocs\\SiteGiu\\JoinImages\\uploads\\LinkMusicas.txt";
+        $LinkMusicasFile = fopen($pathToLinkMusicas, "a");
+        for($i=0;$i<sizeof($CaracteristicasArray);$i++)
         {
-            $pathToLinkMusicas = "D:\\xampp\\htdocs\\SiteGiu\\JoinImages\\uploads\\LinkMusicas.txt";
-            $LinkMusicasFile = fopen($pathToLinkMusicas, "a");
-            $txt = $IdUnico.":".$_POST['LinkMusicaPassed']."\n";
-            fwrite($LinkMusicasFile, $txt);
-            fclose($LinkMusicasFile);
+            // Pegando IdUnico
+            $IdFile = fopen("UniqueID.txt", "r+") or die("Unable to open file!");
+            $IdUnico = ((int)fgets($IdFile))+1;
+            fclose($IdFile);
+            // Update no arquivo
+            $IdFile = fopen("UniqueID.txt", "w") or die("Unable to open file!");
+            fwrite($IdFile, $IdUnico);
+            fclose($IdFile);
+            $NumeroFotosMontadas = $__POST['NumeroFotosMontadas'];
+            $CaracteristicasRef = $CaracteristicasArray[$i];
+            $NomeCliente = $_POST['ClientNamePassed']."_".$CaracteristicasRef[0]."_".$CaracteristicasRef[1]."_".$CaracteristicasRef[2]."_".$CaracteristicasRef[3]."_"."Legenda="."_".$CaracteristicasRef[4]."_".$IdUnico.".png"; // file name
+            $PhotoToUploadCurrentId = "PhotoToUpload".$i;
+            // Verificando tipo do arquivo
+            $FileName = $_FILES[$PhotoToUploadCurrentId]["tmp_name"];
+            if(pathinfo($FileName)['extension'] == 'jpg' ||
+               pathinfo($FileName)['extension'] == 'jpeg' ||
+               pathinfo($FileName)['extension'] == 'jpe' ||
+               pathinfo($FileName)['extension'] == 'png')
+            {
+                // Verificando se o nome do arquivo eh <= 225
+                if((mb_strlen($FileName,"UTF-8") <= 225))
+                {
+                    if( move_uploaded_file($FileName, "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
+                        echo 'File uploaded';
+                    } else {
+                        echo 'Something went wrong uploading file';
+                    }
+                    // Criando .txt com id e link da musica
+                    $txt = $IdUnico.":".$CaracteristicasRef[5]."\n";
+                    fwrite($LinkMusicasFile, $txt);
+                }
+            }
         }
+        fclose($LinkMusicasFile);
     }
 ?>
-
-<script>
-    function GetDataFormValues()
-    {
-        document.getElementById('ModeloPassed').value = Modelo;
-        document.getElementById('ComMusicaPassed').value = ComMusica;
-        document.getElementById('MusicaYtPassed').value = MusicaDoYt;
-        document.getElementById('ComLegendaPassed').value = ComLegenda;
-        document.getElementById('LinkMusicaPassed').value = LinkMusicaEscolhida;
-        document.getElementById('LegendaPassed').value = LegendaDaFoto;
-    }
-</script>
 
 <!doctype html>
 <html lang="pt-BR">
@@ -392,12 +559,6 @@
             height: 123px;
         }
 
-        .LegendaPhotoAdded
-        {
-            position: absolute;
-            display: none;
-        }
-
         .LegendaPhotoAddedPreview
         {
             display: block;
@@ -420,17 +581,16 @@
 
         <span style="text-align: center; vertical-align:top;">
             <h1 id='TextoInstrucao'>1. Escreva seu Nome</h1>
-            <span id='SpanExtrasDaFoto' style="display:none">
+            <span id='SpanExtrasDaFoto' style="display:none;margin-top:-20px;">
                 <!-- Escolhendo se tem musica ou nao -->
-                <p><input onclick="ToggleCheckBox('musicacb')" type="checkbox" id="musicacb" name="musicacb">
-                <label for="musicacb">Com Musica?</label></p>
+                <input onclick="ToggleCheckBox('musicacb')" type="checkbox" id="musicacb" name="musicacb">
+                <label for="musicacb">Com Musica?</label>
 
                 <!-- Escolhendo se a musica vem do youtube -->
-                <p><input onclick="ToggleCheckBox('ytcb')" style="display:none" type="checkbox" id="ytcb" name="ytcb">
-                <label style="display:none" id="ytlb" for="ytcb">Do youtube?</label></p>
-                
+                <p><input onclick="ToggleCheckBox('ytcb')" style="display:none" type="checkbox" id="ytcb" name="ytcb" checked>
+                <label style="display:none" id="ytlb" for="ytcb">Do youtube?</label>
                 <!-- Escolhendo se a musica vem do spotify -->
-                <p><input onclick="ToggleCheckBox('spotifycb')" style="display:none" type="checkbox" id="spotifycb" name="spotifycb">
+                <input onclick="ToggleCheckBox('spotifycb')" style="display:none" type="checkbox" id="spotifycb" name="spotifycb">
                 <label style="display:none" id="spotifylb" for="spotifycb">Do spotify?</label></p>
 
                 <!-- Escolhendo o link da musica -->
@@ -446,7 +606,7 @@
                 <input onchange="ChangeTextBox('legendatb')" type="text" maxlength="15" id="legendatb" name="legendatb" style="display:none;"></p>
                 
                 <!-- Escolhendo se tem ima ou nao -->
-                <p><input onclick="ToggleIma()" type="checkbox" id="imacb" name="imacb">
+                <p style="margin-bottom:0px;"><input onclick="ToggleIma()" type="checkbox" id="imacb" name="imacb">
                 <label for="imacb">Com Imã?</label></p>
             </span>
 
@@ -510,80 +670,73 @@
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload9" style="display:none">
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload10" style="display:none"></p>
                 <input type="hidden" value="" name="NumeroFotosMontadas" id="NumeroFotosMontadas">
-                <input type="hidden" name="ModeloPassed" id="ModeloPassed" value="none">
-                <input type="hidden" name="ComMusicaPassed" id="ComMusicaPassed" value="none">
-                <input type="hidden" name="MusicaYtPassed" id="MusicaYtPassed" value="none">
-                <input type="hidden" name="ComLegendaPassed" id="ComLegendaPassed" value="none">
-                <input type="hidden" name="LinkMusicaPassed" id="LinkMusicaPassed" value="none">
-                <input type="hidden" name="LegendaPassed" id="LegendaPassed" value="none">
-            <script>
-                if(localStorage.getItem('ClientName') != null)
-                    document.getElementById('AddPhotoButton').style.display = "inline-block";
-            </script>
+                <input type="hidden" name="CaracteristicasPhotos" id="CaracteristicasPhotos" value="none">
             </form>
 
             <!-- Preview da foto atual -->
             <p style="text-align: center;">
-                <input onclick="ContinuarProximaEtapa()" style="display:none" type="button" name="ContinuarButton" id="ContinuarButton" value="Continuar">
+                <input onclick="CheckNumberOfPhotos(true)" style="display:none" type="button" name="FinalizarPedidoButton" id="FinalizarPedidoButton" value="Finalizar Pedido">
+                <input onclick="ContinuarProximaEtapa(false)" style="display:none" type="button" name="ContinuarButton" id="ContinuarButton" value="Continuar">
             </p>
             <div id="DivPreviewFotoAtual" style="display: none;text-align: center;">
             <p>Como sua foto vai ficar:</p>
             <p>
-                <img src="" id='basepreview' width="449" height="507.5"/>
+                <p style="position:absolute;left:50%;top:280px"><img src="" id='basepreview' style="position:relative;left:-50%;" /></p>
                 <img src="" alt="Faça o upload para ver como sua foto vai ficar" class="PreviewCurrentImage" id="PreviewCurrentImage">
             </p>
-            <h1 id="previewlegenda" class="LegendaPhotoAdded">SuaLegenda</h1>
-            
             <p>*resultado aproximado*</p>
             </div>
+            <span style="position:absolute;top:715px">
+            <h1 id="previewlegenda" style="position:relative;display:none;left:0px;">SuaLegenda</h1>
+            </span>
             
             <!-- Preview das fotos feitas -->
             <p><div id="photos-content" style="display:flex;height: 200px;">
-            <script>
-                // Check se ha foto para ser adicionada ao preview
-                if(localStorage.getItem('PhotosInfo') != null)
-                {
-                    UpdateCreatedPhotos(PhotosInfo);
-                }
-            </script>
             </div></p>
             
             <!-- Definindo preview image -->
             <script>
                 processUser();
                 // Setup image preview
-                const PhotoFile = document.getElementById('PhotoToUpload1');
                 const PhotoImage = document.getElementById('PreviewCurrentImage');
+                var i;
+                for (i=1;i<11;i++)
+                {
+                    var PhotoToUploadElementId;
+                    PhotoToUploadElementId = "PhotoToUpload"+i.toString();
+                    const PhotoFile = document.getElementById(PhotoToUploadElementId);
 
-                PhotoFile.addEventListener("change", function() 
-                { 
-                    const file = this.files[0];
-                    if(file)
-                    {
-                        const reader = new FileReader();
-                        
-                        PhotoImage.style.display = "block";
-
-                        reader.addEventListener("load" , function()
+                    PhotoFile.addEventListener("change", function() 
+                    { 
+                        const file = this.files[0];
+                        if(file)
                         {
-                            PhotoImage.setAttribute("src", this.result);
-                            SetPreviewImage(this.result);
-                        });
+                            const reader = new FileReader();
+                            
+                            PhotoImage.style.display = "block";
 
-                        reader.readAsDataURL(file);
-                    }
-                    else
-                    {
-                        PhotoImage.style.display = "none";
-                        SetPreviewImage('');
-                    }
-                });
+                            reader.addEventListener("load" , function()
+                            {
+                                PhotoImage.setAttribute("src", this.result);
+                                SetPreviewImage(this.result);
+                            });
+
+                            reader.readAsDataURL(file);
+                        }
+                        else
+                        {
+                            PhotoImage.style.display = "none";
+                            SetPreviewImage('');
+                        }
+                    });
+                }
             </script>
         </span>
 
         <span style="text-align: right; vertical-align: top;">
             <input onclick="SetModelo('m2')" type="image" src="Images/Modelos/Modelo2Separado.png" alt="Modelo2Img" style="display:none;position:absolute;width:393.6px;height:597.6px;right:0px;top:0px" id="Molde2Button" />
         </span>
+        <script>ContinuarProximaEtapa();</script>
     </div>
 </body>
 </html>
