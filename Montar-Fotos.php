@@ -1,23 +1,5 @@
 ﻿<script type="text/javascript">
 
-    function ToggleHideElement(id) {
-    var Elem = document.getElementById(id);
-    if (Elem.style.display === "none") {
-        Elem.style.display = "block";
-    } else {
-        Elem.style.display = "none";
-    }
-    }
-
-    function SetElemText(id, text) {
-        document.getElementById(id).textContent = text;
-    }
-
-    function UnHideUploadPhotoPage() {
-        ToggleHideElement('models');
-        ToggleHideElement('uploadphoto');
-    }
-
     function ToggleIma()
     {
         if(ComIma) { ComIma = 0; }
@@ -172,7 +154,7 @@
     var NumeroFotosMontadas = "0";
     var PhotosInfo = [];
     var i;
-    var MaxNumberOfPhotos = 2;
+    var MaxNumberOfPhotos = 10;
 
     function processUser()
     {
@@ -207,8 +189,8 @@
         {
             if(document.getElementById('TextoInstrucao').innerText == "5. Mais Fotos?")
             {
-                //if(QuerFinalizar == true)
-                //   IrParaCarrinho = 'true';
+                if(QuerFinalizar == true)
+                   IrParaCarrinho = 'true';
                 document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
                 document.getElementById('AdicionarFotoForm').submit();
             }
@@ -236,10 +218,10 @@
 
     function SetModelo(id) {
         Modelo = id;
-        SetModeloResultado();
+        SetModeloPreview();
     }
 
-    function SetModeloResultado()
+    function SetModeloPreview()
     {
         if(Modelo === 'm1')
         {
@@ -261,12 +243,19 @@
             document.getElementById('PreviewCurrentImage').style.top = "339px";
             document.getElementById('PreviewCurrentImage').style.left = "470px";
         }
+        // Sumindo com o botao para selecionar modelo
         document.getElementById('Molde1Button').style.display = "none";
         document.getElementById('Molde2Button').style.display = "none";
         document.getElementById('DivPreviewFotoAtual').style.display = "block";
-        document.getElementById('ContinuarButton').style.display = "inline-block";
+        document.getElementById('ContinuarButton').style.display = "none";
         document.getElementById('EscolhaFotoText').style.display = "inline-block";
-        document.getElementById('PhotoToUpload1').style.display = "inline-block";
+        // Deixando botao de upar foto visivel
+        var IdPhotoToUpload;
+        if(NumeroFotosMontadas != null)
+            IdPhotoToUpload = "PhotoToUpload"+(parseInt(NumeroFotosMontadas)+1).toString();
+        else
+            IdPhotoToUpload = "PhotoToUpload"+(1).toString();
+        document.getElementById(IdPhotoToUpload).style.display = "inline-block";
         document.getElementById('TextoInstrucao').innerText = "3. Escolha sua Foto";
     }
 
@@ -284,14 +273,14 @@
             {
                 if(document.getElementById('EscolhaFotoText').style.display == "inline-block")
                 {
-                    document.getElementById('TextoInstrucao').innerText = "4. Escolha os Adicionais";
-                    document.getElementById('EscolhaFotoText').style.display = "none";
-                    for (i=1;i<11;i++)
+                    for(i=1;i<11;i++)
                     {
                         var IdPhotoToUpload;
-                        IdPhotoToUpload = "PhotoToUpload"+i.toString();
+                        IdPhotoToUpload = "PhotoToUpload"+(i).toString();
                         document.getElementById(IdPhotoToUpload).style.display = "none";
                     }
+                    document.getElementById('TextoInstrucao').innerText = "4. Escolha os Adicionais";
+                    document.getElementById('EscolhaFotoText').style.display = "none";
                     document.getElementById('SpanExtrasDaFoto').style.display = "inline-block";
                 }
                 else
@@ -336,11 +325,27 @@
             $NomeCliente = $_POST['ClientNamePassed']."_".$CaracteristicasRef["Modelo"]."_".$CaracteristicasRef["ComMusica"]."_".$CaracteristicasRef["MusicaDoYt"]."_".$CaracteristicasRef["ComLegenda"]."_"."Legenda="."_".$CaracteristicasRef["LegendaDaFoto"]."_".$IdUnico.".png"; // file name
             $PhotoToUploadCurrentId = "PhotoToUpload".strval($i+1);
             // Verificando tipo do arquivo
-            $FileName = $_FILES[$PhotoToUploadCurrentId]["tmp_name"];
-            if(pathinfo($FileName)['extension'] == 'jpg' ||
-               pathinfo($FileName)['extension'] == 'jpeg' ||
-               pathinfo($FileName)['extension'] == 'jpe' ||
-               pathinfo($FileName)['extension'] == 'png')
+            $OldFileName = $_FILES[$PhotoToUploadCurrentId]['name'];
+            $FileName = $_FILES[$PhotoToUploadCurrentId]['tmp_name'];
+            if (isset(pathinfo($OldFileName)['extension']))
+            {
+                if(pathinfo($OldFileName)['extension'] == 'jpg' ||
+                pathinfo($OldFileName)['extension'] == 'jpeg' ||
+                pathinfo($OldFileName)['extension'] == 'jpe' ||
+                pathinfo($OldFileName)['extension'] == 'png')
+                {
+                    // Verificando se o nome do arquivo eh <= 225
+                    if((mb_strlen($FileName,"UTF-8") <= 225))
+                    {
+                        if( move_uploaded_file($FileName, "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
+                            echo 'File uploaded';
+                        } else {
+                            echo 'Something went wrong uploading file / FileName: '.$FileName.' / ClientName: '.$NomeCliente;
+                        }
+                    }
+                }
+            }
+            else
             {
                 // Verificando se o nome do arquivo eh <= 225
                 if((mb_strlen($FileName,"UTF-8") <= 225))
@@ -348,13 +353,16 @@
                     if( move_uploaded_file($FileName, "..\\SiteGiu\\JoinImages\\uploads\\".$NomeCliente) ) {
                         echo 'File uploaded';
                     } else {
-                        echo 'Something went wrong uploading file';
+                        echo 'Something went wrong uploading file / FileName: '.$FileName.' / ClientName: '.$NomeCliente;
                     }
-                    // Criando .txt com id e link da musica
-                    $txt = $IdUnico.":".$CaracteristicasRef[5]."\n";
-                    fwrite($LinkMusicasFile, $txt);
                 }
             }
+            // Criando .txt com id e link da musica
+            if (isset($CaracteristicasRef["LinkMusicaEscolhida"]))
+                $txt = $IdUnico.":".$CaracteristicasRef["LinkMusicaEscolhida"]."\n";
+            else
+                $txt = $IdUnico.":"."none"."\n";
+            fwrite($LinkMusicasFile, $txt);
         }
         fclose($LinkMusicasFile);
     }
@@ -524,12 +532,12 @@
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload2" id="PhotoToUpload2" style="display:none">
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload3" id="PhotoToUpload3" style="display:none">
                 <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload4" style="display:none">
-                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload5" style="display:none">
-                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload6" style="display:none">
-                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload7" style="display:none">
-                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload8" style="display:none">
-                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload9" style="display:none">
-                <input type="file" value="Escolha sua foto" name="PhotoToUpload4" id="PhotoToUpload10" style="display:none"></p>
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload5" id="PhotoToUpload5" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload6" id="PhotoToUpload6" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload7" id="PhotoToUpload7" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload8" id="PhotoToUpload8" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload9" id="PhotoToUpload9" style="display:none">
+                <input type="file" value="Escolha sua foto" name="PhotoToUpload10" id="PhotoToUpload10" style="display:none"></p>
                 <input type="hidden" value="" name="NumeroFotosMontadas" id="NumeroFotosMontadas">
                 <input type="hidden" name="CaracteristicasPhotos" id="CaracteristicasPhotos" value="none">
             </form>
@@ -568,7 +576,8 @@
                     const PhotoFile = document.getElementById(PhotoToUploadElementId);
 
                     PhotoFile.addEventListener("change", function() 
-                    { 
+                    {
+                        document.getElementById('ContinuarButton').style.display = "inline-block";
                         const file = this.files[0];
                         if(file)
                         {
@@ -586,6 +595,7 @@
                         }
                         else
                         {
+                            document.getElementById('ContinuarButton').style.display = "none";
                             PhotoImage.style.display = "none";
                             SetPreviewImage('');
                         }
