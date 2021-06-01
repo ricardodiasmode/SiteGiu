@@ -1,5 +1,6 @@
 Montar-Fotos.php
 - verificar se esta enviando corretamente
+- nao deve poder continuar antes de enviar foto
 
 Montar-Tirinhas.php
 - Precaucoes(copiar do montar-fotos)

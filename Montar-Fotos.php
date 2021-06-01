@@ -172,6 +172,7 @@
     var NumeroFotosMontadas = "0";
     var PhotosInfo = [];
     var i;
+    var MaxNumberOfPhotos = 2;
 
     function processUser()
     {
@@ -199,13 +200,15 @@
     function CheckNumberOfPhotos(QuerFinalizar)
     {
         document.getElementById('ClientNamePassed').value = localStorage.getItem("ClientName");
-        PhotosInfo.push({Modelo: Modelo, ComMusica: ComMusica, MusicaDoYt: MusicaDoYt, ComLegenda: ComLegenda, LegendaDaFoto: LegendaDaFoto, LinkMusicaEscolhida: LinkMusicaEscolhida});
-        document.getElementById('CaracteristicasPhotos').value = PhotosInfo;
-        var NumberOfPhotos = 10;
-        if(parseInt(NumeroFotosMontadas) >= NumberOfPhotos)
+        if(QuerFinalizar != true)
+            PhotosInfo.push({Modelo: Modelo, ComMusica: ComMusica, MusicaDoYt: MusicaDoYt, ComLegenda: ComLegenda, LegendaDaFoto: LegendaDaFoto, LinkMusicaEscolhida: LinkMusicaEscolhida});
+        document.getElementById('CaracteristicasPhotos').value = JSON.stringify(PhotosInfo);
+        if(parseInt(NumeroFotosMontadas+1) >= MaxNumberOfPhotos)
         {
             if(document.getElementById('TextoInstrucao').innerText == "5. Mais Fotos?")
             {
+                //if(QuerFinalizar == true)
+                //   IrParaCarrinho = 'true';
                 document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
                 document.getElementById('AdicionarFotoForm').submit();
             }
@@ -213,12 +216,6 @@
             {
                 document.getElementById('TextoInstrucao').innerText = "5. Mais Fotos?";
                 document.getElementById('FinalizarPedidoButton').style.display = "inline-block";
-                if(QuerFinalizar)
-                {
-                    IrParaCarrinho = 'true';
-                    document.getElementById('AdicionarFotoForm').action = "Montar-Fotos.php?ProductNameRef="+ProductNameFromURL+"&ProductType1Ref="+ProductTypeFromURL+"&ProductType2Ref="+ProductType2FromURL+"&IrParaCarrinho="+IrParaCarrinho+"&NumeroFotosMontadas="+NumeroFotosMontadas;
-                    document.getElementById('AdicionarFotoForm').submit();
-                }
             }
         }
         else
@@ -236,141 +233,6 @@
             document.getElementById('SpanExtrasDaFoto').style.display = "none";
         }
     }
-
-
-    // Remove photo from folder
-    /*function RemovePhotoFromFolder(){
-        if(localStorage.getItem('ClientName') != null)
-        {
-            var ClientNameRef = localStorage.getItem('ClientName');
-            $.ajax(
-            {
-                type: "GET",
-                url: "RemovePhotoFromFolder.php",
-                data: { ClientName: ClientNameRef },
-                success: function(msg){
-                    console.log(msg);
-                }
-            });
-        }
-    }
-
-    // Remove photo from preview
-    invoke = (event) => {
-        let PhotoIDRef = event.target.getAttribute('name');
-        document.getElementById('photos-content').removeChild(document.getElementById(PhotoIDRef));
-        RemovePhotoFromFolder();
-    }
-
-    // Gerando preview das fotos criadas
-    function UpdateCreatedPhotos(ArrayPhotoRef)
-    {
-        if(!ArrayPhotoRef)
-            return;
-        // Pegando o div que segura as fotos
-        const PhotoContent = document.getElementById('photos-content');
-
-        // Limpando todos as fotos atuais
-        while (PhotoContent.lastElementChild) 
-        {
-            PhotoContent.removeChild(PhotoContent.lastElementChild);
-        }
-
-        // Atribuindo as fotos ao div
-        var NewPhotoAdded;
-        var NewPhotoImage;
-        var NewPhotoModel;
-        var NewLegendaAdded;
-        var LegendaText;
-        var NewButtonDeletePhoto;
-        // Criando span base
-        NewPhotoAdded = document.createElement("span");
-        NewPhotoAdded.id = "SpanID";
-        NewPhotoAdded.style.display = "inline";
-
-        // Criando imagem
-        NewPhotoImage = document.createElement("img");
-        NewPhotoImage.src = ArrayPhotoRef.ImagemDaFoto;
-        NewPhotoImage.style.paddingTop = 10;
-        NewPhotoAdded.appendChild(NewPhotoImage);
-
-        // Botao remover foto
-        NewButtonDeletePhoto = document.createElement('input');
-        NewButtonDeletePhoto.type = "button";
-        NewButtonDeletePhoto.name = NewPhotoAdded.id;
-        NewButtonDeletePhoto.value = "Remover foto";
-        NewButtonDeletePhoto.onclick = invoke;
-        NewButtonDeletePhoto.style.marginTop = 170;
-        NewButtonDeletePhoto.style.zIndex = 1;
-        NewPhotoAdded.appendChild(NewButtonDeletePhoto);
-
-        // Criando modelo
-        NewPhotoModel = document.createElement("img");
-        if(ArrayPhotoRef.Modelo === 'm1')
-        {
-            NewButtonDeletePhoto.className = "ButtonRemovePhoto";
-            NewButtonDeletePhoto.style.left = 55;// + (i-1)*150;
-            NewPhotoImage.style.left = 41;// + (i-1)*150;
-            NewPhotoModel.style.left = 30;// + (i-1)*150;
-            if(ArrayPhotoRef.ComMusica)
-            {
-                if(ArrayPhotoRef.MusicaDoYt)
-                    NewPhotoModel.src = "Images/Modelos/Modelo1yt.png";
-                else
-                    NewPhotoModel.src = "Images/Modelos/Modelo1spotfy.png";
-            }
-            else
-                NewPhotoModel.src = "Images/Modelos/Modelo1Separado.png";
-                
-            NewPhotoImage.className = "ImagePhotoAddedM1";
-            NewPhotoModel.className = "PhotoAddedM1";
-        }
-        else
-        {
-            NewButtonDeletePhoto.className = "ButtonRemovePhoto";
-            NewButtonDeletePhoto.style.left = 55;// + (i-1)*150;
-            NewPhotoImage.style.left = 61;// + (i-1)*150;
-            NewPhotoModel.style.left = 50;// + (i-1)*150;
-            if(ArrayPhotoRef.ComMusica)
-            {
-                if(ArrayPhotoRef.MusicaDoYt)
-                    NewPhotoModel.src = "Images/Modelos/Modelo2yt.png";
-                else
-                    NewPhotoModel.src = "Images/Modelos/Modelo2spotfy.png";
-            }
-            else
-                NewPhotoModel.src = "Images/Modelos/Modelo2Separado.png";
-                
-            NewPhotoImage.className = "ImagePhotoAddedM2";
-            NewPhotoModel.className = "PhotoAddedM2";
-        }
-        NewPhotoAdded.appendChild(NewPhotoModel);
-
-        // Criando legenda
-        if(ArrayPhotoRef.ComLegenda)
-        {
-            NewLegendaAdded = document.createElement("h1");
-            NewLegendaAdded.style.fontSize = 15;
-            NewLegendaAdded.className = "LegendaPhotoAddedPreview";
-            NewLegendaAdded.innerHTML = ArrayPhotoRef.LegendaDaFoto;
-            NewLegendaAdded.zIndex = 3;
-            if(ArrayPhotoRef.Modelo === "m1")
-            {
-                NewLegendaAdded.style.left = 80;// + (i-1)*150;
-                NewLegendaAdded.style.marginTop = "140px";
-            }
-            else
-            {
-                NewLegendaAdded.style.left = 85;// + (i-1)*150;
-                NewLegendaAdded.style.marginTop = "135px";
-            }
-
-            NewPhotoAdded.appendChild(NewLegendaAdded);
-        }
-        // Adicionando tudo ao div
-        PhotoContent.appendChild(NewPhotoAdded);
-    
-    }*/
 
     function SetModelo(id) {
         Modelo = id;
@@ -457,10 +319,10 @@
 
     if (isset($_POST['CaracteristicasPhotos']))
     {
-        $CaracteristicasArray = $_POST['CaracteristicasPhotos'];
+        $CaracteristicasArray = json_decode($_POST['CaracteristicasPhotos'], true);
         $pathToLinkMusicas = "D:\\xampp\\htdocs\\SiteGiu\\JoinImages\\uploads\\LinkMusicas.txt";
         $LinkMusicasFile = fopen($pathToLinkMusicas, "a");
-        for($i=0;$i<sizeof($CaracteristicasArray);$i++)
+        for($i=0;$i<count($CaracteristicasArray);$i++)
         {
             // Pegando IdUnico
             $IdFile = fopen("UniqueID.txt", "r+") or die("Unable to open file!");
@@ -470,10 +332,9 @@
             $IdFile = fopen("UniqueID.txt", "w") or die("Unable to open file!");
             fwrite($IdFile, $IdUnico);
             fclose($IdFile);
-            $NumeroFotosMontadas = $__POST['NumeroFotosMontadas'];
             $CaracteristicasRef = $CaracteristicasArray[$i];
-            $NomeCliente = $_POST['ClientNamePassed']."_".$CaracteristicasRef[0]."_".$CaracteristicasRef[1]."_".$CaracteristicasRef[2]."_".$CaracteristicasRef[3]."_"."Legenda="."_".$CaracteristicasRef[4]."_".$IdUnico.".png"; // file name
-            $PhotoToUploadCurrentId = "PhotoToUpload".$i;
+            $NomeCliente = $_POST['ClientNamePassed']."_".$CaracteristicasRef["Modelo"]."_".$CaracteristicasRef["ComMusica"]."_".$CaracteristicasRef["MusicaDoYt"]."_".$CaracteristicasRef["ComLegenda"]."_"."Legenda="."_".$CaracteristicasRef["LegendaDaFoto"]."_".$IdUnico.".png"; // file name
+            $PhotoToUploadCurrentId = "PhotoToUpload".strval($i+1);
             // Verificando tipo do arquivo
             $FileName = $_FILES[$PhotoToUploadCurrentId]["tmp_name"];
             if(pathinfo($FileName)['extension'] == 'jpg' ||
